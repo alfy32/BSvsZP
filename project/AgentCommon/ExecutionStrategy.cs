@@ -13,6 +13,10 @@ namespace AgentCommon
         #region Static Members
         protected static Dictionary<Message.MESSAGE_CLASS_IDS, ExecutionStrategy> StrategyPool = new Dictionary<Message.MESSAGE_CLASS_IDS, ExecutionStrategy>();
 
+        public static void addStrategy(Message.MESSAGE_CLASS_IDS messageId, ExecutionStrategy strategy)
+        {
+          StrategyPool.Add(messageId, strategy);
+        }
         public static void StartConversation(Envelope envelope)
         {
             //TODO: Make this work better.

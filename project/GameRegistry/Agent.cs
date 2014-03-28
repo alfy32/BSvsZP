@@ -87,9 +87,11 @@ namespace GameRegistry
       JoinGame joinGame = new JoinGame(gameId, agentInfo);
       Envelope envelope = new Envelope(joinGame, endPoint);
 
-      Console.WriteLine("Sending JoinGame...");
+      Console.WriteLine("Starting JoinGame conversation...");
 
-      communicator.Send(envelope);
+      ExecutionStrategy.StartConversation(envelope);
+
+      //communicator.Send(envelope);
     }
 
     void stop()
@@ -100,13 +102,15 @@ namespace GameRegistry
 
     public static void Run(string[] args)
     {
-      MessageQueue joinGameConversation = ConversationMessageQueues.getQueue(1);
       int port = 23456;
 
       if(args.Length >= 1) port = Convert.ToInt32(args[0]);
       
       Console.WriteLine("Creating Agent...");
       Agent agent = new Agent(port);
+
+      Console.WriteLine("Adding strategies...");
+      ExecutionStrategy.addStrategy(Message.MESSAGE_CLASS_IDS.JoinGame, new JoinGameExecutionStrategy(1));
 
       Console.WriteLine("Starting Agent...");
       agent.start();
@@ -124,7 +128,7 @@ namespace GameRegistry
 
       Console.ReadKey(false);
 
-      agent.stop();
+      //agent.stop();
     }
   }
 }
