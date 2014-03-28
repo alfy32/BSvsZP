@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="9b239ea0-e766-49b3-8acf-6593d1e727d2" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://cs5200web.serv.usu.edu/Registrar.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Registrar.disco" MetadataType="Disco" ID="0229abf9-c4b6-400b-85dc-a468cdcc2ef8" SourceId="1" SourceUrl="http://cs5200web.serv.usu.edu/Registrar.svc?disco" />
+    <MetadataFile FileName="Registrar.xsd" MetadataType="Schema" ID="17c453de-313d-40a7-8ebe-3dbffce82fa6" SourceId="1" SourceUrl="http://cs5200web.serv.usu.edu/Registrar.svc?xsd=xsd2" />
+    <MetadataFile FileName="Registrar.wsdl" MetadataType="Wsdl" ID="69699808-a475-442c-9172-b7414ec5652c" SourceId="1" SourceUrl="http://cs5200web.serv.usu.edu/Registrar.svc?wsdl" />
+    <MetadataFile FileName="Registrar1.xsd" MetadataType="Schema" ID="b3996fbb-0046-49d1-9748-69e698101132" SourceId="1" SourceUrl="http://cs5200web.serv.usu.edu/Registrar.svc?xsd=xsd0" />
+    <MetadataFile FileName="Registrar2.xsd" MetadataType="Schema" ID="05eba92f-381a-478d-bfe3-8095e5a70830" SourceId="1" SourceUrl="http://cs5200web.serv.usu.edu/Registrar.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

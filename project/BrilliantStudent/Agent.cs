@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using AgentCommon;
 using Messages;
 using Common;
-using GameServer;
 
 namespace BrilliantStudent
 {
@@ -46,7 +45,7 @@ namespace BrilliantStudent
     void autoPickGame()
     {
       GameRegistry gameRegistry = new GameRegistry();
-      GameServer.Registrar.GameInfo game = gameRegistry.getRandomGame();
+      GameRegistry.Registrar.GameInfo game = gameRegistry.getRandomGame();
 
       int address = game.CommunicationEndPoint.Address;
       int port = game.CommunicationEndPoint.Port;
@@ -62,7 +61,7 @@ namespace BrilliantStudent
       Console.Write("Enter the id of the game you want to play: ");
       short gameId = short.Parse(Console.ReadLine());
 
-      GameServer.Registrar.GameInfo game = gameRegistry.getGameInfoById(gameId);
+      GameRegistry.Registrar.GameInfo game = gameRegistry.getGameInfoById(gameId);
 
       int address = game.CommunicationEndPoint.Address;
       int port = game.CommunicationEndPoint.Port;

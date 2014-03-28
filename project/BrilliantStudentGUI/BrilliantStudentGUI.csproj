@@ -131,6 +131,10 @@
       <Project>{762ff2c4-aab7-443f-bab6-d495e09e7d49}</Project>
       <Name>AgentCommon</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GameServer\GameServer.csproj">
+      <Project>{f760a1e7-8688-46fe-b65b-6286e4c33f04}</Project>
+      <Name>GameServer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

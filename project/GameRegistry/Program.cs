@@ -12,31 +12,6 @@ namespace GameRegistry
 {
   class Program
   {
-    //static Registrar.GameInfo chooseGame()
-    //{
-    //  Registrar.RegistrarClient client = new Registrar.RegistrarClient();
-    //  Registrar.GameInfo[] games = client.GetGames(Registrar.GameInfo.GameStatus.AVAILABLE);
-
-    //  Console.WriteLine("Current available games:");
-
-    //  int count = 0;
-
-    //  foreach (Registrar.GameInfo gameInfo in games)
-    //  {
-    //    Console.WriteLine(++count + ":");
-    //    Console.WriteLine("  Game Id: " + gameInfo.Id);
-    //    Console.WriteLine("  Label: " + gameInfo.Label);
-    //  }
-
-    //  Console.WriteLine();
-    //  Console.Write("Enter the game you want to play: ");
-
-    //  short gameIndex = short.Parse(Console.ReadLine());
-    //  gameIndex--;
-
-    //  return games[gameIndex];
-    //}
-
     static void Main(string[] args)
     {
       Console.Write("Enter communicator port number: ");
@@ -57,7 +32,7 @@ namespace GameRegistry
       JoinGame joinGame = new JoinGame(game.Id, agentInfo);
       Envelope envelope = new Envelope(joinGame, gameEndPoint);
 
-      Console.WriteLine("Sending JoinGame Message");
+      Console.WriteLine("Sending JoinGame Message...");
       communicator.Send(envelope);
       System.Threading.Thread.Sleep(500);
       Envelope response = communicator.Recieve();
@@ -65,9 +40,15 @@ namespace GameRegistry
 
       if (ackNak.Status == Messages.Reply.PossibleStatus.Success)
       {
-        AgentInfo resultAgentInfo = (AgentInfo)ackNak.ObjResult;
-
         Console.WriteLine("Success!");
+        Console.WriteLine();
+        Console.WriteLine("Agent info:");
+
+        AgentInfo resultAgentInfo = (AgentInfo)ackNak.ObjResult;
+        Console.WriteLine(" Status: " + resultAgentInfo.AgentStatus);
+        Console.WriteLine(" Location: " + resultAgentInfo.Location);
+        Console.WriteLine(" Strength: " + resultAgentInfo.Strength);
+        Console.WriteLine();
       }
 
       Console.WriteLine();

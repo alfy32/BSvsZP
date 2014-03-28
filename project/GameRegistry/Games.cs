@@ -8,7 +8,7 @@ using GameRegistry.Registrar;
 
 namespace GameRegistry
 {
-  class Games
+  public class Games
   {
     private RegistrarClient client = new RegistrarClient();
     public List<string> getAvailableGameList()
