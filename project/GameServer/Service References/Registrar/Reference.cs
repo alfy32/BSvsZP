@@ -341,6 +341,12 @@ namespace GameServer.Registrar {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRegistrar/ChangeStatus", ReplyAction="http://tempuri.org/IRegistrar/ChangeStatusResponse")]
         System.Threading.Tasks.Task ChangeStatusAsync(int gameId, GameServer.Registrar.GameInfo.GameStatus status);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRegistrar/EndPointReflector", ReplyAction="http://tempuri.org/IRegistrar/EndPointReflectorResponse")]
+        string EndPointReflector();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRegistrar/EndPointReflector", ReplyAction="http://tempuri.org/IRegistrar/EndPointReflectorResponse")]
+        System.Threading.Tasks.Task<string> EndPointReflectorAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -408,6 +414,14 @@ namespace GameServer.Registrar {
         
         public System.Threading.Tasks.Task ChangeStatusAsync(int gameId, GameServer.Registrar.GameInfo.GameStatus status) {
             return base.Channel.ChangeStatusAsync(gameId, status);
+        }
+        
+        public string EndPointReflector() {
+            return base.Channel.EndPointReflector();
+        }
+        
+        public System.Threading.Tasks.Task<string> EndPointReflectorAsync() {
+            return base.Channel.EndPointReflectorAsync();
         }
     }
 }

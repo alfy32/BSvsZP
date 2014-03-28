@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AgentCommon
 {
-    class ConversationMessageQueues
+    public class ConversationMessageQueues
     {
         private static Dictionary<int, MessageQueue> messageQueues = new Dictionary<int, MessageQueue>();
 
