@@ -14,7 +14,7 @@ namespace GameRegistry
   {
     static void Main(string[] args)
     {
-      SimpleCommandLine.Run();
+      Agent.Run(args);
     }
   }
 }
