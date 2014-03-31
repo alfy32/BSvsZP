@@ -5,13 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 
 using AgentCommon.Registrar;
-using Common;
 
 namespace AgentCommon
 {
     public class GameRegistry
     {
-      private RegistrarClient client = new RegistrarClient();
+      private RegistrarClient client;
+      public GameRegistry()
+      {
+        System.ServiceModel.BasicHttpBinding binding = new System.ServiceModel.BasicHttpBinding();
+        System.ServiceModel.EndpointAddress epA = new System.ServiceModel.EndpointAddress("http://cs5200web.serv.usu.edu/Registrar.svc");
+        client = new RegistrarClient(binding, epA);
+      }
+      
       public List<string> getAvailableGameList()
       {
         GameInfo[] games = client.GetGames(GameInfo.GameStatus.AVAILABLE);
