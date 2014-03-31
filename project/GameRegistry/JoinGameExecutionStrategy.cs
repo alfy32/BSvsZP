@@ -51,6 +51,7 @@ namespace GameRegistry
         else
         {
           Console.WriteLine("Failed to join the game...");
+          Console.WriteLine(ackNak.Message);
         }
 
         Stop();

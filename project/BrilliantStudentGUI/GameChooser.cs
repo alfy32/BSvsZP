@@ -10,7 +10,6 @@ using System.Windows.Forms;
 
 using AgentCommon;
 using AgentCommon.Registrar;
-using GameServer;
 
 namespace BrilliantStudentGUI
 {

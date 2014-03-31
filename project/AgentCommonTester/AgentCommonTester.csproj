@@ -54,6 +54,7 @@
     <Compile Include="CommunicatorTester.cs" />
     <Compile Include="DoerTester.cs" />
     <Compile Include="EnvelopeTester.cs" />
+    <Compile Include="GameRegistryTester.cs" />
     <Compile Include="ListenerTester.cs" />
     <Compile Include="MessageQueueTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -28,6 +28,9 @@ namespace GameRegistry
     {
       AgentInfo = new AgentInfo();
       AgentInfo.AgentType = agentType;
+      AgentInfo.ANumber = "A01072246";
+      AgentInfo.FirstName = "Alan";
+      AgentInfo.LastName = "Christensen";
 
       communicator = new Communicator(Communicator.nextAvailablePort());
 
@@ -39,6 +42,9 @@ namespace GameRegistry
     {
       AgentInfo = new AgentInfo();
       AgentInfo.AgentType = agentType;
+      AgentInfo.ANumber = "A01072246";
+      AgentInfo.FirstName = "Alan";
+      AgentInfo.LastName = "Christensen";
 
       this.communicator = new Communicator(port);
 
@@ -56,7 +62,7 @@ namespace GameRegistry
     void autoPickGame()
     {
       Games gameRegistry = new Games();
-      Registrar.GameInfo game = gameRegistry.getRandomGame();
+      Registrar.GameInfo game = gameRegistry.getGameByLabel("alan");
 
       if (game == null)
       {

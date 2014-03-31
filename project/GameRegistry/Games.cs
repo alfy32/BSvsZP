@@ -67,5 +67,17 @@ namespace GameRegistry
         return null;
       }
     }
+
+    public GameInfo getGameByLabel(string label)
+    {
+      GameInfo[] games = client.GetGames(GameInfo.GameStatus.AVAILABLE);
+
+      foreach (GameInfo game in games)
+      {
+        if (game.Label == label) return game;
+      }
+
+      return null;
+    }
   }
 }
