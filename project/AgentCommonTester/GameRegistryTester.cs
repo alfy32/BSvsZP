@@ -10,10 +10,12 @@ namespace AgentCommonTester
   public class GameRegistryTester
   {
     [TestMethod]
-    public void TestMethod1()
+    public void GameRegisrty_CanGetGames()
     {
       GameRegistry gameRegistry = new GameRegistry();
       List<string> gameLabels = gameRegistry.getAvailableGameList();
+
+      Assert.IsNotNull(gameLabels);
     }
   }
 }

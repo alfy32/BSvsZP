@@ -16,14 +16,13 @@ namespace BrilliantStudentGUI
   public partial class GameChooser : Form
   {
     private string game = null;
+    private GameRegistry registry = new GameRegistry();
 
     public string Game { get {return game; } }
 
     public GameChooser()
     {
       InitializeComponent();
-
-      GameRegistry registry = new GameRegistry();
 
       gameListBox.DataSource = registry.getAvailableGameList();
     }
@@ -44,6 +43,11 @@ namespace BrilliantStudentGUI
     {
       game = (string)gameListBox.SelectedItem;
       Close();
+    }
+
+    private void btn_refresh_Click(object sender, EventArgs e)
+    {
+      gameListBox.DataSource = registry.getAvailableGameList();
     }
   }
 }

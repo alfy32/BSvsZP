@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using BrilliantStudent;
+using AgentCommon;
+using Common;
+
 namespace BrilliantStudentGUI
 {
   public partial class BrilliantStudentForm : Form
@@ -21,7 +25,13 @@ namespace BrilliantStudentGUI
 
     private void btn_joinGame_Click(object sender, EventArgs e)
     {
-      
+      BrilliantStudent.BrilliantStudent agent = new BrilliantStudent.BrilliantStudent();
+
+      GameRegistry registry = new GameRegistry();
+      AgentCommon.Registrar.GameInfo game = registry.getGameByLabel(gameChooser.Game);
+      EndPoint endPoint = new EndPoint(game.CommunicationEndPoint.Address, game.CommunicationEndPoint.Port);
+
+      agent.startJoinGameConversation(game.Id, endPoint);
     }
 
     private void GameChooser_FormClosed(object sender, FormClosedEventArgs e)

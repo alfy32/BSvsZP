@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ServiceModel;
 
 using AgentCommon.Registrar;
 
@@ -11,10 +12,12 @@ namespace AgentCommon
     public class GameRegistry
     {
       private RegistrarClient client;
+
       public GameRegistry()
       {
-        System.ServiceModel.BasicHttpBinding binding = new System.ServiceModel.BasicHttpBinding();
-        System.ServiceModel.EndpointAddress epA = new System.ServiceModel.EndpointAddress("http://cs5200web.serv.usu.edu/Registrar.svc");
+        BasicHttpBinding binding = new BasicHttpBinding();
+        EndpointAddress epA = new EndpointAddress("http://cs5200web.serv.usu.edu/Registrar.svc");
+
         client = new RegistrarClient(binding, epA);
       }
       
@@ -71,6 +74,18 @@ namespace AgentCommon
         {
           return null;
         }
+      }
+
+      public GameInfo getGameByLabel(string label)
+      {
+        GameInfo[] games = client.GetGames(GameInfo.GameStatus.AVAILABLE);
+
+        foreach (GameInfo game in games)
+        {
+          if (game.Label == label) return game;
+        }
+
+        return null;
       }
     }
 }

@@ -32,6 +32,7 @@
       this.OK = new System.Windows.Forms.Button();
       this.btn_cancel = new System.Windows.Forms.Button();
       this.label1 = new System.Windows.Forms.Label();
+      this.btn_refresh = new System.Windows.Forms.Button();
       this.SuspendLayout();
       // 
       // gameListBox
@@ -39,7 +40,7 @@
       this.gameListBox.FormattingEnabled = true;
       this.gameListBox.Location = new System.Drawing.Point(12, 36);
       this.gameListBox.Name = "gameListBox";
-      this.gameListBox.Size = new System.Drawing.Size(198, 199);
+      this.gameListBox.Size = new System.Drawing.Size(198, 160);
       this.gameListBox.TabIndex = 1;
       this.gameListBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.gameListBox_MouseDoubleClick);
       // 
@@ -73,11 +74,22 @@
       this.label1.TabIndex = 4;
       this.label1.Text = "Please Select A Game";
       // 
+      // btn_refresh
+      // 
+      this.btn_refresh.Location = new System.Drawing.Point(12, 212);
+      this.btn_refresh.Name = "btn_refresh";
+      this.btn_refresh.Size = new System.Drawing.Size(198, 23);
+      this.btn_refresh.TabIndex = 5;
+      this.btn_refresh.Text = "Refresh";
+      this.btn_refresh.UseVisualStyleBackColor = true;
+      this.btn_refresh.Click += new System.EventHandler(this.btn_refresh_Click);
+      // 
       // GameChooser
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(222, 273);
+      this.Controls.Add(this.btn_refresh);
       this.Controls.Add(this.label1);
       this.Controls.Add(this.btn_cancel);
       this.Controls.Add(this.OK);
@@ -95,6 +107,7 @@
     private System.Windows.Forms.Button OK;
     private System.Windows.Forms.Button btn_cancel;
     private System.Windows.Forms.Label label1;
+    private System.Windows.Forms.Button btn_refresh;
 
   }
 }

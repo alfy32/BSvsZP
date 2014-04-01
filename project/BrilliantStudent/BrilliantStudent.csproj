@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{622B2FA1-327E-438E-8C00-622513B9AED5}</ProjectGuid>
+    <ProjectGuid>{7E10F994-F187-496F-9F9F-89F9C4DF02A6}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BrilliantStudent</RootNamespace>
@@ -43,8 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Agent.cs" />
-    <Compile Include="GameRegistry.cs" />
+    <Compile Include="BrilliantStudent.cs" />
+    <Compile Include="JoinGameStrategy.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\Registrar\Reference.cs">
       <AutoGen>True</AutoGen>

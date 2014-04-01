@@ -84,6 +84,8 @@ namespace AgentCommon
     }
     #endregion
 
+    public int Port { get { return ((IPEndPoint)udpClient.Client.LocalEndPoint).Port; } }
+
     public int GetAvailable()
     {
       return udpClient.Available;
