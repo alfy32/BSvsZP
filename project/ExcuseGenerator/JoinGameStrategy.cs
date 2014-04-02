@@ -8,7 +8,7 @@ using AgentCommon;
 using Messages;
 using Common;
 
-namespace BrilliantStudent
+namespace ExcuseGenerator
 {
   class JoinGameStrategy : ExecutionStrategy
   {

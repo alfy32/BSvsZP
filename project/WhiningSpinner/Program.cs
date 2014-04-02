@@ -5,10 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using AgentCommon;
-using Messages;
-using Common;
 
-namespace BrilliantStudent
+namespace WhiningSpinner
 {
   class Program
   {
@@ -18,17 +16,17 @@ namespace BrilliantStudent
 
       if (args.Length >= 1) port = int.Parse(args[0]);
 
-      Console.WriteLine("Creating BrilliantStudent...");
+      Console.WriteLine("Creating WhiningSpinner...");
       Console.WriteLine();
-      BrilliantStudent brilliantStudent = new BrilliantStudent(port);
+      WhiningSpinner whiningSpinner = new WhiningSpinner(port);
 
-      Console.WriteLine("Communicating on port: " + brilliantStudent.Communicator.Port);
+      Console.WriteLine("Communicating on port: " + whiningSpinner.Communicator.Port);
       Console.WriteLine();
-      brilliantStudent.askUserForGame();
+      whiningSpinner.autoPickGame();
 
       Console.ReadKey(false);
       Console.WriteLine();
-      Console.WriteLine("Killing Brilliant Student...");
+      Console.WriteLine("Killing WhiningSpinner...");
     }
   }
 }

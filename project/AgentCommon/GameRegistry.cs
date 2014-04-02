@@ -43,7 +43,7 @@ namespace AgentCommon
 
         foreach (GameInfo game in games)
         {
-          Console.Write("Game Id: " + game.Id + " " + game.Label);
+          Console.WriteLine("Game Id: " + game.Id + " " + game.Label);
         }
 
         Console.WriteLine();
