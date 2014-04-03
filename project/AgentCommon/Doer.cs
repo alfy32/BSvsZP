@@ -36,6 +36,7 @@ namespace AgentCommon
 
                         ExecutionStrategy.StartConversation(envelope);
                     }
+                    System.Threading.Thread.Sleep(10);
                 }
             }
         }
