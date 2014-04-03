@@ -43,7 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Brain.cs" />
     <Compile Include="ExcuseGenerator.cs" />
+    <Compile Include="ExcuseBuilder.cs" />
     <Compile Include="JoinGameStrategy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

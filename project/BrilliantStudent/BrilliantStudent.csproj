@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BombBuilder.cs" />
+    <Compile Include="Brain.cs" />
     <Compile Include="BrilliantStudent.cs" />
     <Compile Include="JoinGameStrategy.cs" />
     <Compile Include="Program.cs" />
@@ -52,6 +54,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="StartGameStrategy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -15,7 +15,7 @@ namespace WhiningSpinner
     public WhiningSpinner(int port = -1)
       : base(AgentInfo.PossibleAgentType.WhiningSpinner, port)
     {
-      ExecutionStrategy.addStrategy(Message.MESSAGE_CLASS_IDS.JoinGame, new JoinGameStrategy(1, this));
+      ExecutionStrategy.addStrategy(Message.MESSAGE_CLASS_IDS.JoinGame, typeof(JoinGameStrategy));
     }
 
     public void autoPickGame()
@@ -66,7 +66,7 @@ namespace WhiningSpinner
 
       Console.WriteLine("Starting JoinGame conversation...");
 
-      ExecutionStrategy.StartConversation(envelope);
+      ExecutionStrategy.StartConversation(envelope, this);
     }
   }
 }

@@ -11,23 +11,24 @@ namespace AgentCommon
   public abstract class ExecutionStrategy : BackgroundThread
   {
     #region Static Members
-    protected static Dictionary<Message.MESSAGE_CLASS_IDS, ExecutionStrategy> StrategyPool = new Dictionary<Message.MESSAGE_CLASS_IDS, ExecutionStrategy>();
+    protected static Dictionary<Message.MESSAGE_CLASS_IDS, Type> StrategyPool = new Dictionary<Message.MESSAGE_CLASS_IDS, Type>();
 
-    public static void addStrategy(Message.MESSAGE_CLASS_IDS messageId, ExecutionStrategy strategy)
+    public static void addStrategy(Message.MESSAGE_CLASS_IDS messageId, Type strategy)
     {
       StrategyPool.Add(messageId, strategy);
     }
-    public static void StartConversation(Envelope envelope)
+    public static void StartConversation(Envelope envelope, Agent agent)
     {
       //TODO: Make this work better.
       Message.MESSAGE_CLASS_IDS messageId = envelope.message.MessageTypeId();
+      int conversationId = envelope.message.ConversationId.SeqNumber;
 
       //If the strategyPool doesn't contain the executionStrategy then 
       // we have not yet implemented it or don't know what to do so 
       // we ignore it.
       if (StrategyPool.ContainsKey(messageId))
       {
-        ExecutionStrategy executionStrategy = StrategyPool[messageId];
+        ExecutionStrategy executionStrategy = (ExecutionStrategy)Activator.CreateInstance(StrategyPool[messageId], conversationId, agent);
         if (!executionStrategy.IsRunning)
         {
           executionStrategy.Start();
@@ -37,7 +38,7 @@ namespace AgentCommon
           executionStrategy.Resume();
         }
 
-        int conversationId = envelope.message.ConversationId.SeqNumber;
+        ;
         MessageQueue messageQueue = ConversationMessageQueues.getQueue(conversationId);
         messageQueue.push(envelope);
       }
@@ -71,3 +72,11 @@ namespace AgentCommon
     protected abstract void Execute();
   }
 }
+
+// Dictionary of classes to instantiate example
+
+//Dictionary<string, Type> d = new Dictionary<string, Type>();
+
+//d.Add("Bomb", typeof(JoinGameStrategy));
+
+//ExecutionStrategy b = (ExecutionStrategy)Activator.CreateInstance(d["Bomb"], 2, new Agent(AgentInfo.PossibleAgentType.BrilliantStudent));

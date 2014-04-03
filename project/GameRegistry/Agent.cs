@@ -35,7 +35,7 @@ namespace GameRegistry
       communicator = new Communicator(Communicator.nextAvailablePort());
 
       listener = new Listener(communicator);
-      doer = new Doer(communicator);
+      doer = new Doer(communicator, new AgentCommon.Agent(AgentInfo.PossibleAgentType.BrilliantStudent));
     }
 
     public Agent(AgentInfo.PossibleAgentType agentType, int port)
@@ -49,7 +49,7 @@ namespace GameRegistry
       this.communicator = new Communicator(port);
 
       listener = new Listener(communicator);
-      doer = new Doer(communicator);
+      doer = new Doer(communicator, new AgentCommon.Agent(AgentInfo.PossibleAgentType.BrilliantStudent));
     }
     #endregion
 
@@ -107,7 +107,7 @@ namespace GameRegistry
 
       Console.WriteLine("Starting JoinGame conversation...");
 
-      ExecutionStrategy.StartConversation(envelope);
+      ExecutionStrategy.StartConversation(envelope, new AgentCommon.Agent(AgentInfo.PossibleAgentType.BrilliantStudent));
     }
 
     void stop()
@@ -133,7 +133,7 @@ namespace GameRegistry
       Agent agent = new Agent(agentType, port);
 
       Console.WriteLine("Adding strategies...");
-      ExecutionStrategy.addStrategy(Message.MESSAGE_CLASS_IDS.JoinGame, new JoinGameExecutionStrategy(1, agent));
+      ExecutionStrategy.addStrategy(Message.MESSAGE_CLASS_IDS.JoinGame, typeof(JoinGameExecutionStrategy));
 
       Console.WriteLine("Starting Agent...");
       agent.start();

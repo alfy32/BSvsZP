@@ -16,7 +16,7 @@ namespace AgentCommonTester
     {
       Communicator communicator = new Communicator(Communicator.nextAvailablePort());
 
-      Doer doer = new Doer(communicator);
+      Doer doer = new Doer(communicator, new Agent(AgentInfo.PossibleAgentType.BrilliantStudent));
 
       doer.Start();
 

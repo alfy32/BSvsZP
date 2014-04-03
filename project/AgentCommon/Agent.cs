@@ -37,7 +37,7 @@ namespace AgentCommon
       communicator = new Communicator(port);
 
       listener = new Listener(communicator);
-      doer = new Doer(communicator);
+      doer = new Doer(communicator, this);
 
       listener.Start();
       doer.Start();

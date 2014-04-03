@@ -15,7 +15,7 @@ namespace AgentCommon
   {
     #region Static Members
     private static Dictionary<int, bool> used = new Dictionary<int, bool>();
-    private static int currentPort = 12000;
+    private static int currentPort = 52000;
 
     public static int nextAvailablePort()
     {

@@ -24,7 +24,7 @@ namespace BrilliantStudent
 
       Console.WriteLine("Communicating on port: " + brilliantStudent.Communicator.Port);
       Console.WriteLine();
-      brilliantStudent.autoPickGame();
+      brilliantStudent.askUserForGame();
 
       Console.ReadKey(false);
       Console.WriteLine();
