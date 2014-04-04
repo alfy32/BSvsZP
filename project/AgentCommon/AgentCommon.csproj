@@ -42,13 +42,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agent.cs" />
+    <Compile Include="AgentState.cs" />
     <Compile Include="BackGroundThread.cs" />
+    <Compile Include="AgentBrain.cs" />
     <Compile Include="Communicator.cs" />
     <Compile Include="ConversationMessageQueues.cs" />
     <Compile Include="Doer.cs" />
     <Compile Include="Envelope.cs" />
     <Compile Include="ExecutionStrategy.cs" />
     <Compile Include="GameRegistry.cs" />
+    <Compile Include="StrategyCollaborate.cs" />
+    <Compile Include="StrategyGetZPList.cs" />
+    <Compile Include="StrategyGetWSList.cs" />
+    <Compile Include="StrategyGetEGList.cs" />
+    <Compile Include="StrategyGetResource.cs" />
+    <Compile Include="StrategyGetBSList.cs" />
+    <Compile Include="StrategyGetLayout.cs" />
+    <Compile Include="StrategyGetConfiguration.cs" />
+    <Compile Include="StrategyEndGame.cs" />
+    <Compile Include="StrategyGetTick.cs" />
+    <Compile Include="StrategyChangeStrength.cs" />
+    <Compile Include="StrategyGetStatus.cs" />
+    <Compile Include="StrategyAgentUpdateStream.cs" />
+    <Compile Include="StrategyStartGame.cs" />
+    <Compile Include="StrategyJoinGame.cs" />
     <Compile Include="Listener.cs" />
     <Compile Include="MessageQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,6 +75,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="StatusMonitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

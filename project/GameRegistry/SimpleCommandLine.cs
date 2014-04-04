@@ -26,7 +26,7 @@ namespace GameRegistry
       short gameId = short.Parse(Console.ReadLine());
 
       GameRegistry.Registrar.GameInfo game = gameRegistry.getGameInfoById(gameId);
-      Console.WriteLine("You chose " + game.Label + " with id: " + game.Id);
+      StatusMonitor.get().post("You chose " + game.Label + " with id: " + game.Id);
 
       EndPoint gameEndPoint = new EndPoint(game.CommunicationEndPoint.Address, game.CommunicationEndPoint.Port);
 
@@ -34,7 +34,7 @@ namespace GameRegistry
       JoinGame joinGame = new JoinGame(game.Id, agentInfo);
       Envelope envelope = new Envelope(joinGame, gameEndPoint);
 
-      Console.WriteLine("Sending JoinGame Message...");
+      StatusMonitor.get().post("Sending JoinGame Message...");
       communicator.Send(envelope);
       System.Threading.Thread.Sleep(500);
       Envelope response = communicator.Recieve();
@@ -42,19 +42,19 @@ namespace GameRegistry
 
       if (ackNak.Status == Messages.Reply.PossibleStatus.Success)
       {
-        Console.WriteLine("Success!");
-        Console.WriteLine();
-        Console.WriteLine("Agent info:");
+        StatusMonitor.get().post("Success!");
+        StatusMonitor.get().post("");
+        StatusMonitor.get().post("Agent info:");
 
         AgentInfo resultAgentInfo = (AgentInfo)ackNak.ObjResult;
-        Console.WriteLine(" Status: " + resultAgentInfo.AgentStatus);
-        Console.WriteLine(" Location: " + resultAgentInfo.Location);
-        Console.WriteLine(" Strength: " + resultAgentInfo.Strength);
-        Console.WriteLine();
+        StatusMonitor.get().post(" Status: " + resultAgentInfo.AgentStatus);
+        StatusMonitor.get().post(" Location: " + resultAgentInfo.Location);
+        StatusMonitor.get().post(" Strength: " + resultAgentInfo.Strength);
+        StatusMonitor.get().post("");
       }
 
-      Console.WriteLine();
-      Console.WriteLine("Press any key to continue . . .");
+      StatusMonitor.get().post("");
+      StatusMonitor.get().post("Press any key to continue . . .");
       Console.ReadKey();
     }
   }

@@ -44,9 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BombBuilder.cs" />
-    <Compile Include="Brain.cs" />
+    <Compile Include="BrilliantBrain.cs" />
     <Compile Include="BrilliantStudent.cs" />
-    <Compile Include="JoinGameStrategy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\Registrar\Reference.cs">
@@ -54,7 +53,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="StartGameStrategy.cs" />
+    <Compile Include="StrategyGetWhiningTwine.cs" />
+    <Compile Include="StrategyGetExcuse.cs" />
+    <Compile Include="StrategyThrowBomb.cs" />
+    <Compile Include="StrategyMove.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -43,10 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Brain.cs" />
+    <Compile Include="ExcuseBrain.cs" />
     <Compile Include="ExcuseGenerator.cs" />
     <Compile Include="ExcuseBuilder.cs" />
-    <Compile Include="JoinGameStrategy.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\Registrar\Reference.cs">

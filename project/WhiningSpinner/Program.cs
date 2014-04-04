@@ -16,17 +16,17 @@ namespace WhiningSpinner
 
       if (args.Length >= 1) port = int.Parse(args[0]);
 
-      Console.WriteLine("Creating WhiningSpinner...");
-      Console.WriteLine();
+      StatusMonitor.get().post("Creating WhiningSpinner...");
+      StatusMonitor.get().post("");
       WhiningSpinner whiningSpinner = new WhiningSpinner(port);
 
-      Console.WriteLine("Communicating on port: " + whiningSpinner.Communicator.Port);
-      Console.WriteLine();
+      StatusMonitor.get().post("Communicating on port: " + whiningSpinner.Communicator.Port);
+      StatusMonitor.get().post("");
       whiningSpinner.autoPickGame();
 
       Console.ReadKey(false);
-      Console.WriteLine();
-      Console.WriteLine("Killing WhiningSpinner...");
+      StatusMonitor.get().post("");
+      StatusMonitor.get().post("Killing WhiningSpinner...");
     }
   }
 }

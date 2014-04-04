@@ -31,7 +31,7 @@ namespace AgentCommonTester
 
             protected override void Process()
             {
-                Console.WriteLine("I'm processing...");
+                StatusMonitor.get().post("I'm processing...");
             }
         }
     }

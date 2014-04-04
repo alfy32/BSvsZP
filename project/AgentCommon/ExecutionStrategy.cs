@@ -11,16 +11,16 @@ namespace AgentCommon
   public abstract class ExecutionStrategy : BackgroundThread
   {
     #region Static Members
-    protected static Dictionary<Message.MESSAGE_CLASS_IDS, Type> StrategyPool = new Dictionary<Message.MESSAGE_CLASS_IDS, Type>();
+    protected static Dictionary<int, Type> StrategyPool = new Dictionary<int, Type>();
 
-    public static void addStrategy(Message.MESSAGE_CLASS_IDS messageId, Type strategy)
+    public static void addStrategy(int messageId, Type strategy)
     {
       StrategyPool.Add(messageId, strategy);
     }
     public static void StartConversation(Envelope envelope, Agent agent)
     {
       //TODO: Make this work better.
-      Message.MESSAGE_CLASS_IDS messageId = envelope.message.MessageTypeId();
+      int messageId = (int)envelope.message.MessageTypeId();
       int conversationId = envelope.message.ConversationId.SeqNumber;
 
       //If the strategyPool doesn't contain the executionStrategy then 
@@ -37,8 +37,6 @@ namespace AgentCommon
         {
           executionStrategy.Resume();
         }
-
-        ;
         MessageQueue messageQueue = ConversationMessageQueues.getQueue(conversationId);
         messageQueue.push(envelope);
       }

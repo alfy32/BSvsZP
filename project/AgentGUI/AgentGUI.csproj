@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C7FD2B9B-4592-4452-A47D-5076C5E030B5}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{22DAED87-E116-4710-A510-FA49527DF2EA}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WhiningSpinner</RootNamespace>
-    <AssemblyName>WhiningSpinner</AssemblyName>
+    <RootNamespace>AgentGUI</RootNamespace>
+    <AssemblyName>AgentGUI</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,21 +40,55 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Service References\Registrar\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="WhiningBrain.cs" />
-    <Compile Include="WhiningSpinner.cs" />
+    <Compile Include="StartupForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StartupForm.Designer.cs">
+      <DependentUpon>StartupForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="StartupForm.resx">
+      <DependentUpon>StartupForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
     <None Include="Service References\Registrar\Registrar.wsdl" />
     <None Include="Service References\Registrar\Registrar.xsd">
       <SubType>Designer</SubType>
@@ -67,17 +101,28 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\..\USU_CS5200_SP14_BSvsZP\BSvsZP-Common\Common\Common.csproj">
       <Project>{1ab5119f-befc-4350-aeec-845105a3543c}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\USU_CS5200_SP14_BSvsZP\BSvsZP-Common\Messages\Messages.csproj">
-      <Project>{126de25a-fb1f-4e0b-9ba3-7072656706b6}</Project>
-      <Name>Messages</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AgentCommon\AgentCommon.csproj">
       <Project>{762ff2c4-aab7-443f-bab6-d495e09e7d49}</Project>
       <Name>AgentCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BrilliantStudent\BrilliantStudent.csproj">
+      <Project>{7e10f994-f187-496f-9f9f-89f9c4df02a6}</Project>
+      <Name>BrilliantStudent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExcuseGenerator\ExcuseGenerator.csproj">
+      <Project>{78eca84b-cfcc-4624-a1fb-bffaf28ff60c}</Project>
+      <Name>ExcuseGenerator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WhiningSpinner\WhiningSpinner.csproj">
+      <Project>{c7fd2b9b-4592-4452-a47d-5076c5e030b5}</Project>
+      <Name>WhiningSpinner</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

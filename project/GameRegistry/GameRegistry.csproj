@@ -104,6 +104,10 @@
       <Project>{762ff2c4-aab7-443f-bab6-d495e09e7d49}</Project>
       <Name>AgentCommon</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BrilliantStudent\BrilliantStudent.csproj">
+      <Project>{7e10f994-f187-496f-9f9f-89f9c4df02a6}</Project>
+      <Name>BrilliantStudent</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

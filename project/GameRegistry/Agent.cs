@@ -35,7 +35,7 @@ namespace GameRegistry
       communicator = new Communicator(Communicator.nextAvailablePort());
 
       listener = new Listener(communicator);
-      doer = new Doer(communicator, new AgentCommon.Agent(AgentInfo.PossibleAgentType.BrilliantStudent));
+      doer = new Doer(communicator, new BrilliantStudent.BrilliantStudent());
     }
 
     public Agent(AgentInfo.PossibleAgentType agentType, int port)
@@ -49,7 +49,7 @@ namespace GameRegistry
       this.communicator = new Communicator(port);
 
       listener = new Listener(communicator);
-      doer = new Doer(communicator, new AgentCommon.Agent(AgentInfo.PossibleAgentType.BrilliantStudent));
+      doer = new Doer(communicator, new BrilliantStudent.BrilliantStudent());
     }
     #endregion
 
@@ -68,13 +68,13 @@ namespace GameRegistry
       {
         Console.Write("There are no games to join. Press any key to quit...");
         Console.ReadKey(false);
-        Console.WriteLine();
-        Console.WriteLine("Shutting Down...");
+        StatusMonitor.get().post("");
+        StatusMonitor.get().post("Shutting Down...");
         Environment.Exit(0);
       }
        
-      Console.WriteLine("Auto choosing game:");
-      Console.WriteLine(" ID: " + game.Id + " Game: " + game.Label);
+      StatusMonitor.get().post("Auto choosing game:");
+      StatusMonitor.get().post(" ID: " + game.Id + " Game: " + game.Label);
 
       int address = game.CommunicationEndPoint.Address;
       int port = game.CommunicationEndPoint.Port;
@@ -105,9 +105,9 @@ namespace GameRegistry
       JoinGame joinGame = new JoinGame(gameId, AgentInfo);
       Envelope envelope = new Envelope(joinGame, endPoint);
 
-      Console.WriteLine("Starting JoinGame conversation...");
+      StatusMonitor.get().post("Starting JoinGame conversation...");
 
-      ExecutionStrategy.StartConversation(envelope, new AgentCommon.Agent(AgentInfo.PossibleAgentType.BrilliantStudent));
+      ExecutionStrategy.StartConversation(envelope, new BrilliantStudent.BrilliantStudent());
     }
 
     void stop()
@@ -129,25 +129,25 @@ namespace GameRegistry
         else if (args[1] == "EG") agentType = AgentInfo.PossibleAgentType.ExcuseGenerator;
       }
       
-      Console.WriteLine("Creating Agent...");
+      StatusMonitor.get().post("Creating Agent...");
       Agent agent = new Agent(agentType, port);
 
-      Console.WriteLine("Adding strategies...");
-      ExecutionStrategy.addStrategy(Message.MESSAGE_CLASS_IDS.JoinGame, typeof(JoinGameExecutionStrategy));
+      StatusMonitor.get().post("Adding strategies...");
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.JoinGame, typeof(JoinGameExecutionStrategy));
 
-      Console.WriteLine("Starting Agent...");
+      StatusMonitor.get().post("Starting Agent...");
       agent.start();
-      //Console.WriteLine("Communicator running on port " + port);
+      //StatusMonitor.get().post("Communicator running on port " + port);
 
-      Console.WriteLine("Picking Game...");
+      StatusMonitor.get().post("Picking Game...");
       if (args.Length == 3) agent.askUserForGame();
       else agent.autoPickGame(); 
 
       MessageQueue requestQueue = RequestMessageQueue.getQueue();
 
-      //Console.WriteLine();
+      //StatusMonitor.get().post("");
 
-      //Console.WriteLine("Hit any key to quit...");
+      //StatusMonitor.get().post("Hit any key to quit...");
 
       Console.ReadKey(false);
 

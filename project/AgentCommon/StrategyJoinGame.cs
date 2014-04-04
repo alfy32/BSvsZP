@@ -4,25 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using AgentCommon;
 using Messages;
 using Common;
 
-namespace GameRegistry
+namespace AgentCommon
 {
-  class JoinGameExecutionStrategy: ExecutionStrategy
+  public class StrategyJoinGame : ExecutionStrategy
   {
     Agent agent;
 
-    public JoinGameExecutionStrategy(int conversationId, Agent agent)
-      : base(conversationId)
+    public StrategyJoinGame(int conversationId, Agent agent)
+      : base(conversationId) 
     {
       this.agent = agent;
     }
 
     protected override void Execute()
     {
-      if (messageQueue.hasItems())
+      if(messageQueue.hasItems())
       {
         Envelope envelope = messageQueue.pop();
 
@@ -47,6 +46,8 @@ namespace GameRegistry
           StatusMonitor.get().post(" Location: " + resultAgentInfo.Location);
           StatusMonitor.get().post(" Strength: " + resultAgentInfo.Strength);
           StatusMonitor.get().post("");
+
+          agent.State.updateAgentInfo(resultAgentInfo);
         }
         else
         {
@@ -57,6 +58,5 @@ namespace GameRegistry
         Stop();
       }
     }
-
   }
 }

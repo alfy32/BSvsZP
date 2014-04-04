@@ -18,17 +18,17 @@ namespace ExcuseGenerator
 
           if (args.Length >= 1) port = int.Parse(args[0]);
 
-          Console.WriteLine("Creating ExcuseGenerator...");
-          Console.WriteLine();
+          StatusMonitor.get().post("Creating ExcuseGenerator...");
+          StatusMonitor.get().post("");
           ExcuseGenerator excuseGenerator = new ExcuseGenerator(port);
 
-          Console.WriteLine("Communicating on port: " + excuseGenerator.Communicator.Port);
-          Console.WriteLine();
+          StatusMonitor.get().post("Communicating on port: " + excuseGenerator.Communicator.Port);
+          StatusMonitor.get().post("");
           excuseGenerator.autoPickGame();
 
           Console.ReadKey(false);
-          Console.WriteLine();
-          Console.WriteLine("Killing ExcuseGenerator...");
+          StatusMonitor.get().post("");
+          StatusMonitor.get().post("Killing ExcuseGenerator...");
         }
     }
 }
