@@ -42,20 +42,32 @@ namespace AgentGUI
       if(messageBox.InvokeRequired)
         this.Invoke(new updateMessagesCallback(displayMessage), message);
     }
+
     private void displayAgentInfo(AgentInfo agentInfo)
     {
       agentType.Text = agentInfo.AgentType.ToString();
       if (agentInfo.CommunicationEndPoint != null)
         publicIP.Text = agentInfo.CommunicationEndPoint.ToString();
 
-
-      if (agentInfo.ANumber != null)
-        aNumber.Text = agentInfo.ANumber;
+      if (agentInfo.ANumber != null) aNumber.Text = agentInfo.ANumber;
       if (agentInfo.FirstName != null && agentInfo.LastName != null)
         name.Text = agentInfo.FirstName + " " + agentInfo.LastName;
-      points.Text = agentInfo.Points.ToString();
+
+      if(agentInfo.Id != null) agentId.Text = agentInfo.Id.ToString();
+      if (agentInfo.AgentStatus != null) agentStatus.Text = agentInfo.AgentStatus.ToString();
+
       if (agentInfo.Location != null)
         location.Text = agentInfo.Location.ToString();
+      points.Text = agentInfo.Points.ToString();
+
+      if (agentInfo.Strength != null) strength.Text = agentInfo.Strength.ToString();
+      if (agentInfo.Speed != null) speed.Text = agentInfo.Speed.ToString();
+
+      //  agentInfo.AgentType;  // agentInfo.CommunicationEndPoint;
+      //  agentInfo.ANumber;    // agentInfo.FirstName; agentInfo.LastName;
+      //  agentInfo.AgentStatus;// agentInfo.Id;
+      //  agentInfo.Location;   // agentInfo.Points;
+      //  agentInfo.Strength;   // agentInfo.Speed;
     }
     private void displayMessage(string message)
     {
