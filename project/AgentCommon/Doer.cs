@@ -38,7 +38,7 @@ namespace AgentCommon
 
                         ExecutionStrategy.StartConversation(envelope, agent);
                     }
-                    System.Threading.Thread.Sleep(10);
+                    System.Threading.Thread.Sleep(1);
                 }
             }
         }

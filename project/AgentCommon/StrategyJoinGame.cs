@@ -31,7 +31,7 @@ namespace AgentCommon
 
         while (!messageQueue.hasItems())
         {
-          System.Threading.Thread.Sleep(100);
+          System.Threading.Thread.Sleep(1);
         }
 
         envelope = messageQueue.pop();
@@ -39,20 +39,26 @@ namespace AgentCommon
 
         if (ackNak.Status == Reply.PossibleStatus.Success)
         {
-          StatusMonitor.get().post("Successfully joined a game...");
+          StatusMonitor statusMonitor = StatusMonitor.get();
+
+          statusMonitor.post("Successfully joined a game...");
 
           AgentInfo resultAgentInfo = (AgentInfo)ackNak.ObjResult;
-          StatusMonitor.get().post(" Status: " + resultAgentInfo.AgentStatus);
-          StatusMonitor.get().post(" Location: " + resultAgentInfo.Location);
-          StatusMonitor.get().post(" Strength: " + resultAgentInfo.Strength);
-          StatusMonitor.get().post("");
+          statusMonitor.post(" Status: " + resultAgentInfo.AgentStatus);
+          statusMonitor.post(" Location: " + resultAgentInfo.Location);
+          statusMonitor.post(" Strength: " + resultAgentInfo.Strength);
+          statusMonitor.post("");
 
           agent.State.updateAgentInfo(resultAgentInfo);
+
+          MessageNumber.LocalProcessId = resultAgentInfo.Id;
         }
         else
         {
-          StatusMonitor.get().post("Failed to join the game...");
-          StatusMonitor.get().post(ackNak.Message);
+          StatusMonitor statusMonitor = StatusMonitor.get();
+
+          statusMonitor.post("Failed to join the game...");
+          statusMonitor.post(ackNak.Message);
         }
 
         Stop();

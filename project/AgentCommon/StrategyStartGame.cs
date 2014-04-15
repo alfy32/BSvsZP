@@ -34,10 +34,10 @@ namespace AgentCommon
           StatusMonitor.get().post("Sent Ready message.");
 
           while (!messageQueue.hasItems())
-            System.Threading.Thread.Sleep(10);
+            System.Threading.Thread.Sleep(1);
 
           Envelope response = messageQueue.pop();
-          //if (response.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.Proceed)
+          if (response.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AckNak)
           {
             //  Proceed proceed = (Proceed)response.message;
             StatusMonitor.get().post("Recieved Proceed Message.");

@@ -52,7 +52,7 @@ namespace AgentCommon
                         }
                         //ignore if ther is no conversation queue
                     }
-                    System.Threading.Thread.Sleep(10);
+                    System.Threading.Thread.Sleep(1);
                 }
             }
         }
