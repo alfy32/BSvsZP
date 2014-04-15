@@ -39,6 +39,9 @@ namespace AgentCommon
     #region Constructors
     public Agent(int port = -1)
     {
+      //GameRegistry gameRegistry = new GameRegistry();
+      //MessageNumber.LocalProcessId = gameRegistry.getProcessId();
+
       //ExecutionStrategy.addStrategy(Message.MESSAGE_CLASS_IDS.StartUpdateStream, typeof(StrategyStartUpdateStream));
       ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.ChangeStrength, typeof(StrategyChangeStrength));
       ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.Collaborate, typeof(StrategyCollaborate));
@@ -77,7 +80,7 @@ namespace AgentCommon
     public void autoPickGame()
     {
       GameRegistry gameRegistry = new GameRegistry();
-      AgentCommon.Registrar.GameInfo game = gameRegistry.getGameByLabel("alan");
+      GameInfo game = gameRegistry.getGameByLabel("alan");
 
       if (game == null)
       {
@@ -105,7 +108,7 @@ namespace AgentCommon
       Console.Write("Enter the id of the game you want to play: ");
       short gameId = short.Parse(Console.ReadLine());
 
-      AgentCommon.Registrar.GameInfo game = gameRegistry.getGameInfoById(gameId);
+      GameInfo game = gameRegistry.getGameInfoById(gameId);
 
       int address = game.CommunicationEndPoint.Address;
       int port = game.CommunicationEndPoint.Port;

@@ -24,7 +24,7 @@ namespace AgentGUI
     #region Private Functions
     private void startGame(Agent agent, string gameLabel)
     {
-      AgentCommon.Registrar.GameInfo gameInfo = gameRegistry.getGameByLabel(gameLabel);
+      GameInfo gameInfo = gameRegistry.getGameByLabel(gameLabel);
 
       int address = gameInfo.CommunicationEndPoint.Address;
       int port = gameInfo.CommunicationEndPoint.Port;
@@ -53,15 +53,15 @@ namespace AgentGUI
       if (agentInfo.FirstName != null && agentInfo.LastName != null)
         name.Text = agentInfo.FirstName + " " + agentInfo.LastName;
 
-      if(agentInfo.Id != null) agentId.Text = agentInfo.Id.ToString();
-      if (agentInfo.AgentStatus != null) agentStatus.Text = agentInfo.AgentStatus.ToString();
+      agentId.Text = agentInfo.Id.ToString();
+      agentStatus.Text = agentInfo.AgentStatus.ToString();
 
       if (agentInfo.Location != null)
         location.Text = agentInfo.Location.ToString();
       points.Text = agentInfo.Points.ToString();
 
-      if (agentInfo.Strength != null) strength.Text = agentInfo.Strength.ToString();
-      if (agentInfo.Speed != null) speed.Text = agentInfo.Speed.ToString();
+      strength.Text = agentInfo.Strength.ToString();
+      speed.Text = agentInfo.Speed.ToString();
 
       //  agentInfo.AgentType;  // agentInfo.CommunicationEndPoint;
       //  agentInfo.ANumber;    // agentInfo.FirstName; agentInfo.LastName;

@@ -42,7 +42,9 @@
     <xs:restriction base="xs:string">
       <xs:enumeration value="NOT_INITIAlIZED" />
       <xs:enumeration value="AVAILABLE" />
+      <xs:enumeration value="STARTING" />
       <xs:enumeration value="RUNNING" />
+      <xs:enumeration value="STOPPING" />
       <xs:enumeration value="COMPLETED" />
       <xs:enumeration value="DEAD" />
     </xs:restriction>

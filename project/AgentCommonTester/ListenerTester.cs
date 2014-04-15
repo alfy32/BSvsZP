@@ -37,6 +37,8 @@ namespace AgentCommonTester
 
       sender.Send(envelope);
 
+      System.Threading.Thread.Sleep(200);
+
       listener.Stop();
 
       Assert.AreEqual(true, messageQueue.hasItems());

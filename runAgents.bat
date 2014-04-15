@@ -3,15 +3,30 @@ START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52202
 START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52203
 START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52204
 START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52205
+START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52206
+START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52207
+START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52208
+START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52209
+START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52210
 
 START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51301
 START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51302
 START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51303
 START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51304
 START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51305
+START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51306
+START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51307
+START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51308
+START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51309
+START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51310
 
 START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51401
 START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51402
 START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51403
 START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51404
 START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51405
+START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51406
+START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51407
+START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51408
+START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51409
+START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51410

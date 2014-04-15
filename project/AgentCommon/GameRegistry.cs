@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ServiceModel;
 
 using AgentCommon.Registrar;
+using Common;
 
 namespace AgentCommon
 {
@@ -19,6 +20,11 @@ namespace AgentCommon
         EndpointAddress epA = new EndpointAddress("http://cs5200web.serv.usu.edu/Registrar.svc");
 
         client = new RegistrarClient(binding, epA);
+      }
+
+      public short getProcessId()
+      {
+        return client.GetProcessId();
       }
       
       public List<string> getAvailableGameList()

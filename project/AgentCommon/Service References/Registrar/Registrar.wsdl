@@ -7,6 +7,12 @@
       <xsd:import schemaLocation="http://cs5200web.serv.usu.edu/Registrar.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Common" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IRegistrar_GetProcessId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProcessId" />
+  </wsdl:message>
+  <wsdl:message name="IRegistrar_GetProcessId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProcessIdResponse" />
+  </wsdl:message>
   <wsdl:message name="IRegistrar_RegisterGame_InputMessage">
     <wsdl:part name="parameters" element="tns:RegisterGame" />
   </wsdl:message>
@@ -37,7 +43,17 @@
   <wsdl:message name="IRegistrar_ChangeStatus_OutputMessage">
     <wsdl:part name="parameters" element="tns:ChangeStatusResponse" />
   </wsdl:message>
+  <wsdl:message name="IRegistrar_EndPointReflector_InputMessage">
+    <wsdl:part name="parameters" element="tns:EndPointReflector" />
+  </wsdl:message>
+  <wsdl:message name="IRegistrar_EndPointReflector_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EndPointReflectorResponse" />
+  </wsdl:message>
   <wsdl:portType name="IRegistrar">
+    <wsdl:operation name="GetProcessId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRegistrar/GetProcessId" message="tns:IRegistrar_GetProcessId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRegistrar/GetProcessIdResponse" message="tns:IRegistrar_GetProcessId_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="RegisterGame">
       <wsdl:input wsaw:Action="http://tempuri.org/IRegistrar/RegisterGame" message="tns:IRegistrar_RegisterGame_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IRegistrar/RegisterGameResponse" message="tns:IRegistrar_RegisterGame_OutputMessage" />
@@ -58,9 +74,22 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IRegistrar/ChangeStatus" message="tns:IRegistrar_ChangeStatus_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IRegistrar/ChangeStatusResponse" message="tns:IRegistrar_ChangeStatus_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="EndPointReflector">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRegistrar/EndPointReflector" message="tns:IRegistrar_EndPointReflector_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRegistrar/EndPointReflectorResponse" message="tns:IRegistrar_EndPointReflector_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IRegistrar" type="tns:IRegistrar">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProcessId">
+      <soap:operation soapAction="http://tempuri.org/IRegistrar/GetProcessId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="RegisterGame">
       <soap:operation soapAction="http://tempuri.org/IRegistrar/RegisterGame" style="document" />
       <wsdl:input>
@@ -99,6 +128,15 @@
     </wsdl:operation>
     <wsdl:operation name="ChangeStatus">
       <soap:operation soapAction="http://tempuri.org/IRegistrar/ChangeStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EndPointReflector">
+      <soap:operation soapAction="http://tempuri.org/IRegistrar/EndPointReflector" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
