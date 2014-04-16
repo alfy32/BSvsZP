@@ -27,6 +27,9 @@ namespace AgentCommon
         if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.EndGame)
         {
           StatusMonitor.get().post("The game has ended");
+
+          StatusMonitor.get().post("Shutting Down...");
+          Environment.Exit(0);
         }
         Stop();
       }

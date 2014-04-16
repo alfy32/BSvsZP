@@ -36,10 +36,12 @@ namespace AgentCommon
         ConfigurationReply configuration = (ConfigurationReply)envelope.message;
         if (configuration.Status == Reply.PossibleStatus.Success)
         {
-          StatusMonitor.get().post("Recieved configuration reply");
+          StatusMonitor statusMonitor = StatusMonitor.get();
+          statusMonitor.post("Recieved configuration reply");
           GameConfiguration config = configuration.Configuration;
 
           //TODO: save configuration on agent
+          statusMonitor.post(" Zombie Creation Rate: " + config.ZombieCreationRate);
         }
         else
         {

@@ -23,11 +23,16 @@ namespace AgentCommon
     {
       if (messageQueue.hasItems())
       {
+        StatusMonitor statusMonitor = StatusMonitor.get();
+
         Envelope envelope = messageQueue.pop();
         if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.TickDelivery)
         {
           TickDelivery tickMessage = (TickDelivery)envelope.message;
           agent.stashTick(tickMessage.CurrentTick);
+          
+
+          statusMonitor.post("I got a tick...");
         }
         Suspend();
       }

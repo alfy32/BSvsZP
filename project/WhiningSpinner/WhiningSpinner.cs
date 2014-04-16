@@ -15,7 +15,7 @@ namespace WhiningSpinner
     public WhiningSpinner(int port = -1)
       : base(port)
     {
-      brain = new WhiningBrain();
+      brain = new WhiningBrain(this);
       state = new AgentState(AgentInfo.PossibleAgentType.WhiningSpinner);
     }
   }

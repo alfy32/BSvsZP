@@ -30,6 +30,7 @@ namespace AgentCommon
           StatusMonitor.get().post("Recieved StartGame message.");
 
           ReadyReply ready = new ReadyReply(Reply.PossibleStatus.Success);
+          ready.ConversationId = startGame.ConversationId;
           agent.Communicator.Send(new Envelope(ready, recieved.endPoint));
           StatusMonitor.get().post("Sent Ready message.");
 
@@ -41,6 +42,7 @@ namespace AgentCommon
           {
             //  Proceed proceed = (Proceed)response.message;
             StatusMonitor.get().post("Recieved Proceed Message.");
+            agent.State.GameEndPoint = response.endPoint;
 
             agent.Brain.Start();
           }

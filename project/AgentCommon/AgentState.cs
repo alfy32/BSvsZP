@@ -30,11 +30,13 @@ namespace AgentCommon
       agentInfo.ANumber = "A01072246";
       agentInfo.FirstName = "Alan";
       agentInfo.LastName = "Christensen";
+      agentInfo.Id = MessageNumber.LocalProcessId;
     }
     #endregion
 
     #region Public Functions
     public AgentInfo getAgentInfo() { return agentInfo; }
+    public EndPoint GameEndPoint { get; set; }
     public void updateAgentInfo(AgentInfo info)
     {
       agentInfo = info;

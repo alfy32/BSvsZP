@@ -10,9 +10,15 @@ namespace ExcuseGenerator
 {
   class ExcuseBrain : AgentBrain
   {
+    public ExcuseBrain(Agent agent) : base(agent) { }
     protected override void Think()
     {
       // do some excuse stuff
+      StatusMonitor statusMonitor = StatusMonitor.get();
+
+      statusMonitor.post("I'm thinking...");
+
+      System.Threading.Thread.Sleep(2000);
     }
   }
 }

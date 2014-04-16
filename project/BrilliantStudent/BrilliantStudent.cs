@@ -15,7 +15,7 @@ namespace BrilliantStudent
     public BrilliantStudent(int port = -1)
       : base(port)
     {
-      brain = new BrilliantBrain();
+      brain = new BrilliantBrain(this);
       state = new AgentState(AgentInfo.PossibleAgentType.BrilliantStudent);
 
       ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetResource + 1000 * (int)GetResource.PossibleResourceType.Excuse, typeof(StrategyGetExcuse));

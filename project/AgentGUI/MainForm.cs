@@ -37,6 +37,7 @@ namespace AgentGUI
     }
     private void updateMessages(string message)
     {
+      
       messages.Add(message);
 
       if(messageBox.InvokeRequired)
@@ -71,6 +72,7 @@ namespace AgentGUI
     }
     private void displayMessage(string message)
     {
+      messages = new List<string>(messages);
       messageBox.DataSource = messages;
     }
     #endregion

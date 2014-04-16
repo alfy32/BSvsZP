@@ -10,6 +10,13 @@ namespace AgentCommon
 {
   public abstract class AgentBrain : BackgroundThread
   {
+    protected Agent agent;
+
+    public AgentBrain(Agent agent)
+    {
+      this.agent = agent;
+    }
+
     public override string ThreadName()
     {
       return "AgentBrain";
@@ -26,7 +33,7 @@ namespace AgentCommon
 
           // This is to slow down the work a little. 
           // The while loops just keep going like crazy without this.
-          System.Threading.Thread.Sleep(10);
+          System.Threading.Thread.Sleep(1);
         }
       }
     }

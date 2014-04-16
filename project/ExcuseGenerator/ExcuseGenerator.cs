@@ -15,7 +15,7 @@ namespace ExcuseGenerator
     public ExcuseGenerator(int port = -1)
       : base(port)
     {
-      brain = new ExcuseBrain();
+      brain = new ExcuseBrain(this);
       state = new AgentState(AgentInfo.PossibleAgentType.ExcuseGenerator);
     }
   }

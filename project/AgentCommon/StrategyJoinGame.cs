@@ -51,7 +51,12 @@ namespace AgentCommon
 
           agent.State.updateAgentInfo(resultAgentInfo);
 
-          MessageNumber.LocalProcessId = resultAgentInfo.Id;
+          AckNak ack = new AckNak(Reply.PossibleStatus.Success);
+          ack.ConversationId.SeqNumber = envelope.message.ConversationId.SeqNumber;
+          Envelope toSend = new Envelope(ack, envelope.endPoint);
+
+          statusMonitor.post("Sending join game ack...");
+          agent.Communicator.Send(toSend);
         }
         else
         {

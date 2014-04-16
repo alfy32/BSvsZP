@@ -39,8 +39,8 @@ namespace AgentCommon
     #region Constructors
     public Agent(int port = -1)
     {
-      //GameRegistry gameRegistry = new GameRegistry();
-      //MessageNumber.LocalProcessId = gameRegistry.getProcessId();
+      GameRegistry gameRegistry = new GameRegistry();
+      MessageNumber.LocalProcessId = gameRegistry.getProcessId();
 
       //ExecutionStrategy.addStrategy(Message.MESSAGE_CLASS_IDS.StartUpdateStream, typeof(StrategyStartUpdateStream));
       ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.ChangeStrength, typeof(StrategyChangeStrength));

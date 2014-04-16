@@ -8,53 +8,57 @@ using Common;
 
 namespace AgentCommon
 {
-    public class Listener : BackgroundThread
+  public class Listener : BackgroundThread
+  {
+    #region Private Data Members
+    private Communicator communicator;
+    #endregion
+
+    #region Constructors
+    public Listener(Communicator communicator)
     {
-        #region Private Data Members
-        private Communicator communicator;
-        #endregion
-
-        #region Constructors
-        public Listener(Communicator communicator)
-        {
-            this.communicator = communicator;
-        }
-        #endregion
-
-        public override string ThreadName()
-        {
-            return "Lstener";
-        }
-
-        protected override void Process()
-        {
-            while (keepGoing)
-            {
-                while (keepGoing && !suspended)
-                {
-                    if (communicator.GetAvailable() > 0)
-                    {
-                        Envelope envelope = communicator.Recieve();
-                        int messageNr = envelope.message.MessageNr.SeqNumber;
-                        int conversationId = envelope.message.ConversationId.SeqNumber;
-
-                        if (messageNr == conversationId)
-                        {
-                            //place on request message queue
-                            MessageQueue messageQueue = RequestMessageQueue.getQueue();
-                            messageQueue.push(envelope);
-                        }
-                        else if(ConversationMessageQueues.hasQueue(conversationId))
-                        {
-                            //place on conversation message queue
-                            MessageQueue messageQueue = ConversationMessageQueues.getQueue(conversationId);
-                            messageQueue.push(envelope);
-                        }
-                        //ignore if ther is no conversation queue
-                    }
-                    System.Threading.Thread.Sleep(1);
-                }
-            }
-        }
+      this.communicator = communicator;
     }
+    #endregion
+
+    public override string ThreadName()
+    {
+      return "Lstener";
+    }
+
+    protected override void Process()
+    {
+      while (keepGoing)
+      {
+        while (keepGoing && !suspended)
+        {
+          if (communicator.GetAvailable() > 0)
+          {
+            Envelope envelope = communicator.Recieve();
+            int messageNr = envelope.message.MessageNr.SeqNumber;
+            int conversationId = envelope.message.ConversationId.SeqNumber;
+
+            StatusMonitor statusMonitor = StatusMonitor.get();
+            statusMonitor.post("Listener recieved a message: " + envelope.message.GetType().ToString());
+
+            if (messageNr == conversationId)
+            {
+              //place on request message queue
+              MessageQueue messageQueue = RequestMessageQueue.getQueue();
+              messageQueue.push(envelope);
+            }
+            else if (ConversationMessageQueues.hasQueue(conversationId))
+            {
+              //place on conversation message queue
+              MessageQueue messageQueue = ConversationMessageQueues.getQueue(conversationId);
+              messageQueue.push(envelope);
+            }
+            //ignore if ther is no conversation queue
+            statusMonitor.post("Listener ignored a message: " + envelope.message.GetType().ToString());
+          }
+          System.Threading.Thread.Sleep(1);
+        }
+      }
+    }
+  }
 }
