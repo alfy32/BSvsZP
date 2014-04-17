@@ -40,9 +40,13 @@ namespace AgentCommon
           Envelope response = messageQueue.pop();
           if (response.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AckNak)
           {
-            //  Proceed proceed = (Proceed)response.message;
             StatusMonitor.get().post("Recieved Proceed Message.");
             agent.State.GameEndPoint = response.endPoint;
+            
+            AgentInfo agentInfo = agent.State.getAgentInfo();
+            agentInfo.AgentStatus = AgentInfo.PossibleAgentStatus.InGame;
+            
+            agent.State.updateAgentInfo(agentInfo);
 
             agent.Brain.Start();
           }

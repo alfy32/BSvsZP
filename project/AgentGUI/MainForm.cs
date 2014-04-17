@@ -16,14 +16,20 @@ namespace AgentGUI
   public partial class MainForm : Form
   {
     #region Private Memebers
-    GameRegistry gameRegistry = new GameRegistry();
-    Agent agent;
-    List<string> messages = new List<string>();
+    private GameRegistry gameRegistry = new GameRegistry();
+    private Agent agent;
     #endregion
 
-    #region Private Functions
-    private void startGame(Agent agent, string gameLabel)
+    #region Constructors
+    public MainForm(Agent agent, string gameLabel)
     {
+      this.agent = agent;
+
+      InitializeComponent();
+
+      StatusMonitor.get().postMessageEvent += new StatusMonitor.StringMethod(updateMessages);
+      agent.State.updateAgentInfoEvent += new AgentState.AgentInfoMethod(updateAgentInfo);
+
       GameInfo gameInfo = gameRegistry.getGameByLabel(gameLabel);
 
       int address = gameInfo.CommunicationEndPoint.Address;
@@ -31,15 +37,15 @@ namespace AgentGUI
 
       agent.startJoinGameConversation(gameInfo.Id, new EndPoint(address, port));
     }
+    #endregion
+
+    #region Update Callbacks
     private void updateAgentInfo(AgentInfo agentInfo)
     {
       this.Invoke(new updateAgentInfoCallback(displayAgentInfo), agentInfo);
     }
     private void updateMessages(string message)
     {
-      
-      messages.Add(message);
-
       if(messageBox.InvokeRequired)
         this.Invoke(new updateMessagesCallback(displayMessage), message);
     }
@@ -72,27 +78,20 @@ namespace AgentGUI
     }
     private void displayMessage(string message)
     {
-      messages = new List<string>(messages);
-      messageBox.DataSource = messages;
+      messageBox.Items.Add(message);
     }
     #endregion
 
+    #region Delegates
     public delegate void updateAgentInfoCallback(AgentInfo param);
     public delegate void updateMessagesCallback(string message);
+    #endregion
 
-    public MainForm(Agent agent, string gameLabel)
-    {
-      this.agent = agent;
-      InitializeComponent();
-
-      agent.State.updateAgentInfoEvent += new AgentState.AgentInfoMethod(updateAgentInfo);
-      StatusMonitor.get().postMessageEvent += new StatusMonitor.StringMethod(updateMessages);
-      startGame(agent, gameLabel);
-    }
-
+    #region Callback Functions
     private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
     {
       System.Environment.Exit(0);
     }
+    #endregion
   }
 }

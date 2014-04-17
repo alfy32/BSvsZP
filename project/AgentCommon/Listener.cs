@@ -53,8 +53,11 @@ namespace AgentCommon
               MessageQueue messageQueue = ConversationMessageQueues.getQueue(conversationId);
               messageQueue.push(envelope);
             }
-            //ignore if ther is no conversation queue
-            statusMonitor.post("Listener ignored a message: " + envelope.message.GetType().ToString());
+            else
+            {
+              //ignore if ther is no conversation queue
+              statusMonitor.post("Listener ignored a message: " + envelope.message.GetType().ToString());
+            }
           }
           System.Threading.Thread.Sleep(1);
         }

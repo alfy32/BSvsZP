@@ -23,10 +23,12 @@ namespace AgentCommon
     {
       if(messageQueue.hasItems())
       {
-        Envelope envelope = messageQueue.pop();
+        StatusMonitor statusMonitor = StatusMonitor.get();
 
+        Envelope envelope = messageQueue.pop();
         JoinGame joinGame = (JoinGame)envelope.message;
 
+        statusMonitor.post("Sending JoinGame message");
         agent.Communicator.Send(envelope);
 
         while (!messageQueue.hasItems())
@@ -36,33 +38,26 @@ namespace AgentCommon
 
         envelope = messageQueue.pop();
         AckNak ackNak = (AckNak)envelope.message;
+        statusMonitor.post("Recieved AckNack message");
 
         if (ackNak.Status == Reply.PossibleStatus.Success)
         {
-          StatusMonitor statusMonitor = StatusMonitor.get();
-
-          statusMonitor.post("Successfully joined a game...");
+          statusMonitor.post("AckNack status success.");
 
           AgentInfo resultAgentInfo = (AgentInfo)ackNak.ObjResult;
-          statusMonitor.post(" Status: " + resultAgentInfo.AgentStatus);
-          statusMonitor.post(" Location: " + resultAgentInfo.Location);
-          statusMonitor.post(" Strength: " + resultAgentInfo.Strength);
-          statusMonitor.post("");
+          statusMonitor.post("Agent Status: " + resultAgentInfo.AgentStatus);
 
           agent.State.updateAgentInfo(resultAgentInfo);
 
           AckNak ack = new AckNak(Reply.PossibleStatus.Success);
           ack.ConversationId.SeqNumber = envelope.message.ConversationId.SeqNumber;
-          Envelope toSend = new Envelope(ack, envelope.endPoint);
 
           statusMonitor.post("Sending join game ack...");
-          agent.Communicator.Send(toSend);
+          agent.Communicator.Send(new Envelope(ack, envelope.endPoint));
         }
         else
         {
-          StatusMonitor statusMonitor = StatusMonitor.get();
-
-          statusMonitor.post("Failed to join the game...");
+          statusMonitor.post("AckNack status: " + ackNak.Status.ToString());
           statusMonitor.post(ackNak.Message);
         }
 
