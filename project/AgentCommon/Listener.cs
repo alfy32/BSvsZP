@@ -39,7 +39,7 @@ namespace AgentCommon
             int conversationId = envelope.message.ConversationId.SeqNumber;
 
             StatusMonitor statusMonitor = StatusMonitor.get();
-            statusMonitor.post("Listener recieved a message: " + envelope.message.GetType().ToString());
+            statusMonitor.postDebug("Listener recieved a message: " + envelope.message.GetType().ToString());
 
             if (messageNr == conversationId)
             {
@@ -56,7 +56,7 @@ namespace AgentCommon
             else
             {
               //ignore if ther is no conversation queue
-              statusMonitor.post("Listener ignored a message: " + envelope.message.GetType().ToString());
+              statusMonitor.postDebug("Listener ignored a message: " + envelope.message.GetType().ToString());
             }
           }
           System.Threading.Thread.Sleep(1);

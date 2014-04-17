@@ -50,6 +50,7 @@
       this.agentType = new System.Windows.Forms.Label();
       this.label1 = new System.Windows.Forms.Label();
       this.messageBox = new System.Windows.Forms.ListBox();
+      this.agentTreeView = new System.Windows.Forms.TreeView();
       this.groupBox1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -270,11 +271,19 @@
       this.messageBox.Size = new System.Drawing.Size(432, 251);
       this.messageBox.TabIndex = 1;
       // 
+      // agentTreeView
+      // 
+      this.agentTreeView.Location = new System.Drawing.Point(450, 12);
+      this.agentTreeView.Name = "agentTreeView";
+      this.agentTreeView.Size = new System.Drawing.Size(348, 414);
+      this.agentTreeView.TabIndex = 2;
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(453, 438);
+      this.ClientSize = new System.Drawing.Size(830, 438);
+      this.Controls.Add(this.agentTreeView);
       this.Controls.Add(this.messageBox);
       this.Controls.Add(this.groupBox1);
       this.Name = "MainForm";
@@ -310,5 +319,6 @@
     private System.Windows.Forms.Label speed;
     private System.Windows.Forms.Label strength;
     private System.Windows.Forms.Label label12;
+    private System.Windows.Forms.TreeView agentTreeView;
   }
 }

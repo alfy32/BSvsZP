@@ -27,12 +27,12 @@ namespace AgentCommon
         if (recieved.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.StartGame)
         {
           StartGame startGame = (StartGame)recieved.message;
-          StatusMonitor.get().post("Recieved StartGame message.");
+          StatusMonitor.get().postDebug("Recieved StartGame message.");
 
           ReadyReply ready = new ReadyReply(Reply.PossibleStatus.Success);
           ready.ConversationId = startGame.ConversationId;
           agent.Communicator.Send(new Envelope(ready, recieved.endPoint));
-          StatusMonitor.get().post("Sent Ready message.");
+          StatusMonitor.get().postDebug("Sent Ready message.");
 
           while (!messageQueue.hasItems())
             System.Threading.Thread.Sleep(1);
@@ -40,7 +40,7 @@ namespace AgentCommon
           Envelope response = messageQueue.pop();
           if (response.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AckNak)
           {
-            StatusMonitor.get().post("Recieved Proceed Message.");
+            StatusMonitor.get().postDebug("Recieved Proceed Message.");
             agent.State.GameEndPoint = response.endPoint;
             
             AgentInfo agentInfo = agent.State.AgentInfo;

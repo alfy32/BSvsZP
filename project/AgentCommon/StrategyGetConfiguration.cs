@@ -25,7 +25,7 @@ namespace AgentCommon
       getResource.GameId = agent.State.AgentInfo.Id;
       getResource.EnablingTick = agent.getTickFromStash();
 
-      StatusMonitor.get().post("Sent Get " + getResource.GetResourceType.ToString() + " Message.");
+      StatusMonitor.get().postDebug("Sent Get " + getResource.GetResourceType.ToString() + " Message.");
       agent.Communicator.Send(envelope);
     }
 
@@ -37,12 +37,12 @@ namespace AgentCommon
         if (configurationReply.Status == Reply.PossibleStatus.Success)
         {
           StatusMonitor statusMonitor = StatusMonitor.get();
-          statusMonitor.post("Recieved configuration reply");
+          statusMonitor.postDebug("Recieved configuration reply");
           agent.State.GameConfiguration = configurationReply.Configuration;
         }
         else
         {
-          StatusMonitor.get().post("Failed to get Configuration");
+          StatusMonitor.get().postDebug("Failed to get Configuration");
         }
       }
     }

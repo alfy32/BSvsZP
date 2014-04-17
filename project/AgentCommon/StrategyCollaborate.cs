@@ -31,7 +31,7 @@ namespace AgentCommon
           if(true) // is being sent
           {
             agent.Communicator.Send(envelope);
-            StatusMonitor.get().post("Sent Collaboration message.");
+            StatusMonitor.get().postDebug("Sent Collaboration message.");
 
             while (!messageQueue.hasItems())
               System.Threading.Thread.Sleep(10);
@@ -43,7 +43,7 @@ namespace AgentCommon
               if (ackNack.Status == Reply.PossibleStatus.Success)
               {
                 ComponentInfo info = (ComponentInfo)ackNack.ObjResult;
-                StatusMonitor.get().post("Recieved Collaboration ackNak message.");
+                StatusMonitor.get().postDebug("Recieved Collaboration ackNak message.");
                 // do something with this
               }
             }
@@ -56,7 +56,7 @@ namespace AgentCommon
 
             AckNak ackNack = new AckNak(status, info);
             Envelope response = new Envelope(ackNack, envelope.endPoint);
-            StatusMonitor.get().post("Did Collaboration sending ackNak message.");
+            StatusMonitor.get().postDebug("Did Collaboration sending ackNak message.");
             agent.Communicator.Send(response);
           }
         }

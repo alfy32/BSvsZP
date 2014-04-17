@@ -26,7 +26,7 @@ namespace BrilliantStudent
       getResource.GameId = agent.State.AgentInfo.Id;
       getResource.EnablingTick = agent.getTickFromStash();
 
-      StatusMonitor.get().post("Sent Get " + getResource.GetResourceType.ToString() + " Message.");
+      StatusMonitor.get().postDebug("Sent Get " + getResource.GetResourceType.ToString() + " Message.");
       agent.Communicator.Send(envelope);
     }
 
@@ -37,14 +37,14 @@ namespace BrilliantStudent
         ResourceReply reply = (ResourceReply)envelope.message;
         if (reply.Status == Reply.PossibleStatus.Success)
         {
-          StatusMonitor.get().post("Recieved resource reply");
+          StatusMonitor.get().postDebug("Recieved resource reply");
           Excuse excuse = (Excuse)reply.Resource;
 
           //TODO: save info on agent
         }
         else
         {
-          StatusMonitor.get().post("Failed to get resource");
+          StatusMonitor.get().postDebug("Failed to get resource");
         }
       }
     }

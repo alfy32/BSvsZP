@@ -28,7 +28,7 @@ namespace AgentCommon
         if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AckNak) // change this to StartUpdateStream
         {
           agent.Communicator.Send(envelope);
-          StatusMonitor.get().post("Sent Start Update Stream");
+          StatusMonitor.get().postDebug("Sent Start Update Stream");
 
           while (!messageQueue.hasItems())
             System.Threading.Thread.Sleep(10);
@@ -39,25 +39,25 @@ namespace AgentCommon
             AckNak ackNak = (AckNak)recieved.message;
             if (ackNak.Status == Reply.PossibleStatus.Success)
             {
-              StatusMonitor.get().post("Update Stream Started");
+              StatusMonitor.get().postDebug("Update Stream Started");
               StreamStarted = true;
             }
             else
             {
-              StatusMonitor.get().post("Update Stream Failed to start");
+              StatusMonitor.get().postDebug("Update Stream Failed to start");
             }
           }
         }
         else if (StreamStarted && envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AgentListReply)
         {
           AgentListReply agentListReply = (AgentListReply)envelope.message;
-          StatusMonitor.get().post("Recieved update from Update Stream");
+          StatusMonitor.get().postDebug("Recieved update from Update Stream");
           // use the agent list
         }
         else if (StreamStarted && envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AckNak) // change this to StopUpdateStream
         {
           agent.Communicator.Send(envelope);
-          StatusMonitor.get().post("Sent Stop Update Stream");
+          StatusMonitor.get().postDebug("Sent Stop Update Stream");
 
           Stop();
         }        

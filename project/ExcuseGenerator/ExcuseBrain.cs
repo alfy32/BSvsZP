@@ -16,7 +16,7 @@ namespace ExcuseGenerator
       // do some excuse stuff
       StatusMonitor statusMonitor = StatusMonitor.get();
 
-      statusMonitor.post("I'm thinking...");
+      statusMonitor.postDebug("I'm thinking...");
 
       System.Threading.Thread.Sleep(2000);
     }

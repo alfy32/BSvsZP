@@ -28,7 +28,7 @@ namespace AgentCommon
         {
           TickDelivery tickMessage = (TickDelivery)envelope.message;
           agent.stashTick(tickMessage.CurrentTick);
-          StatusMonitor.get().post("I got a tick...");
+          StatusMonitor.get().postDebug("I got a tick...");
         }
         Stop();
       }

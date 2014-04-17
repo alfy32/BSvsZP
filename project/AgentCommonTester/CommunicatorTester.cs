@@ -57,19 +57,17 @@ namespace AgentCommonTester
         public void Communicator_SendToGreg()
         {
           int sendPort = 2345;
-          int recieverPort = 9876;
+          string hostName = "129.123.7.167";
+          int recieverPort = 41768;
 
           short gameId = 10;
 
-          string hostName = "thingsforreasons.com";
-
           Communicator sender = new Communicator(sendPort);
 
-          AgentInfo agentInfo = new AgentInfo();
-          Message message = new JoinGame(gameId, agentInfo);
+          EndGame endGame = new EndGame(gameId);
           IPEndPoint recieverEP = new IPEndPoint(GetHostAddress(hostName), recieverPort);
           Common.EndPoint endPoint = new Common.EndPoint(recieverEP);
-          Envelope sendEnvelope = new Envelope(message, endPoint);
+          Envelope sendEnvelope = new Envelope(endGame, endPoint);
 
           sender.Send(sendEnvelope);
         }

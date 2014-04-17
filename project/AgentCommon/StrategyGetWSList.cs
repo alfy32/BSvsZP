@@ -25,7 +25,7 @@ namespace AgentCommon
       getResource.GameId = agent.State.AgentInfo.Id;
       getResource.EnablingTick = agent.getTickFromStash();
 
-      StatusMonitor.get().post("Sent Get " + getResource.GetResourceType.ToString() + " Message.");
+      StatusMonitor.get().postDebug("Sent Get " + getResource.GetResourceType.ToString() + " Message.");
       agent.Communicator.Send(envelope);
     }
 
@@ -36,12 +36,12 @@ namespace AgentCommon
         AgentListReply reply = (AgentListReply)envelope.message;
         if (reply.Status == Reply.PossibleStatus.Success)
         {
-          StatusMonitor.get().post("Recieved WhiningSpinnerList");
+          StatusMonitor.get().postDebug("Recieved WhiningSpinnerList");
           agent.State.WhiningSpinnerList = reply.Agents;
         }
         else
         {
-          StatusMonitor.get().post("Failed to get agentlist");
+          StatusMonitor.get().postDebug("Failed to get agentlist");
         }
       }
     }

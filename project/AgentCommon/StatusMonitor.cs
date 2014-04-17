@@ -19,16 +19,25 @@ namespace AgentCommon
 
     public delegate void StringMethod(string param);
 
-    public event StringMethod postMessageEvent;
+    public event StringMethod debugMessageEvent;
+    public event StringMethod statusMessageEvent;
 
     public StatusMonitor() { }
 
-    public void post(string message)
+    public void postDebug(string message)
     {
-      Console.WriteLine(message);
+      Console.WriteLine("DEBUG: " + message);
 
-      if (postMessageEvent != null)
-        postMessageEvent(message);
+      if (debugMessageEvent != null) 
+        debugMessageEvent(message);         
+    }
+
+    public void postStatus(string message)
+    {
+      Console.WriteLine("STATUS: " + message);
+
+      if (statusMessageEvent != null) 
+        statusMessageEvent(message);
     }
   }
 }

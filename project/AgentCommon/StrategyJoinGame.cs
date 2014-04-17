@@ -28,7 +28,7 @@ namespace AgentCommon
         Envelope envelope = messageQueue.pop();
         JoinGame joinGame = (JoinGame)envelope.message;
 
-        statusMonitor.post("Sending JoinGame message");
+        statusMonitor.postDebug("Sending JoinGame message");
         agent.Communicator.Send(envelope);
 
         while (!messageQueue.hasItems())
@@ -38,25 +38,25 @@ namespace AgentCommon
 
         envelope = messageQueue.pop();
         AckNak ackNak = (AckNak)envelope.message;
-        statusMonitor.post("Recieved AckNack message");
+        statusMonitor.postDebug("Recieved AckNack message");
 
         if (ackNak.Status == Reply.PossibleStatus.Success)
         {
-          statusMonitor.post("AckNack status success.");
+          statusMonitor.postDebug("AckNack status success.");
 
           AgentInfo resultAgentInfo = (AgentInfo)ackNak.ObjResult;
-          statusMonitor.post("Agent Status: " + resultAgentInfo.AgentStatus);
+          statusMonitor.postDebug("Agent Status: " + resultAgentInfo.AgentStatus);
           agent.State.AgentInfo = resultAgentInfo;
 
-          statusMonitor.post("Sending join game ack...");
+          statusMonitor.postDebug("Sending join game ack...");
           AckNak ack = new AckNak(Reply.PossibleStatus.Success);
           ack.ConversationId.SeqNumber = envelope.message.ConversationId.SeqNumber;
           agent.Communicator.Send(new Envelope(ack, envelope.endPoint));
         }
         else
         {
-          statusMonitor.post("AckNack status: " + ackNak.Status.ToString());
-          statusMonitor.post(ackNak.Message);
+          statusMonitor.postDebug("AckNack status: " + ackNak.Status.ToString());
+          statusMonitor.postDebug(ackNak.Message);
         }
 
         Stop();

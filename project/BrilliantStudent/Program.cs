@@ -18,17 +18,17 @@ namespace BrilliantStudent
 
       if (args.Length >= 1) port = int.Parse(args[0]);
 
-      StatusMonitor.get().post("Creating BrilliantStudent...");
-      StatusMonitor.get().post("");
+      StatusMonitor.get().postDebug("Creating BrilliantStudent...");
+      StatusMonitor.get().postDebug("");
       BrilliantStudent brilliantStudent = new BrilliantStudent(port);
 
-      StatusMonitor.get().post("Communicating on port: " + brilliantStudent.Communicator.Port);
-      StatusMonitor.get().post("");
+      StatusMonitor.get().postDebug("Communicating on port: " + brilliantStudent.Communicator.Port);
+      StatusMonitor.get().postDebug("");
       brilliantStudent.autoPickGame();
 
       Console.ReadKey(false);
-      StatusMonitor.get().post("");
-      StatusMonitor.get().post("Killing Brilliant Student...");
+      StatusMonitor.get().postDebug("");
+      StatusMonitor.get().postDebug("Killing Brilliant Student...");
     }
   }
 }

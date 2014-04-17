@@ -28,7 +28,7 @@ namespace BrilliantStudent
         if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.Move)
         {
           agent.Communicator.Send(envelope);
-          StatusMonitor.get().post("Sent Move message.");
+          StatusMonitor.get().postDebug("Sent Move message.");
 
           while (!messageQueue.hasItems())
             System.Threading.Thread.Sleep(10);
@@ -37,17 +37,17 @@ namespace BrilliantStudent
           if (response.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AckNak)
           {
             AckNak ackNak = (AckNak)response.message;
-            StatusMonitor.get().post("Recieved move response Message.");
+            StatusMonitor.get().postDebug("Recieved move response Message.");
 
             if (ackNak.Status == Reply.PossibleStatus.Success)
             {
-              StatusMonitor.get().post("Agent Moved Successfully.");   
+              StatusMonitor.get().postDebug("Agent Moved Successfully.");   
            
               // update location
             }
             else
             {
-              StatusMonitor.get().post("Agent Couldn't Move. Error: " + ackNak.Message); 
+              StatusMonitor.get().postDebug("Agent Couldn't Move. Error: " + ackNak.Message); 
             }
           }
         }

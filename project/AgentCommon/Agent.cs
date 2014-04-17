@@ -86,13 +86,13 @@ namespace AgentCommon
       {
         Console.Write("There are no games to join. Press any key to quit...");
         Console.ReadKey(false);
-        StatusMonitor.get().post("");
-        StatusMonitor.get().post("Shutting Down...");
+        StatusMonitor.get().postDebug("");
+        StatusMonitor.get().postDebug("Shutting Down...");
         Environment.Exit(0);
       }
 
-      StatusMonitor.get().post("Auto choosing game:");
-      StatusMonitor.get().post(" ID: " + game.Id + " Game: " + game.Label);
+      StatusMonitor.get().postDebug("Auto choosing game:");
+      StatusMonitor.get().postDebug(" ID: " + game.Id + " Game: " + game.Label);
 
       int address = game.CommunicationEndPoint.Address;
       int port = game.CommunicationEndPoint.Port;
@@ -123,7 +123,7 @@ namespace AgentCommon
       JoinGame joinGame = new JoinGame(gameId, this.State.AgentInfo);
       Envelope envelope = new Envelope(joinGame, endPoint);
 
-      StatusMonitor.get().post("Starting JoinGame conversation...");
+      StatusMonitor.get().postDebug("Starting JoinGame conversation...");
 
       ExecutionStrategy.StartConversation(envelope, this);
     }

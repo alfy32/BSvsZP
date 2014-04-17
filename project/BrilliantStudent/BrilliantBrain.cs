@@ -16,7 +16,7 @@ namespace BrilliantStudent
     protected override void Think()
     {
       //Check for stuff and update
-      StatusMonitor.get().post("I'm thinking...");
+      StatusMonitor.get().postDebug("I'm thinking...");
 
       if (agent.State.GameConfiguration == null)
       {

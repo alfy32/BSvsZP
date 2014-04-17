@@ -28,7 +28,7 @@ namespace BrilliantStudent
         if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.ThrowBomb)
         {
           agent.Communicator.Send(envelope);
-          StatusMonitor.get().post("Sent throw bomb message.");
+          StatusMonitor.get().postDebug("Sent throw bomb message.");
 
           while (!messageQueue.hasItems())
             System.Threading.Thread.Sleep(10);
@@ -37,17 +37,17 @@ namespace BrilliantStudent
           if (response.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AckNak)
           {
             AckNak ackNak = (AckNak)response.message;
-            StatusMonitor.get().post("Recieved throw bomb response Message.");
+            StatusMonitor.get().postDebug("Recieved throw bomb response Message.");
 
             if (ackNak.Status == Reply.PossibleStatus.Success)
             {
-              StatusMonitor.get().post("Agent Successfully Threw Bomb.");   
+              StatusMonitor.get().postDebug("Agent Successfully Threw Bomb.");   
            
               // update 
             }
             else
             {
-              StatusMonitor.get().post("Agent Couldn't Throw Bomb. Error: " + ackNak.Message); 
+              StatusMonitor.get().postDebug("Agent Couldn't Throw Bomb. Error: " + ackNak.Message); 
             }
           }
         }

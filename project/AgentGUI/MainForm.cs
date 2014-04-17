@@ -27,9 +27,10 @@ namespace AgentGUI
 
       InitializeComponent();
 
-      StatusMonitor.get().postMessageEvent += new StatusMonitor.StringMethod(updateMessages);
+      StatusMonitor.get().debugMessageEvent += new StatusMonitor.StringMethod(updateMessages);
       agent.State.updateAgentInfoEvent += new AgentState.AgentInfoMethod(updateAgentInfo);
 
+      createAgentTreeView();
       GameInfo gameInfo = gameRegistry.getGameByLabel(gameLabel);
 
       int address = gameInfo.CommunicationEndPoint.Address;
@@ -42,12 +43,66 @@ namespace AgentGUI
     #region Update Callbacks
     private void updateAgentInfo(AgentInfo agentInfo)
     {
-      this.Invoke(new updateAgentInfoCallback(displayAgentInfo), agentInfo);
+      this.Invoke(new updateAgentInfoCallback(updateAgentTreeView), agentInfo);
     }
     private void updateMessages(string message)
     {
-      if(messageBox.InvokeRequired)
+      if (messageBox.InvokeRequired)
         this.Invoke(new updateMessagesCallback(displayMessage), message);
+    }
+
+     TreeNode agentInfoNode = new TreeNode("Agent Info");
+
+    private void createAgentTreeView()
+    {
+      agentTreeView.BeginUpdate();
+
+      TreeNodeCollection nodes = agentTreeView.Nodes;
+
+      nodes.Clear();
+     
+      // Agent Info
+      agentInfoNode.Nodes.Add("Type", "Type: ");
+      agentInfoNode.Nodes.Add("EndPoint", "EndPoint: ");
+      agentInfoNode.Nodes.Add("ANumber", "ANumber: ");
+      agentInfoNode.Nodes.Add("FirstName", "ANumber: ");
+      agentInfoNode.Nodes.Add("LastName", "ANumber: ");
+      agentInfoNode.Nodes.Add("AgentId", "ANumber: ");
+      agentInfoNode.Nodes.Add("Status", "ANumber: ");
+      agentInfoNode.Nodes.Add("Location", "ANumber: ");
+      agentInfoNode.Nodes.Add("Points", "ANumber: ");
+      agentInfoNode.Nodes.Add("Strenght", "ANumber: ");
+      agentInfoNode.Nodes.Add("Speed", "ANumber: ");
+      nodes.Add(agentInfoNode);
+
+      agentTreeView.EndUpdate();
+    }
+
+    private void updateAgentTreeView(AgentInfo agentInfo)
+    {
+      displayAgentInfo(agentInfo);
+
+      agentTreeView.BeginUpdate();
+
+      TreeNodeCollection items = agentInfoNode.Nodes;
+
+      //items["type"].Name = "Type: " +agentInfo.AgentType.ToString();        
+      //if (agentInfo.CommunicationEndPoint != null) items.Add("EndPoint: " +agentInfo.CommunicationEndPoint.ToString());
+      //if (agentInfo.ANumber != null) items.Add("A Number: " +agentInfo.ANumber);
+      //if (agentInfo.FirstName != null && agentInfo.LastName != null)
+      //  items.Add(agentInfo.FirstName + " " + agentInfo.LastName;
+
+      //agentId.Text = agentInfo.Id.ToString();
+      //agentStatus.Text = agentInfo.AgentStatus.ToString();
+
+      //if (agentInfo.Location != null)
+      //  location.Text = agentInfo.Location.ToString();
+      //points.Text = agentInfo.Points.ToString();
+
+      //strength.Text = agentInfo.Strength.ToString();
+      //speed.Text = agentInfo.Speed.ToString();
+
+      agentTreeView.EndUpdate();
     }
 
     private void displayAgentInfo(AgentInfo agentInfo)

@@ -27,7 +27,7 @@ namespace AgentCommon
         if (recieved.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.ChangeStrength)
         {
           ChangeStrength changeStrength = (ChangeStrength)recieved.message;
-          StatusMonitor.get().post("Recieved ChangeStrength message.");
+          StatusMonitor.get().postDebug("Recieved ChangeStrength message.");
 
           //TODO update agent strength
           Reply.PossibleStatus status = Reply.PossibleStatus.Success;
@@ -37,14 +37,14 @@ namespace AgentCommon
           {
             AckNak ackNak = new AckNak(status, info);
             agent.Communicator.Send(new Envelope(ackNak, recieved.endPoint));
-            StatusMonitor.get().post("Sent Acknowledged ChangeStrength message.");
+            StatusMonitor.get().postDebug("Sent Acknowledged ChangeStrength message.");
           }
           else
           {
             AckNak ackNak = new AckNak(status, null);
             ackNak.Message = "Failed to change strength";
             agent.Communicator.Send(new Envelope(ackNak, recieved.endPoint));
-            StatusMonitor.get().post("Didn't want to ChangeStrength.");
+            StatusMonitor.get().postDebug("Didn't want to ChangeStrength.");
           }
         }
         Stop();

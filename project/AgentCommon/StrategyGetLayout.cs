@@ -25,7 +25,7 @@ namespace AgentCommon
       getResource.GameId = agent.State.AgentInfo.Id;
       getResource.EnablingTick = agent.getTickFromStash();
 
-      StatusMonitor.get().post("Sent Get " + getResource.GetResourceType.ToString() + " Message.");
+      StatusMonitor.get().postDebug("Sent Get " + getResource.GetResourceType.ToString() + " Message.");
       agent.Communicator.Send(envelope);
     }
 
@@ -36,12 +36,12 @@ namespace AgentCommon
         PlayingFieldReply reply = (PlayingFieldReply)envelope.message;
         if (reply.Status == Reply.PossibleStatus.Success)
         {
-          StatusMonitor.get().post("Recieved playing field reply");
+          StatusMonitor.get().postDebug("Recieved playing field reply");
           agent.State.PlayingFieldLayout = reply.Layout;
         }
         else
         {
-          StatusMonitor.get().post("Failed to get Playing Field Layout");
+          StatusMonitor.get().postDebug("Failed to get Playing Field Layout");
         }
       }
     }

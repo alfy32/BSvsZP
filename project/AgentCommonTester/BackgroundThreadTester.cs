@@ -31,7 +31,7 @@ namespace AgentCommonTester
 
             protected override void Process()
             {
-                StatusMonitor.get().post("I'm processing...");
+                StatusMonitor.get().postDebug("I'm processing...");
             }
         }
     }

@@ -27,7 +27,7 @@ namespace AgentCommon
         if (recieved.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.GetStatus)
         {
           GetStatus getStatus = (GetStatus)recieved.message;
-          StatusMonitor.get().post("Recieved GetStatus message.");
+          StatusMonitor.get().postDebug("Recieved GetStatus message.");
 
           StatusReply statusReply = new StatusReply(Reply.PossibleStatus.Success, agent.State.AgentInfo);
           Envelope response = new Envelope(statusReply, recieved.endPoint);
