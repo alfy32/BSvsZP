@@ -16,15 +16,40 @@ namespace BrilliantStudent
     protected override void Think()
     {
       //Check for stuff and update
-      StatusMonitor statusMonitor = StatusMonitor.get();
+      StatusMonitor.get().post("I'm thinking...");
 
-      statusMonitor.post("I'm thinking...");
+      if (agent.State.GameConfiguration == null)
+      {
+        getResource(GetResource.PossibleResourceType.GameConfiguration);
+        System.Threading.Thread.Sleep(500);
+      }
+      if (agent.State.PlayingFieldLayout == null)
+      {
+        getResource(GetResource.PossibleResourceType.PlayingFieldLayout);
+        System.Threading.Thread.Sleep(500);
+      }
+      if (agent.State.BrilliantStudentList == null)
+      {
+        getResource(GetResource.PossibleResourceType.BrillianStudentList);
+        System.Threading.Thread.Sleep(500);
+      }
+      if (agent.State.ExcuseGeneratorList == null)
+      {
+        getResource(GetResource.PossibleResourceType.ExcuseGeneratorList);
+        System.Threading.Thread.Sleep(500);
+      }
+      if (agent.State.WhiningSpinnerList == null)
+      {
+        getResource(GetResource.PossibleResourceType.WhiningSpinnerList);
+        System.Threading.Thread.Sleep(500);
+      }
+      if (agent.State.ZombieProfessorList == null)
+      {
+        getResource(GetResource.PossibleResourceType.ZombieProfessorList);
+        System.Threading.Thread.Sleep(500);
+      }
 
-      statusMonitor.post("I'm going to get the configuration...");
-      GetResource getResource = new GetResource(agent.State.getAgentInfo().Id, GetResource.PossibleResourceType.GameConfiguration);
 
-      Envelope envelope = new Envelope(getResource, agent.State.GameEndPoint);
-      ExecutionStrategy.StartConversation(envelope, agent);
 
       System.Threading.Thread.Sleep(5000);
     }

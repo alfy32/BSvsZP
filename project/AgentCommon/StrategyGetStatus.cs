@@ -29,7 +29,7 @@ namespace AgentCommon
           GetStatus getStatus = (GetStatus)recieved.message;
           StatusMonitor.get().post("Recieved GetStatus message.");
 
-          StatusReply statusReply = new StatusReply(Reply.PossibleStatus.Success, agent.State.getAgentInfo());
+          StatusReply statusReply = new StatusReply(Reply.PossibleStatus.Success, agent.State.AgentInfo);
           Envelope response = new Envelope(statusReply, recieved.endPoint);
         }
         Stop();

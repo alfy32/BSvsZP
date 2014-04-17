@@ -22,7 +22,7 @@ namespace AgentCommon
     private void sendMessage(Envelope envelope)
     {
       GetResource getResource = (GetResource)envelope.message;
-      getResource.GameId = agent.State.getAgentInfo().Id;
+      getResource.GameId = agent.State.AgentInfo.Id;
       getResource.EnablingTick = agent.getTickFromStash();
 
       StatusMonitor.get().post("Sent Get " + getResource.GetResourceType.ToString() + " Message.");
@@ -36,10 +36,8 @@ namespace AgentCommon
         AgentListReply reply = (AgentListReply)envelope.message;
         if (reply.Status == Reply.PossibleStatus.Success)
         {
-          StatusMonitor.get().post("Recieved agentlist reply");
-          AgentList layout = reply.Agents;
-
-          //TODO: save info on agent
+          StatusMonitor.get().post("Recieved ExcuseGeneratorList");
+          agent.State.ExcuseGeneratorList = reply.Agents;
         }
         else
         {

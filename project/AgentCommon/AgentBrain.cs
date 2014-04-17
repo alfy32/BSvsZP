@@ -5,18 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 using AgentCommon;
+using Messages;
+using Common;
 
 namespace AgentCommon
 {
   public abstract class AgentBrain : BackgroundThread
   {
-    protected Agent agent;
-
-    public AgentBrain(Agent agent)
-    {
-      this.agent = agent;
-    }
-
+    #region BackgroundThread Stuff
     public override string ThreadName()
     {
       return "AgentBrain";
@@ -39,5 +35,24 @@ namespace AgentCommon
     }
 
     protected abstract void Think();
+    #endregion
+
+    protected Agent agent;
+
+    public AgentBrain(Agent agent)
+    {
+      this.agent = agent;
+    }
+
+    #region Thoughts
+    protected void getResource(GetResource.PossibleResourceType resourceType)
+    {
+      StatusMonitor.get().post("I'm going to get a resource type: " + resourceType.ToString());
+      GetResource getResource = new GetResource(agent.State.AgentInfo.Id, GetResource.PossibleResourceType.GameConfiguration);
+
+      Envelope envelope = new Envelope(getResource, agent.State.GameEndPoint);
+      ExecutionStrategy.StartConversation(envelope, agent);
+    }
+    #endregion
   }
 }

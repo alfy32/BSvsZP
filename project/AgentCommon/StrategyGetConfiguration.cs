@@ -22,7 +22,7 @@ namespace AgentCommon
     private void sendMessage(Envelope envelope)
     {
       GetResource getResource = (GetResource)envelope.message;
-      getResource.GameId = agent.State.getAgentInfo().Id;
+      getResource.GameId = agent.State.AgentInfo.Id;
       getResource.EnablingTick = agent.getTickFromStash();
 
       StatusMonitor.get().post("Sent Get " + getResource.GetResourceType.ToString() + " Message.");
@@ -33,15 +33,12 @@ namespace AgentCommon
     {
       if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.ConfigurationReply)
       {
-        ConfigurationReply configuration = (ConfigurationReply)envelope.message;
-        if (configuration.Status == Reply.PossibleStatus.Success)
+        ConfigurationReply configurationReply = (ConfigurationReply)envelope.message;
+        if (configurationReply.Status == Reply.PossibleStatus.Success)
         {
           StatusMonitor statusMonitor = StatusMonitor.get();
           statusMonitor.post("Recieved configuration reply");
-          GameConfiguration config = configuration.Configuration;
-
-          //TODO: save configuration on agent
-          statusMonitor.post(" Zombie Creation Rate: " + config.ZombieCreationRate);
+          agent.State.GameConfiguration = configurationReply.Configuration;
         }
         else
         {

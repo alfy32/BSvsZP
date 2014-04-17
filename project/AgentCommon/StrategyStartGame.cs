@@ -43,10 +43,10 @@ namespace AgentCommon
             StatusMonitor.get().post("Recieved Proceed Message.");
             agent.State.GameEndPoint = response.endPoint;
             
-            AgentInfo agentInfo = agent.State.getAgentInfo();
+            AgentInfo agentInfo = agent.State.AgentInfo;
             agentInfo.AgentStatus = AgentInfo.PossibleAgentStatus.InGame;
             
-            agent.State.updateAgentInfo(agentInfo);
+            agent.State.AgentInfo = agentInfo;
 
             agent.Brain.Start();
           }

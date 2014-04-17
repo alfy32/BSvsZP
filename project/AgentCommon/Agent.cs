@@ -23,7 +23,7 @@ namespace AgentCommon
     #region Public Members
     public Communicator Communicator { get { return communicator; } }
     public AgentState State { get { return state; } set { state = value; } }
-    public AgentBrain Brain { get { return brain; } }
+    public AgentBrain Brain { get { return brain; } }    
     #endregion
 
     public Tick getTickFromStash()
@@ -120,7 +120,7 @@ namespace AgentCommon
 
     public void startJoinGameConversation(short gameId, EndPoint endPoint)
     {
-      JoinGame joinGame = new JoinGame(gameId, this.State.getAgentInfo());
+      JoinGame joinGame = new JoinGame(gameId, this.State.AgentInfo);
       Envelope envelope = new Envelope(joinGame, endPoint);
 
       StatusMonitor.get().post("Starting JoinGame conversation...");

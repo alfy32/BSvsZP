@@ -29,16 +29,8 @@ namespace AgentCommon
       if (StrategyPool.ContainsKey(messageId))
       {
         ExecutionStrategy executionStrategy = (ExecutionStrategy)Activator.CreateInstance(StrategyPool[messageId], conversationId, agent);
-        if (!executionStrategy.IsRunning)
-        {
-          executionStrategy.Start();
-        }
-        else
-        {
-          executionStrategy.Resume();
-        }
-        MessageQueue messageQueue = ConversationMessageQueues.getQueue(conversationId);
-        messageQueue.push(envelope);
+        executionStrategy.Start();
+        executionStrategy.messageQueue.push(envelope);
       }
 
     }

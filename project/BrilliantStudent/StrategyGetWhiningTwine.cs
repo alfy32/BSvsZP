@@ -23,7 +23,7 @@ namespace BrilliantStudent
     private void sendMessage(Envelope envelope)
     {
       GetResource getResource = (GetResource)envelope.message;
-      getResource.GameId = agent.State.getAgentInfo().Id;
+      getResource.GameId = agent.State.AgentInfo.Id;
       getResource.EnablingTick = agent.getTickFromStash();
 
       StatusMonitor.get().post("Sent Get " + getResource.GetResourceType.ToString() + " Message.");

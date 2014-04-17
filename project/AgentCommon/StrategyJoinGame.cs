@@ -46,13 +46,11 @@ namespace AgentCommon
 
           AgentInfo resultAgentInfo = (AgentInfo)ackNak.ObjResult;
           statusMonitor.post("Agent Status: " + resultAgentInfo.AgentStatus);
-
-          agent.State.updateAgentInfo(resultAgentInfo);
-
-          AckNak ack = new AckNak(Reply.PossibleStatus.Success);
-          ack.ConversationId.SeqNumber = envelope.message.ConversationId.SeqNumber;
+          agent.State.AgentInfo = resultAgentInfo;
 
           statusMonitor.post("Sending join game ack...");
+          AckNak ack = new AckNak(Reply.PossibleStatus.Success);
+          ack.ConversationId.SeqNumber = envelope.message.ConversationId.SeqNumber;
           agent.Communicator.Send(new Envelope(ack, envelope.endPoint));
         }
         else

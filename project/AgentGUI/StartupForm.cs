@@ -60,10 +60,10 @@ namespace AgentGUI
       mainForm.Show();
       mainForm.FormClosed += new FormClosedEventHandler(this.quit_Click);
 
-      agent.State.updateAgentInfo(agentInfo);
+      agent.State.AgentInfo = agentInfo;
     }
 
-    
+
 
     private void quit_Click(object sender, EventArgs e)
     {

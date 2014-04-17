@@ -22,7 +22,7 @@ namespace AgentCommon
     private void sendMessage(Envelope envelope)
     {
       GetResource getResource = (GetResource)envelope.message;
-      getResource.GameId = agent.State.getAgentInfo().Id;
+      getResource.GameId = agent.State.AgentInfo.Id;
       getResource.EnablingTick = agent.getTickFromStash();
 
       StatusMonitor.get().post("Sent Get " + getResource.GetResourceType.ToString() + " Message.");
@@ -37,9 +37,7 @@ namespace AgentCommon
         if (reply.Status == Reply.PossibleStatus.Success)
         {
           StatusMonitor.get().post("Recieved playing field reply");
-          PlayingFieldLayout layout = reply.Layout;
-
-          //TODO: save layout on agent
+          agent.State.PlayingFieldLayout = reply.Layout;
         }
         else
         {

@@ -31,17 +31,35 @@ namespace AgentCommon
       agentInfo.FirstName = "Alan";
       agentInfo.LastName = "Christensen";
       agentInfo.Id = MessageNumber.LocalProcessId;
+
+      GameConfiguration = null;
+      PlayingFieldLayout = null;
+      BrilliantStudentList = null;
+      ExcuseGeneratorList = null;
+      WhiningSpinnerList = null;
+      ZombieProfessorList = null;
     }
     #endregion
 
-    #region Public Functions
-    public AgentInfo getAgentInfo() { return agentInfo; }
+    #region Public Members
     public EndPoint GameEndPoint { get; set; }
-    public void updateAgentInfo(AgentInfo info)
-    {
-      agentInfo = info;
-      if (updateAgentInfoEvent != null) updateAgentInfoEvent(agentInfo);
+    public GameConfiguration GameConfiguration { get; set; }
+    public PlayingFieldLayout PlayingFieldLayout { get; set; }
+    public AgentList BrilliantStudentList { get; set; }
+    public AgentList ExcuseGeneratorList { get; set; }
+    public AgentList WhiningSpinnerList { get; set; }
+    public AgentList ZombieProfessorList { get; set; }
+    public AgentInfo AgentInfo { 
+      get { return agentInfo; } 
+      set { 
+        agentInfo = value;
+        if (updateAgentInfoEvent != null) updateAgentInfoEvent(agentInfo);
+      } 
     }
+    #endregion
+
+    #region Public Functions    
+   
     #endregion
   }
 }
