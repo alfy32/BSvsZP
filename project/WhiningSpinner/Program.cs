@@ -24,7 +24,7 @@ namespace WhiningSpinner
       StatusMonitor.get().postDebug("");
       whiningSpinner.autoPickGame();
 
-      Console.ReadKey(false);
+      while (Console.ReadKey(false).Key != System.ConsoleKey.Escape) ;
       StatusMonitor.get().postDebug("");
       StatusMonitor.get().postDebug("Killing WhiningSpinner...");
     }

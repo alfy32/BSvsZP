@@ -26,25 +26,18 @@ namespace AgentCommon
         Envelope envelope = messageQueue.pop();
         if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.GetResource)
         {
-          messageQueue.push(envelope);
-
           GetResource getResource = (GetResource)envelope.message;
 
           int messageId = (int)envelope.message.MessageTypeId() + 1000* (int)getResource.GetResourceType;
           int conversationId = envelope.message.ConversationId.SeqNumber;
 
+          messageQueue.push(envelope);
           ExecutionStrategy executionStrategy = (ExecutionStrategy)Activator.CreateInstance(StrategyPool[messageId], conversationId, agent);
-          if (!executionStrategy.IsRunning)
-          {
-            executionStrategy.Start();
-          }
-          else
-          {
-            executionStrategy.Resume();
-          }
+          executionStrategy.Start();
         }
         Stop();
       }
+      System.Threading.Thread.Sleep(1);
     }
   }
 }

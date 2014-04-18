@@ -51,7 +51,7 @@ namespace AgentGUI
         this.Invoke(new updateMessagesCallback(displayMessage), message);
     }
 
-     TreeNode agentInfoNode = new TreeNode("Agent Info");
+    TreeNode agentInfoNode = new TreeNode("Agent Info");
 
     private void createAgentTreeView()
     {
@@ -60,19 +60,18 @@ namespace AgentGUI
       TreeNodeCollection nodes = agentTreeView.Nodes;
 
       nodes.Clear();
-     
+
       // Agent Info
       agentInfoNode.Nodes.Add("Type", "Type: ");
       agentInfoNode.Nodes.Add("EndPoint", "EndPoint: ");
       agentInfoNode.Nodes.Add("ANumber", "ANumber: ");
-      agentInfoNode.Nodes.Add("FirstName", "ANumber: ");
-      agentInfoNode.Nodes.Add("LastName", "ANumber: ");
-      agentInfoNode.Nodes.Add("AgentId", "ANumber: ");
-      agentInfoNode.Nodes.Add("Status", "ANumber: ");
-      agentInfoNode.Nodes.Add("Location", "ANumber: ");
-      agentInfoNode.Nodes.Add("Points", "ANumber: ");
-      agentInfoNode.Nodes.Add("Strenght", "ANumber: ");
-      agentInfoNode.Nodes.Add("Speed", "ANumber: ");
+      agentInfoNode.Nodes.Add("Name", "Name: ");
+      agentInfoNode.Nodes.Add("AgentId", "AgentId: ");
+      agentInfoNode.Nodes.Add("Status", "Status: ");
+      agentInfoNode.Nodes.Add("Location", "Location: ");
+      agentInfoNode.Nodes.Add("Points", "Points: ");
+      agentInfoNode.Nodes.Add("Strength", "Strength: ");
+      agentInfoNode.Nodes.Add("Speed", "Speed: ");
       nodes.Add(agentInfoNode);
 
       agentTreeView.EndUpdate();
@@ -86,21 +85,16 @@ namespace AgentGUI
 
       TreeNodeCollection items = agentInfoNode.Nodes;
 
-      //items["type"].Name = "Type: " +agentInfo.AgentType.ToString();        
-      //if (agentInfo.CommunicationEndPoint != null) items.Add("EndPoint: " +agentInfo.CommunicationEndPoint.ToString());
-      //if (agentInfo.ANumber != null) items.Add("A Number: " +agentInfo.ANumber);
-      //if (agentInfo.FirstName != null && agentInfo.LastName != null)
-      //  items.Add(agentInfo.FirstName + " " + agentInfo.LastName;
-
-      //agentId.Text = agentInfo.Id.ToString();
-      //agentStatus.Text = agentInfo.AgentStatus.ToString();
-
-      //if (agentInfo.Location != null)
-      //  location.Text = agentInfo.Location.ToString();
-      //points.Text = agentInfo.Points.ToString();
-
-      //strength.Text = agentInfo.Strength.ToString();
-      //speed.Text = agentInfo.Speed.ToString();
+      if (items["Type"] != null) items["Type"].Text = "Type: " + agentInfo.AgentType.ToString();
+      if (items["EndPoint"] != null && agentInfo.CommunicationEndPoint != null) items["EndPoint"].Text = "EndPoint: " + agentInfo.CommunicationEndPoint.ToString();
+      if (items["ANumber"] != null && agentInfo.ANumber != null) items["ANumber"].Text = "ANumber: " + agentInfo.ANumber;
+      if (items["Name"] != null && agentInfo.FirstName != null && agentInfo.LastName != null) items["Name"].Text = "Name: " + agentInfo.FirstName + " " + agentInfo.LastName;
+      if (items["AgentId"] != null) items["AgentId"].Text = "AgentId: " + agentInfo.Id.ToString();
+      if (items["Status"] != null) items["Status"].Text = "Status: " + agentInfo.AgentStatus.ToString();
+      if (items["Location"] != null && agentInfo.Location != null) items["Location"].Text = "Location: " + agentInfo.Location.ToString();
+      if (items["Points"] != null) items["Points"].Text = "Points: " + agentInfo.Points.ToString();
+      if (items["Strength"] != null) items["Strength"].Text = "Strength: " + agentInfo.Strength.ToString();
+      if (items["Speed"] != null) items["Speed"].Text = "Speed: " + agentInfo.Speed.ToString();
 
       agentTreeView.EndUpdate();
     }

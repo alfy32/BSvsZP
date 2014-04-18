@@ -45,10 +45,10 @@ namespace AgentCommon
     }
 
     #region Thoughts
-    protected void getResource(GetResource.PossibleResourceType resourceType)
+    public void getResource(GetResource.PossibleResourceType resourceType)
     {
       StatusMonitor.get().postDebug("I'm going to get a resource type: " + resourceType.ToString());
-      GetResource getResource = new GetResource(agent.State.AgentInfo.Id, GetResource.PossibleResourceType.GameConfiguration);
+      GetResource getResource = new GetResource(agent.State.AgentInfo.Id, resourceType);
 
       Envelope envelope = new Envelope(getResource, agent.State.GameEndPoint);
       ExecutionStrategy.StartConversation(envelope, agent);

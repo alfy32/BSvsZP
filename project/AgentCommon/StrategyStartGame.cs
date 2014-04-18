@@ -42,13 +42,20 @@ namespace AgentCommon
           {
             StatusMonitor.get().postDebug("Recieved Proceed Message.");
             agent.State.GameEndPoint = response.endPoint;
-            
+
             AgentInfo agentInfo = agent.State.AgentInfo;
             agentInfo.AgentStatus = AgentInfo.PossibleAgentStatus.InGame;
-            
+
             agent.State.AgentInfo = agentInfo;
 
             agent.Brain.Start();
+
+            agent.Brain.getResource(GetResource.PossibleResourceType.GameConfiguration);
+            agent.Brain.getResource(GetResource.PossibleResourceType.PlayingFieldLayout);
+            agent.Brain.getResource(GetResource.PossibleResourceType.BrillianStudentList);
+            agent.Brain.getResource(GetResource.PossibleResourceType.ExcuseGeneratorList);
+            agent.Brain.getResource(GetResource.PossibleResourceType.WhiningSpinnerList);
+            agent.Brain.getResource(GetResource.PossibleResourceType.ZombieProfessorList);
           }
         }
         Stop();
