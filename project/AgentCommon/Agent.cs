@@ -26,14 +26,18 @@ namespace AgentCommon
     public AgentBrain Brain { get { return brain; } }    
     #endregion
 
+    private List<Tick> ticks = new List<Tick>();
+
     public Tick getTickFromStash()
     {
-      //TODO
-      return new Tick();
+      if (ticks.First()) { }
+      Tick tick = ticks.First();
+      ticks.Remove(tick);
+      return tick;
     }
     public void stashTick(Tick tick)
     {
-      //TODO
+      ticks.Add(tick);
     }
 
     #region Constructors

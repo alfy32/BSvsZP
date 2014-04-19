@@ -53,6 +53,14 @@ namespace AgentCommon
       Envelope envelope = new Envelope(getResource, agent.State.GameEndPoint);
       ExecutionStrategy.StartConversation(envelope, agent);
     }
+
+    public void move(FieldLocation toLocation)
+    {
+      StatusMonitor.get().postDebug("Moving to: " + toLocation.ToString());
+
+      Move move = new Move(agent.State.AgentInfo.Id, toLocation, agent.getTickFromStash());
+      Envelope envelope = new Envelope(move, agent.State.GameEndPoint);
+    }
     #endregion
   }
 }

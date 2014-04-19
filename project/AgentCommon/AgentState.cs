@@ -16,10 +16,12 @@ namespace AgentCommon
 
     #region Delegates and Events
     public delegate void AgentInfoMethod(AgentInfo param);
+    public delegate void AgentListMethod(AgentList param);
     public delegate void IntMethod(int param);
     public delegate void StringMethod(string param);
 
     public event AgentInfoMethod updateAgentInfoEvent;
+    public event AgentListMethod updateAgentListEvent;
     #endregion
 
     #region Constructors
@@ -45,7 +47,8 @@ namespace AgentCommon
     public EndPoint GameEndPoint { get; set; }
     public GameConfiguration GameConfiguration { get; set; }
     public PlayingFieldLayout PlayingFieldLayout { get; set; }
-    public AgentList BrilliantStudentList { get; set; }
+    private AgentList brilliantStudentList = new AgentList();
+    public AgentList BrilliantStudentList { get { return brilliantStudentList; } set { brilliantStudentList = value; if (updateAgentListEvent != null) updateAgentListEvent(value); } }
     public AgentList ExcuseGeneratorList { get; set; }
     public AgentList WhiningSpinnerList { get; set; }
     public AgentList ZombieProfessorList { get; set; }

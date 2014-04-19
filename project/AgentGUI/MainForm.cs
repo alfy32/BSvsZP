@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using AgentCommon;
+using Messages;
 using Common;
 
 namespace AgentGUI
@@ -29,6 +30,7 @@ namespace AgentGUI
 
       StatusMonitor.get().debugMessageEvent += new StatusMonitor.StringMethod(updateMessages);
       agent.State.updateAgentInfoEvent += new AgentState.AgentInfoMethod(updateAgentInfo);
+      agent.State.updateAgentListEvent += new AgentState.AgentListMethod(updateBSList);
 
       createAgentTreeView();
       GameInfo gameInfo = gameRegistry.getGameByLabel(gameLabel);
@@ -51,7 +53,13 @@ namespace AgentGUI
         this.Invoke(new updateMessagesCallback(displayMessage), message);
     }
 
+    private void updateBSList(AgentList agentList)
+    {
+      this.Invoke(new updateBSListCallBack(updateBrilliantStudentTreeView), agentList);
+    }
+
     TreeNode agentInfoNode = new TreeNode("Agent Info");
+    TreeNode brilliantNode = new TreeNode("Brilliant Students");
 
     private void createAgentTreeView()
     {
@@ -74,6 +82,9 @@ namespace AgentGUI
       agentInfoNode.Nodes.Add("Speed", "Speed: ");
       nodes.Add(agentInfoNode);
 
+      // BS list
+      agentInfoNode.Nodes.Add(brilliantNode);
+
       agentTreeView.EndUpdate();
     }
 
@@ -95,6 +106,31 @@ namespace AgentGUI
       if (items["Points"] != null) items["Points"].Text = "Points: " + agentInfo.Points.ToString();
       if (items["Strength"] != null) items["Strength"].Text = "Strength: " + agentInfo.Strength.ToString();
       if (items["Speed"] != null) items["Speed"].Text = "Speed: " + agentInfo.Speed.ToString();
+
+      agentTreeView.EndUpdate();
+    }
+    private void updateBrilliantStudentTreeView(AgentList agentList)
+    {
+      agentTreeView.BeginUpdate();
+
+      TreeNodeCollection brilliantNodes = brilliantNode.Nodes;
+
+      foreach(AgentInfo agentInfo in agentList) {
+        TreeNode treeNode = new TreeNode("Brilliant Student ID: " + agentInfo.Id.ToString());
+
+        treeNode.Nodes.Add("Type", "Type: " + agentInfo.AgentType.ToString());
+        if ( agentInfo.CommunicationEndPoint != null) treeNode.Nodes.Add("EndPoint", "EndPoint: " + agentInfo.CommunicationEndPoint.ToString());
+        if ( agentInfo.ANumber != null) treeNode.Nodes.Add("ANumber", "ANumber: " + agentInfo.ANumber);
+        if (agentInfo.FirstName != null && agentInfo.LastName != null) treeNode.Nodes.Add("Name", "Name: " + agentInfo.FirstName + " " + agentInfo.LastName);
+        treeNode.Nodes.Add("AgentId", "AgentId: " + agentInfo.Id.ToString());
+        treeNode.Nodes.Add("Status", "Status: " + agentInfo.AgentStatus.ToString());
+        if (agentInfo.Location != null) treeNode.Nodes.Add("Location", "Location: " + agentInfo.Location.ToString());
+        treeNode.Nodes.Add("Points", "Points: " + agentInfo.Points.ToString());
+        treeNode.Nodes.Add("Strength", "Strength: " + agentInfo.Strength.ToString());
+        treeNode.Nodes.Add("Speed", "Speed: " + agentInfo.Speed.ToString());
+
+        brilliantNode.Nodes.Add(treeNode);
+      }     
 
       agentTreeView.EndUpdate();
     }
@@ -132,6 +168,7 @@ namespace AgentGUI
     #endregion
 
     #region Delegates
+    public delegate void updateBSListCallBack(AgentList agentList);
     public delegate void updateAgentInfoCallback(AgentInfo param);
     public delegate void updateMessagesCallback(string message);
     #endregion
@@ -142,5 +179,41 @@ namespace AgentGUI
       System.Environment.Exit(0);
     }
     #endregion
+
+    private void getStudents_Click(object sender, EventArgs e)
+    {
+      agent.Brain.getResource(GetResource.PossibleResourceType.BrillianStudentList);
+    }
+
+    private void getExcuses_Click(object sender, EventArgs e)
+    {
+      agent.Brain.getResource(GetResource.PossibleResourceType.ExcuseGeneratorList);
+    }
+
+    private void getZombies_Click(object sender, EventArgs e)
+    {
+      agent.Brain.getResource(GetResource.PossibleResourceType.ZombieProfessorList);
+    }
+
+    private void getWhiners_Click(object sender, EventArgs e)
+    {
+      agent.Brain.getResource(GetResource.PossibleResourceType.WhiningSpinnerList);
+    }
+
+    private void getField_Click(object sender, EventArgs e)
+    {
+      agent.Brain.getResource(GetResource.PossibleResourceType.PlayingFieldLayout);
+    }
+
+    private void move_Click(object sender, EventArgs e)
+    {
+      // check that x and y are numbers
+      if(moveToX.Text != "" && moveToY.Text != "") return;
+
+      short x = short.Parse(moveToX.Text);
+      short y = short.Parse(moveToY.Text);
+
+      agent.Brain.move(new FieldLocation(x,y));
+    }
   }
 }

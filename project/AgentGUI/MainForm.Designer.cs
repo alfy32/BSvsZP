@@ -51,6 +51,16 @@
       this.label1 = new System.Windows.Forms.Label();
       this.messageBox = new System.Windows.Forms.ListBox();
       this.agentTreeView = new System.Windows.Forms.TreeView();
+      this.getStudents = new System.Windows.Forms.Button();
+      this.getExcuses = new System.Windows.Forms.Button();
+      this.getZombies = new System.Windows.Forms.Button();
+      this.getWhiners = new System.Windows.Forms.Button();
+      this.getField = new System.Windows.Forms.Button();
+      this.move = new System.Windows.Forms.Button();
+      this.moveToX = new System.Windows.Forms.TextBox();
+      this.moveToY = new System.Windows.Forms.TextBox();
+      this.label9 = new System.Windows.Forms.Label();
+      this.label11 = new System.Windows.Forms.Label();
       this.groupBox1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -278,11 +288,113 @@
       this.agentTreeView.Size = new System.Drawing.Size(348, 414);
       this.agentTreeView.TabIndex = 2;
       // 
+      // getStudents
+      // 
+      this.getStudents.Location = new System.Drawing.Point(12, 432);
+      this.getStudents.Name = "getStudents";
+      this.getStudents.Size = new System.Drawing.Size(99, 23);
+      this.getStudents.TabIndex = 3;
+      this.getStudents.Text = "Get Students";
+      this.getStudents.UseVisualStyleBackColor = true;
+      this.getStudents.Click += new System.EventHandler(this.getStudents_Click);
+      // 
+      // getExcuses
+      // 
+      this.getExcuses.Location = new System.Drawing.Point(119, 432);
+      this.getExcuses.Name = "getExcuses";
+      this.getExcuses.Size = new System.Drawing.Size(99, 23);
+      this.getExcuses.TabIndex = 4;
+      this.getExcuses.Text = "Get Excuses";
+      this.getExcuses.UseVisualStyleBackColor = true;
+      this.getExcuses.Click += new System.EventHandler(this.getExcuses_Click);
+      // 
+      // getZombies
+      // 
+      this.getZombies.Location = new System.Drawing.Point(224, 432);
+      this.getZombies.Name = "getZombies";
+      this.getZombies.Size = new System.Drawing.Size(99, 23);
+      this.getZombies.TabIndex = 5;
+      this.getZombies.Text = "Get Zombies";
+      this.getZombies.UseVisualStyleBackColor = true;
+      this.getZombies.Click += new System.EventHandler(this.getZombies_Click);
+      // 
+      // getWhiners
+      // 
+      this.getWhiners.Location = new System.Drawing.Point(329, 432);
+      this.getWhiners.Name = "getWhiners";
+      this.getWhiners.Size = new System.Drawing.Size(99, 23);
+      this.getWhiners.TabIndex = 6;
+      this.getWhiners.Text = "Get Whiners";
+      this.getWhiners.UseVisualStyleBackColor = true;
+      this.getWhiners.Click += new System.EventHandler(this.getWhiners_Click);
+      // 
+      // getField
+      // 
+      this.getField.Location = new System.Drawing.Point(434, 432);
+      this.getField.Name = "getField";
+      this.getField.Size = new System.Drawing.Size(99, 23);
+      this.getField.TabIndex = 7;
+      this.getField.Text = "Get Field";
+      this.getField.UseVisualStyleBackColor = true;
+      this.getField.Click += new System.EventHandler(this.getField_Click);
+      // 
+      // move
+      // 
+      this.move.Location = new System.Drawing.Point(539, 432);
+      this.move.Name = "move";
+      this.move.Size = new System.Drawing.Size(99, 23);
+      this.move.TabIndex = 8;
+      this.move.Text = "Move";
+      this.move.UseVisualStyleBackColor = true;
+      this.move.Click += new System.EventHandler(this.move_Click);
+      // 
+      // moveToX
+      // 
+      this.moveToX.Location = new System.Drawing.Point(656, 434);
+      this.moveToX.Name = "moveToX";
+      this.moveToX.Size = new System.Drawing.Size(31, 20);
+      this.moveToX.TabIndex = 9;
+      // 
+      // moveToY
+      // 
+      this.moveToY.Location = new System.Drawing.Point(705, 434);
+      this.moveToY.Name = "moveToY";
+      this.moveToY.Size = new System.Drawing.Size(31, 20);
+      this.moveToY.TabIndex = 10;
+      // 
+      // label9
+      // 
+      this.label9.AutoSize = true;
+      this.label9.Location = new System.Drawing.Point(644, 437);
+      this.label9.Name = "label9";
+      this.label9.Size = new System.Drawing.Size(15, 13);
+      this.label9.TabIndex = 11;
+      this.label9.Text = "x:";
+      // 
+      // label11
+      // 
+      this.label11.AutoSize = true;
+      this.label11.Location = new System.Drawing.Point(693, 437);
+      this.label11.Name = "label11";
+      this.label11.Size = new System.Drawing.Size(15, 13);
+      this.label11.TabIndex = 12;
+      this.label11.Text = "y:";
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(830, 438);
+      this.ClientSize = new System.Drawing.Size(830, 463);
+      this.Controls.Add(this.label11);
+      this.Controls.Add(this.label9);
+      this.Controls.Add(this.moveToY);
+      this.Controls.Add(this.moveToX);
+      this.Controls.Add(this.move);
+      this.Controls.Add(this.getField);
+      this.Controls.Add(this.getWhiners);
+      this.Controls.Add(this.getZombies);
+      this.Controls.Add(this.getExcuses);
+      this.Controls.Add(this.getStudents);
       this.Controls.Add(this.agentTreeView);
       this.Controls.Add(this.messageBox);
       this.Controls.Add(this.groupBox1);
@@ -292,6 +404,7 @@
       this.groupBox1.ResumeLayout(false);
       this.groupBox1.PerformLayout();
       this.ResumeLayout(false);
+      this.PerformLayout();
 
     }
 
@@ -320,5 +433,15 @@
     private System.Windows.Forms.Label strength;
     private System.Windows.Forms.Label label12;
     private System.Windows.Forms.TreeView agentTreeView;
+    private System.Windows.Forms.Button getStudents;
+    private System.Windows.Forms.Button getExcuses;
+    private System.Windows.Forms.Button getZombies;
+    private System.Windows.Forms.Button getWhiners;
+    private System.Windows.Forms.Button getField;
+    private System.Windows.Forms.Button move;
+    private System.Windows.Forms.TextBox moveToX;
+    private System.Windows.Forms.TextBox moveToY;
+    private System.Windows.Forms.Label label9;
+    private System.Windows.Forms.Label label11;
   }
 }

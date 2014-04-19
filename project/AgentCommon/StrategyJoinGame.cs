@@ -50,7 +50,7 @@ namespace AgentCommon
 
           statusMonitor.postDebug("Sending join game ack...");
           AckNak ack = new AckNak(Reply.PossibleStatus.Success);
-          ack.ConversationId.SeqNumber = envelope.message.ConversationId.SeqNumber;
+          ack.ConversationId = envelope.message.ConversationId;
           agent.Communicator.Send(new Envelope(ack, envelope.endPoint));
         }
         else
