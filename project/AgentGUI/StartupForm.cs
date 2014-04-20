@@ -55,10 +55,13 @@ namespace AgentGUI
         agentInfo.AgentType = AgentInfo.PossibleAgentType.WhiningSpinner;
       }
 
-      MainForm mainForm = new MainForm(agent, availableGames.SelectedItem.ToString());
+      string gameLabel = availableGames.SelectedItem.ToString();
+      if (gameLabel == null) Environment.Exit(1);
+
+      AgentForm agentForm = new AgentForm(agent, gameLabel);
       Hide();
-      mainForm.Show();
-      mainForm.FormClosed += new FormClosedEventHandler(this.quit_Click);
+      agentForm.Show();
+      agentForm.FormClosed += new FormClosedEventHandler(this.quit_Click);
 
       agent.State.AgentInfo = agentInfo;
     }

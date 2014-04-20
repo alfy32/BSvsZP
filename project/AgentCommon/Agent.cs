@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,18 +27,22 @@ namespace AgentCommon
     public AgentBrain Brain { get { return brain; } }    
     #endregion
 
-    private List<Tick> ticks = new List<Tick>();
+    private ConcurrentQueue<Tick> ticks = new ConcurrentQueue<Tick>();
 
     public Tick getTickFromStash()
     {
-      if (ticks.First()) { }
-      Tick tick = ticks.First();
-      ticks.Remove(tick);
+      Tick tick;
+      while(!ticks.TryDequeue(out tick));
       return tick;
     }
     public void stashTick(Tick tick)
     {
-      ticks.Add(tick);
+      ticks.Enqueue(tick);
+      if (ticks.Count > 5)
+      {
+        Tick tempTick;
+        while (!ticks.TryDequeue(out tempTick)) ;
+      }
     }
 
     #region Constructors

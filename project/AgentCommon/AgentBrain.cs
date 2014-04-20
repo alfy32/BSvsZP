@@ -58,8 +58,13 @@ namespace AgentCommon
     {
       StatusMonitor.get().postDebug("Moving to: " + toLocation.ToString());
 
-      Move move = new Move(agent.State.AgentInfo.Id, toLocation, agent.getTickFromStash());
+      Tick tick = agent.getTickFromStash();
+      StatusMonitor.get().postDebug("Is my tick valid: " + tick.IsValid);
+      bool valid = tick.IsValid;
+
+      Move move = new Move(tick.ForAgentId, toLocation, tick);
       Envelope envelope = new Envelope(move, agent.State.GameEndPoint);
+      ExecutionStrategy.StartConversation(envelope, agent);
     }
     #endregion
   }
