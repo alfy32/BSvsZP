@@ -12,6 +12,11 @@ namespace AgentCommon
   {
     #region Private Members
     private AgentInfo agentInfo;
+
+    private AgentList brilliantStudentList = new AgentList();
+    private AgentList excuseGeneratorList = new AgentList();
+    private AgentList whiningSpinnerList = new AgentList();
+    private AgentList zombieProfessorList = new AgentList();
     #endregion
 
     #region Delegates and Events
@@ -47,11 +52,10 @@ namespace AgentCommon
     public EndPoint GameEndPoint { get; set; }
     public GameConfiguration GameConfiguration { get; set; }
     public PlayingFieldLayout PlayingFieldLayout { get; set; }
-    private AgentList brilliantStudentList = new AgentList();
     public AgentList BrilliantStudentList { get { return brilliantStudentList; } set { brilliantStudentList = value; if (updateAgentListEvent != null) updateAgentListEvent(value); } }
-    public AgentList ExcuseGeneratorList { get; set; }
-    public AgentList WhiningSpinnerList { get; set; }
-    public AgentList ZombieProfessorList { get; set; }
+    public AgentList ExcuseGeneratorList { get { return excuseGeneratorList; } set { excuseGeneratorList = value; if (updateAgentListEvent != null) updateAgentListEvent(value); } }
+    public AgentList WhiningSpinnerList { get { return whiningSpinnerList; } set { whiningSpinnerList = value; if (updateAgentListEvent != null) updateAgentListEvent(value); } }
+    public AgentList ZombieProfessorList { get { return zombieProfessorList; } set { zombieProfessorList = value; if (updateAgentListEvent != null) updateAgentListEvent(value); } }
     public AgentInfo AgentInfo { 
       get { return agentInfo; } 
       set { 

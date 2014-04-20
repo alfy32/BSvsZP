@@ -30,7 +30,7 @@ namespace AgentGUI
 
       StatusMonitor.get().debugMessageEvent += new StatusMonitor.StringMethod(updateMessages);
       agent.State.updateAgentInfoEvent += new AgentState.AgentInfoMethod(updateAgentInfo);
-      agent.State.updateAgentListEvent += new AgentState.AgentListMethod(updateBSList);
+      agent.State.updateAgentListEvent += new AgentState.AgentListMethod(updateAgentList);
 
       createAgentTreeView();
       GameInfo gameInfo = gameRegistry.getGameByLabel(gameLabel);
@@ -56,13 +56,40 @@ namespace AgentGUI
         this.Invoke(new updateMessagesCallback(displayMessage), message);
     }
 
-    private void updateBSList(AgentList agentList)
+    private void updateAgentList(AgentList agentList)
     {
-      this.Invoke(new updateBSListCallBack(updateBrilliantStudentTreeView), agentList);
+      if (agentList.Count > 0)
+      {
+        AgentInfo agentInfo = agentList.First();
+        switch (agentInfo.AgentType)
+        {
+          case AgentInfo.PossibleAgentType.BrilliantStudent:
+            this.Invoke(new updateAgentListCallBack(updateBrilliantStudentTreeView), agentList);
+            break;
+          case AgentInfo.PossibleAgentType.ExcuseGenerator:
+            this.Invoke(new updateAgentListCallBack(updateExcuseGeneratorTreeView), agentList);
+            break;
+          case AgentInfo.PossibleAgentType.WhiningSpinner:
+            this.Invoke(new updateAgentListCallBack(updateWhiningSpinnerTreeView), agentList);
+            break;
+          case AgentInfo.PossibleAgentType.ZombieProfessor:
+            this.Invoke(new updateAgentListCallBack(updateZombieProfessorTreeView), agentList);
+            break;
+        }
+      }
+      else
+      {
+        StatusMonitor.get().postDebug("Can't Update agents. The list is empty");
+      }
     }
+
 
     TreeNode agentInfoNode = new TreeNode("Agent Info");
     TreeNode brilliantNode = new TreeNode("Brilliant Students");
+    TreeNode excuseNode = new TreeNode("Excuse Generators");
+    TreeNode whineNode = new TreeNode("Whining Spinners");
+    TreeNode zombieNode = new TreeNode("Zombie Professors");
+
 
     private void createAgentTreeView()
     {
@@ -87,6 +114,9 @@ namespace AgentGUI
 
       // BS list
       nodes.Add(brilliantNode);
+      nodes.Add(excuseNode);
+      nodes.Add(whineNode);
+      nodes.Add(zombieNode);
 
       agentTreeView.EndUpdate();
     }
@@ -117,9 +147,26 @@ namespace AgentGUI
       addAgentListToTreeNode(brilliantNode, agentList);
     }
 
+    private void updateExcuseGeneratorTreeView(AgentList agentList)
+    {
+      addAgentListToTreeNode(excuseNode, agentList);
+    }
+
+    private void updateWhiningSpinnerTreeView(AgentList agentList)
+    {
+      addAgentListToTreeNode(whineNode, agentList);
+    }
+
+    private void updateZombieProfessorTreeView(AgentList agentList)
+    {
+      addAgentListToTreeNode(zombieNode, agentList);
+    }
+
     private void addAgentListToTreeNode(TreeNode treeNode, AgentList agentList)
     {
       agentTreeView.BeginUpdate();
+
+      treeNode.Nodes.Clear();
 
       foreach (AgentInfo agentInfo in agentList)
       {
@@ -175,7 +222,7 @@ namespace AgentGUI
     #endregion
 
     #region Delegates
-    public delegate void updateBSListCallBack(AgentList agentList);
+    public delegate void updateAgentListCallBack(AgentList agentList);
     public delegate void updateAgentInfoCallback(AgentInfo param);
     public delegate void updateMessagesCallback(string message);
     #endregion
