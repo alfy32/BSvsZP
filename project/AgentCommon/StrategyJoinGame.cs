@@ -39,6 +39,7 @@ namespace AgentCommon
         envelope = messageQueue.pop();
         AckNak ackNak = (AckNak)envelope.message;
         statusMonitor.postDebug("Recieved AckNack message");
+        agent.State.GameEndPoint = envelope.endPoint;
 
         if (ackNak.Status == Reply.PossibleStatus.Success)
         {
@@ -52,6 +53,8 @@ namespace AgentCommon
           AckNak ack = new AckNak(Reply.PossibleStatus.Success);
           ack.ConversationId = envelope.message.ConversationId;
           agent.Communicator.Send(new Envelope(ack, envelope.endPoint));
+
+          agent.Brain.getResource(GetResource.PossibleResourceType.GameConfiguration);
         }
         else
         {

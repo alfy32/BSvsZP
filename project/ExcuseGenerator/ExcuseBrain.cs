@@ -8,7 +8,7 @@ using AgentCommon;
 
 namespace ExcuseGenerator
 {
-  class ExcuseBrain : AgentBrain
+  public class ExcuseBrain : AgentBrain
   {
     public ExcuseBrain(Agent agent) : base(agent) { }
     protected override void Think()

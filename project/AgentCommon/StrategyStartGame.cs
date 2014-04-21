@@ -41,7 +41,6 @@ namespace AgentCommon
           if (response.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AckNak)
           {
             StatusMonitor.get().postDebug("Recieved Proceed Message.");
-            agent.State.GameEndPoint = response.endPoint;
 
             AgentInfo agentInfo = agent.State.AgentInfo;
             agentInfo.AgentStatus = AgentInfo.PossibleAgentStatus.InGame;
@@ -50,7 +49,7 @@ namespace AgentCommon
 
             agent.Brain.Start();
 
-            agent.Brain.getResource(GetResource.PossibleResourceType.GameConfiguration);
+            //agent.Brain.getResource(GetResource.PossibleResourceType.GameConfiguration);
             //agent.Brain.getResource(GetResource.PossibleResourceType.PlayingFieldLayout);
             //agent.Brain.getResource(GetResource.PossibleResourceType.BrillianStudentList);
             //agent.Brain.getResource(GetResource.PossibleResourceType.ExcuseGeneratorList);

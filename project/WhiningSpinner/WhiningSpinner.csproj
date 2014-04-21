@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="StrategyGetWhiningTwine.cs" />
     <Compile Include="WhiningBrain.cs" />
     <Compile Include="WhiningSpinner.cs" />
     <Compile Include="Program.cs" />

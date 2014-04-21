@@ -56,7 +56,7 @@ namespace AgentCommon
           sendMessage(envelope);
 
           while (!messageQueue.hasItems())
-            System.Threading.Thread.Sleep(1);
+            System.Threading.Thread.Sleep(10);
 
           handleResponse(messageQueue.pop());
         }

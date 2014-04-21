@@ -8,7 +8,7 @@ using AgentCommon;
 
 namespace WhiningSpinner
 {
-  class WhiningBrain : AgentBrain
+  public class WhiningBrain : AgentBrain
   {
     public WhiningBrain(Agent agent) : base(agent) { }
     protected override void Think()

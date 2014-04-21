@@ -17,6 +17,11 @@ namespace WhiningSpinner
     {
       brain = new WhiningBrain(this);
       state = new AgentState(AgentInfo.PossibleAgentType.WhiningSpinner);
+
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetResource + 1000 * (int)GetResource.PossibleResourceType.WhiningTwine, typeof(StrategyGetWhiningTwine));
     }
+
+    public bool TwineAvailable() { return false; }
+    public WhiningTwine getWhine() { return new WhiningTwine(); }
   }
 }

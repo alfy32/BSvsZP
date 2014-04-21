@@ -8,10 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using AgentCommon;
 using Messages;
 using Common;
 
-namespace AgentCommon
+namespace AgentGUI
 {
   public partial class AgentForm : Form
   {

@@ -1,4 +1,4 @@
-﻿namespace AgentCommon
+﻿namespace AgentGUI
 {
   partial class AgentForm
   {

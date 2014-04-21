@@ -20,34 +20,6 @@ namespace BrilliantStudent
       this.agent = agent;
     }
 
-    private void sendMessage(Envelope envelope)
-    {
-      GetResource getResource = (GetResource)envelope.message;
-      getResource.GameId = agent.State.AgentInfo.Id;
-      getResource.EnablingTick = agent.getTickFromStash();
-
-      StatusMonitor.get().postDebug("Sent Get " + getResource.GetResourceType.ToString() + " Message.");
-      agent.Communicator.Send(envelope);
-    }
-
-    private void handleResponse(Envelope envelope)
-    {
-      if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.ResourceReply)
-      {
-        ResourceReply reply = (ResourceReply)envelope.message;
-        if (reply.Status == Reply.PossibleStatus.Success)
-        {
-          StatusMonitor.get().postDebug("Recieved resource reply");
-          Excuse excuse = (Excuse)reply.Resource;
-
-          //TODO: save info on agent
-        }
-        else
-        {
-          StatusMonitor.get().postDebug("Failed to get resource");
-        }
-      }
-    }
     protected override void Execute()
     {
       if (messageQueue.hasItems())
@@ -55,12 +27,29 @@ namespace BrilliantStudent
         Envelope envelope = messageQueue.pop();
         if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.GetResource)
         {
-          sendMessage(envelope);
+          StatusMonitor.get().postDebug("Getting Excuse...");
+          agent.Communicator.Send(envelope);
 
           while (!messageQueue.hasItems())
-            System.Threading.Thread.Sleep(10);
+            System.Threading.Thread.Sleep(1);
 
-          handleResponse(messageQueue.pop());
+          Envelope response = messageQueue.pop();
+
+          if (response.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.ResourceReply)
+          {
+            ResourceReply reply = (ResourceReply)response.message;
+            if (reply.Status == Reply.PossibleStatus.Success)
+            {
+              StatusMonitor.get().postDebug("Recieved excuse");
+              Excuse excuse = (Excuse)reply.Resource;
+
+              ((BrilliantBrain)agent.Brain).gotExcuse(excuse);
+            }
+            else
+            {
+              StatusMonitor.get().postDebug("Failed to get excuse: " + reply.Note);
+            }
+          }
         }
         Stop();
       }
