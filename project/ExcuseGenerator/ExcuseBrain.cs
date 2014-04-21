@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using AgentCommon;
+using Messages;
+using Common;
 
 namespace ExcuseGenerator
 {
@@ -18,7 +20,33 @@ namespace ExcuseGenerator
 
       statusMonitor.postDebug("I'm thinking...");
 
-      System.Threading.Thread.Sleep(2000);
+      if (agent.State != null && agent.State.GameConfiguration != null)
+      {
+        if (agent.getTickCount() < agent.State.GameConfiguration.NumberOfTicksRequiredToBuildAnExcuse)
+        {
+          //statusMonitor.postDebug("I don't have enough ticks to build an excuse. Count:" + agent.getTickCount());
+        }
+        else
+        {
+          statusMonitor.postDebug("Building an excuse...");
+
+          List<Tick> ticks = new List<Tick>();
+          for (int i = 0; i < agent.State.GameConfiguration.NumberOfTicksRequiredToBuildAnExcuse; ++i)
+          {
+            ticks.Add(agent.getTickFromStash());
+          }
+          Excuse excuse = new Excuse(agent.State.AgentInfo.Id, ticks, null);
+          ((ExcuseGenerator)agent).addExcuse(excuse);
+
+          statusMonitor.postDebug("Number of excuses: " + ((ExcuseGenerator)agent).getExcuseCount());
+        }
+
+        System.Threading.Thread.Sleep(agent.State.GameConfiguration.TickInterval * 3);
+      }
+      else
+      {
+        System.Threading.Thread.Sleep(2000);
+      }
     }
   }
 }

@@ -26,6 +26,7 @@ namespace BrilliantStudent
     public void getExcuse(EndPoint endPoint)
     {
       GetResource getResource = new GetResource(agent.State.AgentInfo.Id, GetResource.PossibleResourceType.Excuse);
+      getResource.EnablingTick = agent.getTickFromStash();
       Envelope envelope = new Envelope(getResource, endPoint);
       ExecutionStrategy.StartConversation(envelope, agent);
     }

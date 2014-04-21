@@ -29,6 +29,8 @@
     private void InitializeComponent()
     {
       this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.tickCount = new System.Windows.Forms.Label();
+      this.label11 = new System.Windows.Forms.Label();
       this.label10 = new System.Windows.Forms.Label();
       this.speed = new System.Windows.Forms.Label();
       this.strength = new System.Windows.Forms.Label();
@@ -51,13 +53,15 @@
       this.label1 = new System.Windows.Forms.Label();
       this.messageBox = new System.Windows.Forms.ListBox();
       this.agentTreeView = new System.Windows.Forms.TreeView();
-      this.tickCount = new System.Windows.Forms.Label();
-      this.label11 = new System.Windows.Forms.Label();
+      this.excuseCount = new System.Windows.Forms.Label();
+      this.excuseCountLabel = new System.Windows.Forms.Label();
       this.groupBox1.SuspendLayout();
       this.SuspendLayout();
       // 
       // groupBox1
       // 
+      this.groupBox1.Controls.Add(this.excuseCount);
+      this.groupBox1.Controls.Add(this.excuseCountLabel);
       this.groupBox1.Controls.Add(this.tickCount);
       this.groupBox1.Controls.Add(this.label11);
       this.groupBox1.Controls.Add(this.label10);
@@ -86,6 +90,24 @@
       this.groupBox1.TabIndex = 0;
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "Agent Info";
+      // 
+      // tickCount
+      // 
+      this.tickCount.AutoSize = true;
+      this.tickCount.Location = new System.Drawing.Point(82, 107);
+      this.tickCount.Name = "tickCount";
+      this.tickCount.Size = new System.Drawing.Size(72, 13);
+      this.tickCount.TabIndex = 21;
+      this.tickCount.Text = "TICK COUNT";
+      // 
+      // label11
+      // 
+      this.label11.AutoSize = true;
+      this.label11.Location = new System.Drawing.Point(39, 107);
+      this.label11.Name = "label11";
+      this.label11.Size = new System.Drawing.Size(36, 13);
+      this.label11.TabIndex = 20;
+      this.label11.Text = "Ticks:";
       // 
       // label10
       // 
@@ -282,23 +304,23 @@
       this.agentTreeView.Size = new System.Drawing.Size(231, 414);
       this.agentTreeView.TabIndex = 2;
       // 
-      // tickCount
+      // excuseCount
       // 
-      this.tickCount.AutoSize = true;
-      this.tickCount.Location = new System.Drawing.Point(82, 107);
-      this.tickCount.Name = "tickCount";
-      this.tickCount.Size = new System.Drawing.Size(72, 13);
-      this.tickCount.TabIndex = 21;
-      this.tickCount.Text = "TICK COUNT";
+      this.excuseCount.AutoSize = true;
+      this.excuseCount.Location = new System.Drawing.Point(261, 107);
+      this.excuseCount.Name = "excuseCount";
+      this.excuseCount.Size = new System.Drawing.Size(91, 13);
+      this.excuseCount.TabIndex = 23;
+      this.excuseCount.Text = "EXCUSE COUNT";
       // 
-      // label11
+      // excuseCountLabel
       // 
-      this.label11.AutoSize = true;
-      this.label11.Location = new System.Drawing.Point(39, 107);
-      this.label11.Name = "label11";
-      this.label11.Size = new System.Drawing.Size(36, 13);
-      this.label11.TabIndex = 20;
-      this.label11.Text = "Ticks:";
+      this.excuseCountLabel.AutoSize = true;
+      this.excuseCountLabel.Location = new System.Drawing.Point(207, 107);
+      this.excuseCountLabel.Name = "excuseCountLabel";
+      this.excuseCountLabel.Size = new System.Drawing.Size(50, 13);
+      this.excuseCountLabel.TabIndex = 22;
+      this.excuseCountLabel.Text = "Excuses:";
       // 
       // AgentForm
       // 
@@ -344,5 +366,7 @@
     private System.Windows.Forms.TreeView agentTreeView;
     private System.Windows.Forms.Label tickCount;
     private System.Windows.Forms.Label label11;
+    private System.Windows.Forms.Label excuseCount;
+    private System.Windows.Forms.Label excuseCountLabel;
   }
 }

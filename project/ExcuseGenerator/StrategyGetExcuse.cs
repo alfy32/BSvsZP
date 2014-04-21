@@ -41,16 +41,17 @@ namespace ExcuseGenerator
 
           ResourceReply resourceReply = null;
 
-          if (getResource.EnablingTick.IsValid && generator.ExcuseAvailable())
+          if (getResource.EnablingTick != null && generator.ExcuseAvailable())
           {
             Excuse excuse = generator.getExcuse();
+            excuse.RequestTick = getResource.EnablingTick;
             resourceReply = new ResourceReply(Reply.PossibleStatus.Success, excuse);
             
           }
-          else if (!getResource.EnablingTick.IsValid)
+          else if (getResource.EnablingTick == null)
           {
-            StatusMonitor.get().postDebug("Agent at " + envelope.endPoint + " gave me an invalid tick!");
-            resourceReply = new ResourceReply(Reply.PossibleStatus.Failure, null, "Your tick was invalid. Bad Agent!");
+            StatusMonitor.get().postDebug("Agent at " + envelope.endPoint + " didn't give me a tick!");
+            resourceReply = new ResourceReply(Reply.PossibleStatus.Failure, null, "Your enabling tick was null. Bad Agent!");
           }
           else
           {

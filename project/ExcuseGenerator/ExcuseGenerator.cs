@@ -35,6 +35,15 @@ namespace ExcuseGenerator
         return null;
       }
     }
+    public void addExcuse(Excuse excuse)
+    {
+      excuses.Enqueue(excuse);
+      //if (resourceCountEvent != null) resourceCountEvent(getExcuseCount());
+    }
+    public int getExcuseCount()
+    {
+      return excuses.Count;
+    }
     #endregion
 
     #region Constructor

@@ -38,6 +38,7 @@ namespace AgentGUI
       agent.State.updateAgentInfoEvent += new AgentState.AgentInfoMethod(updateAgentInfo);
       agent.State.updateAgentListEvent += new AgentState.AgentListMethod(updateAgentList);
       agent.tickCountEvent += new Agent.IntMethod(updateTicks);
+      agent.resourceCountEvent += new Agent.IntMethod(updateResource);
 
       createAgentTreeView();
       GameInfo gameInfo = gameRegistry.getGameByLabel(gameLabel);
@@ -62,13 +63,12 @@ namespace AgentGUI
     public void updateAgentInfo(AgentInfo agentInfo) { this.Invoke(new AgentInfoDelegate(updateAgentTreeView), agentInfo); }
     public void updateTicks(int count) { this.Invoke(new StringDelegate(updateTickCount), count.ToString()); }
     public void updateMessages(string message) { if (messageBox.InvokeRequired) this.Invoke(new StringDelegate(displayMessage), message); }
+    public void updateResource(int count) { this.Invoke(new StringDelegate(updateResourceCount), count.ToString()); }
     #endregion
     
     #region Update Callbacks
-    private void updateTickCount(string count)
-    {
-      tickCount.Text = count;
-    }
+    private void updateTickCount(string count) {tickCount.Text = count;}
+    private void updateResourceCount(string count) { excuseCount.Text = count; }
 
     private void updateAgentList(AgentList agentList)
     {

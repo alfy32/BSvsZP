@@ -43,6 +43,7 @@ namespace WhiningSpinner
           if (getResource.EnablingTick.IsValid && spinner.TwineAvailable())
           {
             WhiningTwine twine = spinner.getWhine();
+            twine.RequestTick = getResource.EnablingTick;
             resourceReply = new ResourceReply(Reply.PossibleStatus.Success, twine);
 
           }

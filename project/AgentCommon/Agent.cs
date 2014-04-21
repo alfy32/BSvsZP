@@ -33,6 +33,7 @@ namespace AgentCommon
     public delegate void IntMethod(int param);
 
     public event IntMethod tickCountEvent;
+    public event IntMethod resourceCountEvent;
     #endregion
 
     public Tick getTickFromStash()
@@ -55,6 +56,7 @@ namespace AgentCommon
 
       if (tickCountEvent != null) tickCountEvent(ticks.Count);
     }
+    public int getTickCount() { return ticks.Count; }
 
     #region Constructors
     public Agent(int port = -1)
@@ -62,7 +64,7 @@ namespace AgentCommon
       GameRegistry gameRegistry = new GameRegistry();
       MessageNumber.LocalProcessId = gameRegistry.getProcessId();
 
-      //ExecutionStrategy.addStrategy(Message.MESSAGE_CLASS_IDS.StartUpdateStream, typeof(StrategyStartUpdateStream));
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.StartUpdateStream, typeof(StrategyAgentUpdateStream));
       ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.ChangeStrength, typeof(StrategyChangeStrength));
       ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.Collaborate, typeof(StrategyCollaborate));
       ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.EndGame, typeof(StrategyEndGame));
