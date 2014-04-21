@@ -1,4 +1,4 @@
-﻿namespace AgentGUI
+﻿namespace AgentCommon
 {
   partial class ThoughtsForm
   {

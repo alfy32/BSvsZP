@@ -19,30 +19,41 @@ namespace AgentCommon
     private Doer doer;
     protected AgentBrain brain;
     protected AgentState state;
+    private ConcurrentQueue<Tick> ticks = new ConcurrentQueue<Tick>();
     #endregion
 
     #region Public Members
     public Communicator Communicator { get { return communicator; } }
     public AgentState State { get { return state; } set { state = value; } }
-    public AgentBrain Brain { get { return brain; } }    
+    public AgentBrain Brain { get { return brain; } }
+    public const int MAX_TICKS_TO_KEEP = 10;
     #endregion
 
-    private ConcurrentQueue<Tick> ticks = new ConcurrentQueue<Tick>();
+    #region Delegates and Events
+    public delegate void IntMethod(int param);
+
+    public event IntMethod tickCountEvent;
+    #endregion
 
     public Tick getTickFromStash()
     {
       Tick tick;
       while(!ticks.TryDequeue(out tick));
+
+      if (tickCountEvent != null) tickCountEvent(ticks.Count);
+
       return tick;
     }
     public void stashTick(Tick tick)
     {
       ticks.Enqueue(tick);
-      if (ticks.Count > 5)
+      if (ticks.Count > MAX_TICKS_TO_KEEP)
       {
         Tick tempTick;
         while (!ticks.TryDequeue(out tempTick)) ;
       }
+
+      if (tickCountEvent != null) tickCountEvent(ticks.Count);
     }
 
     #region Constructors

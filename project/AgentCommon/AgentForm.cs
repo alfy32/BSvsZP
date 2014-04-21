@@ -8,17 +8,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using AgentCommon;
 using Messages;
 using Common;
 
-namespace AgentGUI
+namespace AgentCommon
 {
   public partial class AgentForm : Form
   {
     #region Private Memebers
     private GameRegistry gameRegistry = new GameRegistry();
     private Agent agent;
+
+    TreeNode agentInfoNode = new TreeNode("Agent Info");
+    TreeNode brilliantNode = new TreeNode("Brilliant Students");
+    TreeNode excuseNode = new TreeNode("Excuse Generators");
+    TreeNode whineNode = new TreeNode("Whining Spinners");
+    TreeNode zombieNode = new TreeNode("Zombie Professors");
     #endregion
 
     #region Constructors
@@ -31,6 +36,7 @@ namespace AgentGUI
       StatusMonitor.get().debugMessageEvent += new StatusMonitor.StringMethod(updateMessages);
       agent.State.updateAgentInfoEvent += new AgentState.AgentInfoMethod(updateAgentInfo);
       agent.State.updateAgentListEvent += new AgentState.AgentListMethod(updateAgentList);
+      agent.tickCountEvent += new Agent.IntMethod(updateTicks);
 
       createAgentTreeView();
       GameInfo gameInfo = gameRegistry.getGameByLabel(gameLabel);
@@ -45,15 +51,22 @@ namespace AgentGUI
     }
     #endregion
 
+    #region Private Delegates
+    private delegate void StringDelegate(string param);
+    private delegate void AgentInfoDelegate(AgentInfo param);
+    private delegate void AgentListDelegate(AgentList param);
+    #endregion
+
+    #region Thread Callbacks
+    public void updateAgentInfo(AgentInfo agentInfo) { this.Invoke(new AgentInfoDelegate(updateAgentTreeView), agentInfo); }
+    public void updateTicks(int count) { this.Invoke(new StringDelegate(updateTickCount), count.ToString()); }
+    public void updateMessages(string message) { if (messageBox.InvokeRequired) this.Invoke(new StringDelegate(displayMessage), message); }
+    #endregion
+    
     #region Update Callbacks
-    private void updateAgentInfo(AgentInfo agentInfo)
+    private void updateTickCount(string count)
     {
-      this.Invoke(new updateAgentInfoCallback(updateAgentTreeView), agentInfo);
-    }
-    private void updateMessages(string message)
-    {
-      if (messageBox.InvokeRequired)
-        this.Invoke(new updateMessagesCallback(displayMessage), message);
+      tickCount.Text = count;
     }
 
     private void updateAgentList(AgentList agentList)
@@ -64,16 +77,16 @@ namespace AgentGUI
         switch (agentInfo.AgentType)
         {
           case AgentInfo.PossibleAgentType.BrilliantStudent:
-            this.Invoke(new updateAgentListCallBack(updateBrilliantStudentTreeView), agentList);
+            this.Invoke(new AgentListDelegate(updateBrilliantStudentTreeView), agentList);
             break;
           case AgentInfo.PossibleAgentType.ExcuseGenerator:
-            this.Invoke(new updateAgentListCallBack(updateExcuseGeneratorTreeView), agentList);
+            this.Invoke(new AgentListDelegate(updateExcuseGeneratorTreeView), agentList);
             break;
           case AgentInfo.PossibleAgentType.WhiningSpinner:
-            this.Invoke(new updateAgentListCallBack(updateWhiningSpinnerTreeView), agentList);
+            this.Invoke(new AgentListDelegate(updateWhiningSpinnerTreeView), agentList);
             break;
           case AgentInfo.PossibleAgentType.ZombieProfessor:
-            this.Invoke(new updateAgentListCallBack(updateZombieProfessorTreeView), agentList);
+            this.Invoke(new AgentListDelegate(updateZombieProfessorTreeView), agentList);
             break;
         }
       }
@@ -82,14 +95,6 @@ namespace AgentGUI
         StatusMonitor.get().postDebug("Can't Update agents. The list is empty");
       }
     }
-
-
-    TreeNode agentInfoNode = new TreeNode("Agent Info");
-    TreeNode brilliantNode = new TreeNode("Brilliant Students");
-    TreeNode excuseNode = new TreeNode("Excuse Generators");
-    TreeNode whineNode = new TreeNode("Whining Spinners");
-    TreeNode zombieNode = new TreeNode("Zombie Professors");
-
 
     private void createAgentTreeView()
     {
@@ -221,17 +226,12 @@ namespace AgentGUI
     }
     #endregion
 
-    #region Delegates
-    public delegate void updateAgentListCallBack(AgentList agentList);
-    public delegate void updateAgentInfoCallback(AgentInfo param);
-    public delegate void updateMessagesCallback(string message);
-    #endregion
-
     #region Callback Functions
     private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
     {
       System.Environment.Exit(0);
     }
     #endregion
+
   }
 }
