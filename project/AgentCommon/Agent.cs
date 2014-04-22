@@ -39,7 +39,7 @@ namespace AgentCommon
     public Tick getTickFromStash()
     {
       Tick tick;
-      while(!ticks.TryDequeue(out tick));
+      ticks.TryDequeue(out tick);
 
       if (tickCountEvent != null) tickCountEvent(ticks.Count);
 

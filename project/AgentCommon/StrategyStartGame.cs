@@ -49,12 +49,14 @@ namespace AgentCommon
 
             agent.Brain.Start();
 
-            //agent.Brain.getResource(GetResource.PossibleResourceType.GameConfiguration);
+            if(agent.State.GameConfiguration == null) agent.Brain.getResource(GetResource.PossibleResourceType.GameConfiguration);
             //agent.Brain.getResource(GetResource.PossibleResourceType.PlayingFieldLayout);
             //agent.Brain.getResource(GetResource.PossibleResourceType.BrillianStudentList);
             //agent.Brain.getResource(GetResource.PossibleResourceType.ExcuseGeneratorList);
             //agent.Brain.getResource(GetResource.PossibleResourceType.WhiningSpinnerList);
             //agent.Brain.getResource(GetResource.PossibleResourceType.ZombieProfessorList);
+
+            agent.Brain.startUpdateStream();
           }
         }
         Stop();

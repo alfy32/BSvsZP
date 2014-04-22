@@ -24,7 +24,7 @@ namespace ExcuseGenerator
       {
         if (agent.getTickCount() < agent.State.GameConfiguration.NumberOfTicksRequiredToBuildAnExcuse)
         {
-          //statusMonitor.postDebug("I don't have enough ticks to build an excuse. Count:" + agent.getTickCount());
+          statusMonitor.postDebug("I don't have enough ticks to build an excuse. Count:" + agent.getTickCount());
         }
         else
         {
@@ -41,10 +41,11 @@ namespace ExcuseGenerator
           statusMonitor.postDebug("Number of excuses: " + ((ExcuseGenerator)agent).getExcuseCount());
         }
 
-        System.Threading.Thread.Sleep(agent.State.GameConfiguration.TickInterval * 3);
+        System.Threading.Thread.Sleep(agent.State.GameConfiguration.TickInterval * 10);
       }
       else
       {
+        statusMonitor.postDebug("no configuration...");
         System.Threading.Thread.Sleep(2000);
       }
     }

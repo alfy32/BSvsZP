@@ -40,21 +40,21 @@ namespace WhiningSpinner
           WhiningSpinner spinner = (WhiningSpinner)agent;
           ResourceReply resourceReply = null;
 
-          if (getResource.EnablingTick.IsValid && spinner.TwineAvailable())
+          if (getResource.EnablingTick != null && spinner.TwineAvailable())
           {
-            WhiningTwine twine = spinner.getWhine();
+            WhiningTwine twine = spinner.getTwine();
             twine.RequestTick = getResource.EnablingTick;
             resourceReply = new ResourceReply(Reply.PossibleStatus.Success, twine);
 
           }
-          else if (!getResource.EnablingTick.IsValid)
+          else if (getResource.EnablingTick == null)
           {
-            StatusMonitor.get().postDebug("Agent at " + envelope.endPoint + " gave me an invalid tick!");
-            resourceReply = new ResourceReply(Reply.PossibleStatus.Failure, null, "Your tick was invalid. Bad Agent!");
+            StatusMonitor.get().postDebug("Agent at " + envelope.endPoint + " didn't give me a tick!");
+            resourceReply = new ResourceReply(Reply.PossibleStatus.Failure, null, "Your enabling tick was null. Bad Agent!");
           }
           else
           {
-            StatusMonitor.get().postDebug("Agent at " + envelope.endPoint + " asked for twine but I  don't have any");
+            StatusMonitor.get().postDebug("Agent at " + envelope.endPoint + " asked for twine but I don't have any");
             resourceReply = new ResourceReply(Reply.PossibleStatus.Failure, null, "No twine available.");
           }
 

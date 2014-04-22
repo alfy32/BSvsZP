@@ -25,7 +25,7 @@ namespace AgentCommon
       if (messageQueue.hasItems())
       {
         Envelope envelope = messageQueue.pop();
-        if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AckNak) // change this to StartUpdateStream
+        if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.StartUpdateStream)
         {
           agent.Communicator.Send(envelope);
           StatusMonitor.get().postDebug("Sent Start Update Stream");

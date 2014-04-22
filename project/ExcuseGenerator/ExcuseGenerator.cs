@@ -38,7 +38,7 @@ namespace ExcuseGenerator
     public void addExcuse(Excuse excuse)
     {
       excuses.Enqueue(excuse);
-      //if (resourceCountEvent != null) resourceCountEvent(getExcuseCount());
+      //if (this.resourceCountEvent != null) resourceCountEvent(getExcuseCount());
     }
     public int getExcuseCount()
     {

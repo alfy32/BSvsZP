@@ -38,7 +38,6 @@ namespace ExcuseGenerator
           }
 
           ExcuseGenerator generator = (ExcuseGenerator)agent;
-
           ResourceReply resourceReply = null;
 
           if (getResource.EnablingTick != null && generator.ExcuseAvailable())
@@ -55,7 +54,7 @@ namespace ExcuseGenerator
           }
           else
           {
-            StatusMonitor.get().postDebug("Agent at " + envelope.endPoint + " asked for an excuse but I  don't have one");
+            StatusMonitor.get().postDebug("Agent at " + envelope.endPoint + " asked for an excuse but I don't have one");
             resourceReply = new ResourceReply(Reply.PossibleStatus.Failure, null, "No excuses available.");
           }
 

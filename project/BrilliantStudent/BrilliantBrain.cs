@@ -25,15 +25,28 @@ namespace BrilliantStudent
     #region Thoughts
     public void getExcuse(EndPoint endPoint)
     {
+      Tick tick = agent.getTickFromStash();
+      if (tick == null)
+      {
+        StatusMonitor.get().postDebug("I don't have any ticks :(");
+        return;
+      }
       GetResource getResource = new GetResource(agent.State.AgentInfo.Id, GetResource.PossibleResourceType.Excuse);
-      getResource.EnablingTick = agent.getTickFromStash();
+      getResource.EnablingTick = tick;
       Envelope envelope = new Envelope(getResource, endPoint);
       ExecutionStrategy.StartConversation(envelope, agent);
     }
 
     public void getWhine(EndPoint endPoint)
     {
+      Tick tick = agent.getTickFromStash();
+      if (tick == null)
+      {
+        StatusMonitor.get().postDebug("I don't have any ticks :(");
+        return;
+      }
       GetResource getResource = new GetResource(agent.State.AgentInfo.Id, GetResource.PossibleResourceType.WhiningTwine);
+      getResource.EnablingTick = tick;
       Envelope envelope = new Envelope(getResource, endPoint);
       ExecutionStrategy.StartConversation(envelope, agent);
     }

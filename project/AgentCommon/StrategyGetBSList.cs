@@ -19,32 +19,6 @@ namespace AgentCommon
       this.agent = agent;
     }
 
-    private void sendMessage(Envelope envelope)
-    {
-      GetResource getResource = (GetResource)envelope.message;
-      getResource.GameId = agent.State.AgentInfo.Id;
-      getResource.EnablingTick = agent.getTickFromStash();
-
-      StatusMonitor.get().postDebug("Sent Get " + getResource.GetResourceType.ToString() + " Message.");
-      agent.Communicator.Send(envelope);
-    }
-
-    private void handleResponse(Envelope envelope)
-    {
-      if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AgentListReply)
-      {
-        AgentListReply reply = (AgentListReply)envelope.message;
-        if (reply.Status == Reply.PossibleStatus.Success)
-        {
-          StatusMonitor.get().postDebug("Recieved BrilliantStudentList");
-          agent.State.BrilliantStudentList = reply.Agents;
-        }
-        else
-        {
-          StatusMonitor.get().postDebug("Failed to get agentlist");
-        }
-      }
-    }
     protected override void Execute()
     {
       if (messageQueue.hasItems())
@@ -52,12 +26,27 @@ namespace AgentCommon
         Envelope envelope = messageQueue.pop();
         if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.GetResource)
         {
-          sendMessage(envelope);
+          StatusMonitor.get().postDebug("Sent Get BrilliantStudent List Message.");
+          agent.Communicator.Send(envelope);
 
           while (!messageQueue.hasItems())
             System.Threading.Thread.Sleep(10);
 
-          handleResponse(messageQueue.pop());
+          Envelope response = messageQueue.pop();
+
+          if (response.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AgentListReply)
+          {
+            AgentListReply reply = (AgentListReply)response.message;
+            if (reply.Status == Reply.PossibleStatus.Success)
+            {
+              StatusMonitor.get().postDebug("Recieved BrilliantStudentList");
+              agent.State.BrilliantStudentList = reply.Agents;
+            }
+            else
+            {
+              StatusMonitor.get().postDebug("Failed to get agentlist");
+            }
+          }
         }
         Stop();
       }
