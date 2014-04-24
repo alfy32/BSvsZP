@@ -70,27 +70,24 @@ namespace AgentGUI
         statusMonitor.postDebug("You need a generator Id.");
         return;
       }
-      if (agent.State.ExcuseGeneratorList == null || agent.State.ExcuseGeneratorList.Count == 0)
-      {
-        statusMonitor.postDebug("There are no generators to get an excuse from.");
-        return;
-      }
 
-      short genId = short.Parse(genteratorId.Text);
+      short agentId = short.Parse(genteratorId.Text);
+      int index = agent.State.AgentList.FindIndex(agentId);
+      AgentInfo agentInfo = null;
 
-      EndPoint endPoint = null;
-      foreach (AgentInfo agentInfo in agent.State.ExcuseGeneratorList)
-      {
-        if (agentInfo.Id == genId)
-        {
-          endPoint = agentInfo.CommunicationEndPoint;
+      if(index == -1) {
+        agentInfo = agent.State.AgentList.FindClosestToLocation(agent.State.AgentInfo.Location, AgentInfo.PossibleAgentType.ExcuseGenerator);
+        if(agentInfo == null) {
+          statusMonitor.postDebug("There are no generators to get an excuse from.");
+          return;
         }
+      } else {
+        agentInfo = agent.State.AgentList[index];
       }
-      if (endPoint == null) endPoint = agent.State.ExcuseGeneratorList[0].CommunicationEndPoint;
 
-      statusMonitor.postDebug("Asking for whine...");
+      statusMonitor.postDebug("Asking for excuse from agent: " + agentInfo.ToString());
       GetResource getResource = new GetResource(agent.State.AgentInfo.Id, GetResource.PossibleResourceType.Excuse);
-      ((BrilliantStudent.BrilliantBrain)agent.Brain).getExcuse(endPoint);
+      ((BrilliantStudent.BrilliantBrain)agent.Brain).getExcuse(agentInfo.CommunicationEndPoint);
     }
 
     private void getWhine_Click(object sender, EventArgs e)
@@ -102,35 +99,37 @@ namespace AgentGUI
         StatusMonitor.get().postDebug("You need a spinner Id.");
         return;
       }
-      if (agent.State.WhiningSpinnerList == null || agent.State.WhiningSpinnerList.Count == 0)
-      {
-        statusMonitor.postDebug("There are no spinners to get a whine from.");
-        return;
-      }
 
-      short genId = short.Parse(genteratorId.Text);
+      short agentId = short.Parse(genteratorId.Text);
+      int index = agent.State.AgentList.FindIndex(agentId);
+      AgentInfo agentInfo = null;
 
-      EndPoint endPoint = null;
-      foreach (AgentInfo agentInfo in agent.State.WhiningSpinnerList)
+      if (index == -1)
       {
-        if (agentInfo.Id == genId)
+        agentInfo = agent.State.AgentList.FindClosestToLocation(agent.State.AgentInfo.Location, AgentInfo.PossibleAgentType.ExcuseGenerator);
+        if (agentInfo == null)
         {
-          endPoint = agentInfo.CommunicationEndPoint;
+          statusMonitor.postDebug("There are no spinners to get a whine from.");
+          return;
         }
       }
-      if (endPoint == null) endPoint = agent.State.WhiningSpinnerList[0].CommunicationEndPoint;
+      else
+      {
+        agentInfo = agent.State.AgentList[index];
+      }
 
-      statusMonitor.postDebug("Asking for whine...");
-      GetResource getResource = new GetResource(agent.State.AgentInfo.Id, GetResource.PossibleResourceType.WhiningTwine);
-      ((BrilliantStudent.BrilliantBrain)agent.Brain).getWhine(endPoint);
+      statusMonitor.postDebug("Asking for whine from agent: " + agentInfo.ToString());
+      GetResource getResource = new GetResource(agent.State.AgentInfo.Id, GetResource.PossibleResourceType.Excuse);
+      ((BrilliantStudent.BrilliantBrain)agent.Brain).getExcuse(agentInfo.CommunicationEndPoint);
     }
 
     private void moveUp_Click(object sender, EventArgs e)
     {
-      short speed = 1;
+      short speed = 2;
 
       // check that x and y are numbers
-      if(agent.State.GameConfiguration != null) {
+      if (agent.State.GameConfiguration != null)
+      {
         if (moveSpeed.Text == "") speed = (short)agent.State.GameConfiguration.BrilliantStudentBaseSpeed;
         else
         {
@@ -148,7 +147,7 @@ namespace AgentGUI
 
     private void moveDown_Click(object sender, EventArgs e)
     {
-      short speed = 1;
+      short speed = 2;
 
       // check that x and y are numbers
       if (agent.State.GameConfiguration != null)
@@ -170,7 +169,7 @@ namespace AgentGUI
 
     private void moveLeft_Click(object sender, EventArgs e)
     {
-      short speed = 1;
+      short speed = 2;
 
       // check that x and y are numbers
       if (agent.State.GameConfiguration != null)
@@ -192,7 +191,7 @@ namespace AgentGUI
 
     private void moveRight_Click(object sender, EventArgs e)
     {
-      short speed = 1;
+      short speed = 2;
 
       // check that x and y are numbers
       if (agent.State.GameConfiguration != null)
@@ -208,6 +207,38 @@ namespace AgentGUI
 
       short x = (short)(agent.State.AgentInfo.Location.X + speed);
       short y = agent.State.AgentInfo.Location.Y;
+
+      agent.Brain.move(new FieldLocation(x, y));
+    }
+
+    private void moveUpLeft_Click(object sender, EventArgs e)
+    {
+      short x = (short)(agent.State.AgentInfo.Location.X - 1);
+      short y = (short)(agent.State.AgentInfo.Location.Y - 1);
+
+      agent.Brain.move(new FieldLocation(x, y));
+    }
+
+    private void moveUpRight_Click(object sender, EventArgs e)
+    {
+      short x = (short)(agent.State.AgentInfo.Location.X + 1);
+      short y = (short)(agent.State.AgentInfo.Location.Y - 1);
+
+      agent.Brain.move(new FieldLocation(x, y));
+    }
+
+    private void moveDownRight_Click(object sender, EventArgs e)
+    {
+      short x = (short)(agent.State.AgentInfo.Location.X + 1);
+      short y = (short)(agent.State.AgentInfo.Location.Y + 1);
+
+      agent.Brain.move(new FieldLocation(x, y));
+    }
+
+    private void moveDownLeft_Click(object sender, EventArgs e)
+    {
+      short x = (short)(agent.State.AgentInfo.Location.X - 1);
+      short y = (short)(agent.State.AgentInfo.Location.Y + 1);
 
       agent.Brain.move(new FieldLocation(x, y));
     }

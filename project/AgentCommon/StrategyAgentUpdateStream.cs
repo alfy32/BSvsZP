@@ -52,7 +52,8 @@ namespace AgentCommon
         {
           AgentListReply agentListReply = (AgentListReply)envelope.message;
           StatusMonitor.get().postDebug("Recieved update from Update Stream");
-          // use the agent list
+          agent.State.AgentList.Update(agentListReply.Agents);
+          agent.State.AgentList = agent.State.AgentList;
         }
         else if (StreamStarted && envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AckNak) // change this to StopUpdateStream
         {

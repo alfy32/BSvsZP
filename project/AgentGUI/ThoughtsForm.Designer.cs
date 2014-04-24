@@ -45,6 +45,10 @@
       this.moveLeft = new System.Windows.Forms.Button();
       this.moveRight = new System.Windows.Forms.Button();
       this.moveSpeed = new System.Windows.Forms.TextBox();
+      this.moveUpLeft = new System.Windows.Forms.Button();
+      this.moveDownLeft = new System.Windows.Forms.Button();
+      this.moveDownRight = new System.Windows.Forms.Button();
+      this.moveUpRight = new System.Windows.Forms.Button();
       this.SuspendLayout();
       // 
       // getField
@@ -132,6 +136,7 @@
       this.genteratorId.Name = "genteratorId";
       this.genteratorId.Size = new System.Drawing.Size(31, 20);
       this.genteratorId.TabIndex = 26;
+      this.genteratorId.Text = "0";
       // 
       // spinnerId
       // 
@@ -139,6 +144,7 @@
       this.spinnerId.Name = "spinnerId";
       this.spinnerId.Size = new System.Drawing.Size(31, 20);
       this.spinnerId.TabIndex = 29;
+      this.spinnerId.Text = "0";
       // 
       // label2
       // 
@@ -165,7 +171,7 @@
       this.moveUp.Name = "moveUp";
       this.moveUp.Size = new System.Drawing.Size(55, 23);
       this.moveUp.TabIndex = 30;
-      this.moveUp.Text = "Up";
+      this.moveUp.Text = "^";
       this.moveUp.UseVisualStyleBackColor = true;
       this.moveUp.Click += new System.EventHandler(this.moveUp_Click);
       // 
@@ -175,7 +181,7 @@
       this.moveDown.Name = "moveDown";
       this.moveDown.Size = new System.Drawing.Size(55, 23);
       this.moveDown.TabIndex = 31;
-      this.moveDown.Text = "Down";
+      this.moveDown.Text = "v";
       this.moveDown.UseVisualStyleBackColor = true;
       this.moveDown.Click += new System.EventHandler(this.moveDown_Click);
       // 
@@ -185,7 +191,7 @@
       this.moveLeft.Name = "moveLeft";
       this.moveLeft.Size = new System.Drawing.Size(55, 23);
       this.moveLeft.TabIndex = 32;
-      this.moveLeft.Text = "Left";
+      this.moveLeft.Text = "<";
       this.moveLeft.UseVisualStyleBackColor = true;
       this.moveLeft.Click += new System.EventHandler(this.moveLeft_Click);
       // 
@@ -195,7 +201,7 @@
       this.moveRight.Name = "moveRight";
       this.moveRight.Size = new System.Drawing.Size(55, 23);
       this.moveRight.TabIndex = 33;
-      this.moveRight.Text = "Right";
+      this.moveRight.Text = ">";
       this.moveRight.UseVisualStyleBackColor = true;
       this.moveRight.Click += new System.EventHandler(this.moveRight_Click);
       // 
@@ -205,12 +211,53 @@
       this.moveSpeed.Name = "moveSpeed";
       this.moveSpeed.Size = new System.Drawing.Size(31, 20);
       this.moveSpeed.TabIndex = 34;
+      this.moveSpeed.Text = "2";
+      // 
+      // moveUpLeft
+      // 
+      this.moveUpLeft.Location = new System.Drawing.Point(42, 157);
+      this.moveUpLeft.Name = "moveUpLeft";
+      this.moveUpLeft.Size = new System.Drawing.Size(40, 23);
+      this.moveUpLeft.TabIndex = 35;
+      this.moveUpLeft.UseVisualStyleBackColor = true;
+      this.moveUpLeft.Click += new System.EventHandler(this.moveUpLeft_Click);
+      // 
+      // moveDownLeft
+      // 
+      this.moveDownLeft.Location = new System.Drawing.Point(42, 213);
+      this.moveDownLeft.Name = "moveDownLeft";
+      this.moveDownLeft.Size = new System.Drawing.Size(40, 23);
+      this.moveDownLeft.TabIndex = 36;
+      this.moveDownLeft.UseVisualStyleBackColor = true;
+      this.moveDownLeft.Click += new System.EventHandler(this.moveDownLeft_Click);
+      // 
+      // moveDownRight
+      // 
+      this.moveDownRight.Location = new System.Drawing.Point(146, 213);
+      this.moveDownRight.Name = "moveDownRight";
+      this.moveDownRight.Size = new System.Drawing.Size(49, 23);
+      this.moveDownRight.TabIndex = 37;
+      this.moveDownRight.UseVisualStyleBackColor = true;
+      this.moveDownRight.Click += new System.EventHandler(this.moveDownRight_Click);
+      // 
+      // moveUpRight
+      // 
+      this.moveUpRight.Location = new System.Drawing.Point(149, 157);
+      this.moveUpRight.Name = "moveUpRight";
+      this.moveUpRight.Size = new System.Drawing.Size(46, 23);
+      this.moveUpRight.TabIndex = 38;
+      this.moveUpRight.UseVisualStyleBackColor = true;
+      this.moveUpRight.Click += new System.EventHandler(this.moveUpRight_Click);
       // 
       // ThoughtsForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(227, 242);
+      this.Controls.Add(this.moveUpRight);
+      this.Controls.Add(this.moveDownRight);
+      this.Controls.Add(this.moveDownLeft);
+      this.Controls.Add(this.moveUpLeft);
       this.Controls.Add(this.moveSpeed);
       this.Controls.Add(this.moveRight);
       this.Controls.Add(this.moveLeft);
@@ -254,6 +301,10 @@
     private System.Windows.Forms.Button moveLeft;
     private System.Windows.Forms.Button moveRight;
     private System.Windows.Forms.TextBox moveSpeed;
+    private System.Windows.Forms.Button moveUpLeft;
+    private System.Windows.Forms.Button moveDownLeft;
+    private System.Windows.Forms.Button moveDownRight;
+    private System.Windows.Forms.Button moveUpRight;
 
   }
 }

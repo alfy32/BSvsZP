@@ -13,10 +13,7 @@ namespace AgentCommon
     #region Private Members
     private AgentInfo agentInfo;
 
-    private AgentList brilliantStudentList = new AgentList();
-    private AgentList excuseGeneratorList = new AgentList();
-    private AgentList whiningSpinnerList = new AgentList();
-    private AgentList zombieProfessorList = new AgentList();
+    private AgentList agentList = new AgentList();
     #endregion
 
     #region Delegates and Events
@@ -41,10 +38,7 @@ namespace AgentCommon
 
       GameConfiguration = null;
       PlayingFieldLayout = null;
-      BrilliantStudentList = null;
-      ExcuseGeneratorList = null;
-      WhiningSpinnerList = null;
-      ZombieProfessorList = null;
+      this.agentList = new AgentList();
     }
     #endregion
 
@@ -52,21 +46,31 @@ namespace AgentCommon
     public EndPoint GameEndPoint { get; set; }
     public GameConfiguration GameConfiguration { get; set; }
     public PlayingFieldLayout PlayingFieldLayout { get; set; }
-    public AgentList BrilliantStudentList { get { return brilliantStudentList; } set { brilliantStudentList = value; if (updateAgentListEvent != null) updateAgentListEvent(value); } }
-    public AgentList ExcuseGeneratorList { get { return excuseGeneratorList; } set { excuseGeneratorList = value; if (updateAgentListEvent != null) updateAgentListEvent(value); } }
-    public AgentList WhiningSpinnerList { get { return whiningSpinnerList; } set { whiningSpinnerList = value; if (updateAgentListEvent != null) updateAgentListEvent(value); } }
-    public AgentList ZombieProfessorList { get { return zombieProfessorList; } set { zombieProfessorList = value; if (updateAgentListEvent != null) updateAgentListEvent(value); } }
-    public AgentInfo AgentInfo { 
-      get { return agentInfo; } 
-      set { 
+    public AgentList AgentList 
+    { 
+      get 
+      { 
+        return this.agentList; 
+      } 
+      set 
+      { 
+        this.agentList = value; 
+        if (updateAgentListEvent != null) updateAgentListEvent(value); 
+      } 
+    }
+    public AgentInfo AgentInfo
+    {
+      get { return agentInfo; }
+      set
+      {
         agentInfo = value;
         if (updateAgentInfoEvent != null) updateAgentInfoEvent(agentInfo);
-      } 
+      }
     }
     #endregion
 
-    #region Public Functions    
-   
+    #region Public Functions
+
     #endregion
   }
 }

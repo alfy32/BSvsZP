@@ -39,7 +39,8 @@ namespace AgentCommon
             if (reply.Status == Reply.PossibleStatus.Success)
             {
               StatusMonitor.get().postDebug("Recieved ZombieProfessorList");
-              agent.State.ZombieProfessorList = reply.Agents;
+              agent.State.AgentList.Update(reply.Agents);
+              agent.State.AgentList = agent.State.AgentList;
             }
             else
             {

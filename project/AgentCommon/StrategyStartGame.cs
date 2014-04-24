@@ -56,7 +56,7 @@ namespace AgentCommon
             //agent.Brain.getResource(GetResource.PossibleResourceType.WhiningSpinnerList);
             //agent.Brain.getResource(GetResource.PossibleResourceType.ZombieProfessorList);
 
-            //agent.Brain.startUpdateStream();
+            agent.Brain.startUpdateStream();
           }
         }
         Stop();

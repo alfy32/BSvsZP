@@ -29,6 +29,8 @@
     private void InitializeComponent()
     {
       this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.excuseCount = new System.Windows.Forms.Label();
+      this.excuseCountLabel = new System.Windows.Forms.Label();
       this.tickCount = new System.Windows.Forms.Label();
       this.label11 = new System.Windows.Forms.Label();
       this.label10 = new System.Windows.Forms.Label();
@@ -53,8 +55,6 @@
       this.label1 = new System.Windows.Forms.Label();
       this.messageBox = new System.Windows.Forms.ListBox();
       this.agentTreeView = new System.Windows.Forms.TreeView();
-      this.excuseCount = new System.Windows.Forms.Label();
-      this.excuseCountLabel = new System.Windows.Forms.Label();
       this.groupBox1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -90,6 +90,24 @@
       this.groupBox1.TabIndex = 0;
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "Agent Info";
+      // 
+      // excuseCount
+      // 
+      this.excuseCount.AutoSize = true;
+      this.excuseCount.Location = new System.Drawing.Point(261, 107);
+      this.excuseCount.Name = "excuseCount";
+      this.excuseCount.Size = new System.Drawing.Size(91, 13);
+      this.excuseCount.TabIndex = 23;
+      this.excuseCount.Text = "EXCUSE COUNT";
+      // 
+      // excuseCountLabel
+      // 
+      this.excuseCountLabel.AutoSize = true;
+      this.excuseCountLabel.Location = new System.Drawing.Point(207, 107);
+      this.excuseCountLabel.Name = "excuseCountLabel";
+      this.excuseCountLabel.Size = new System.Drawing.Size(50, 13);
+      this.excuseCountLabel.TabIndex = 22;
+      this.excuseCountLabel.Text = "Excuses:";
       // 
       // tickCount
       // 
@@ -301,32 +319,14 @@
       // 
       this.agentTreeView.Location = new System.Drawing.Point(410, 12);
       this.agentTreeView.Name = "agentTreeView";
-      this.agentTreeView.Size = new System.Drawing.Size(231, 414);
+      this.agentTreeView.Size = new System.Drawing.Size(263, 414);
       this.agentTreeView.TabIndex = 2;
-      // 
-      // excuseCount
-      // 
-      this.excuseCount.AutoSize = true;
-      this.excuseCount.Location = new System.Drawing.Point(261, 107);
-      this.excuseCount.Name = "excuseCount";
-      this.excuseCount.Size = new System.Drawing.Size(91, 13);
-      this.excuseCount.TabIndex = 23;
-      this.excuseCount.Text = "EXCUSE COUNT";
-      // 
-      // excuseCountLabel
-      // 
-      this.excuseCountLabel.AutoSize = true;
-      this.excuseCountLabel.Location = new System.Drawing.Point(207, 107);
-      this.excuseCountLabel.Name = "excuseCountLabel";
-      this.excuseCountLabel.Size = new System.Drawing.Size(50, 13);
-      this.excuseCountLabel.TabIndex = 22;
-      this.excuseCountLabel.Text = "Excuses:";
       // 
       // AgentForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(654, 437);
+      this.ClientSize = new System.Drawing.Size(685, 437);
       this.Controls.Add(this.agentTreeView);
       this.Controls.Add(this.messageBox);
       this.Controls.Add(this.groupBox1);
