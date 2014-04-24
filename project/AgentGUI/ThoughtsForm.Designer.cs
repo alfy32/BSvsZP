@@ -49,6 +49,9 @@
       this.moveDownLeft = new System.Windows.Forms.Button();
       this.moveDownRight = new System.Windows.Forms.Button();
       this.moveUpRight = new System.Windows.Forms.Button();
+      this.exitGame = new System.Windows.Forms.Button();
+      this.endUpdates = new System.Windows.Forms.Button();
+      this.startUpdates = new System.Windows.Forms.Button();
       this.SuspendLayout();
       // 
       // getField
@@ -113,7 +116,7 @@
       // 
       // getExcuse
       // 
-      this.getExcuse.Location = new System.Drawing.Point(116, 99);
+      this.getExcuse.Location = new System.Drawing.Point(117, 157);
       this.getExcuse.Name = "getExcuse";
       this.getExcuse.Size = new System.Drawing.Size(99, 23);
       this.getExcuse.TabIndex = 24;
@@ -124,7 +127,7 @@
       // label1
       // 
       this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(9, 104);
+      this.label1.Location = new System.Drawing.Point(10, 162);
       this.label1.Name = "label1";
       this.label1.Size = new System.Drawing.Size(71, 13);
       this.label1.TabIndex = 25;
@@ -132,7 +135,7 @@
       // 
       // genteratorId
       // 
-      this.genteratorId.Location = new System.Drawing.Point(80, 101);
+      this.genteratorId.Location = new System.Drawing.Point(81, 159);
       this.genteratorId.Name = "genteratorId";
       this.genteratorId.Size = new System.Drawing.Size(31, 20);
       this.genteratorId.TabIndex = 26;
@@ -140,7 +143,7 @@
       // 
       // spinnerId
       // 
-      this.spinnerId.Location = new System.Drawing.Point(81, 130);
+      this.spinnerId.Location = new System.Drawing.Point(82, 188);
       this.spinnerId.Name = "spinnerId";
       this.spinnerId.Size = new System.Drawing.Size(31, 20);
       this.spinnerId.TabIndex = 29;
@@ -149,7 +152,7 @@
       // label2
       // 
       this.label2.AutoSize = true;
-      this.label2.Location = new System.Drawing.Point(20, 133);
+      this.label2.Location = new System.Drawing.Point(21, 191);
       this.label2.Name = "label2";
       this.label2.Size = new System.Drawing.Size(60, 13);
       this.label2.TabIndex = 28;
@@ -157,7 +160,7 @@
       // 
       // getWhine
       // 
-      this.getWhine.Location = new System.Drawing.Point(117, 128);
+      this.getWhine.Location = new System.Drawing.Point(118, 186);
       this.getWhine.Name = "getWhine";
       this.getWhine.Size = new System.Drawing.Size(99, 23);
       this.getWhine.TabIndex = 27;
@@ -167,7 +170,7 @@
       // 
       // moveUp
       // 
-      this.moveUp.Location = new System.Drawing.Point(88, 157);
+      this.moveUp.Location = new System.Drawing.Point(89, 215);
       this.moveUp.Name = "moveUp";
       this.moveUp.Size = new System.Drawing.Size(55, 23);
       this.moveUp.TabIndex = 30;
@@ -177,7 +180,7 @@
       // 
       // moveDown
       // 
-      this.moveDown.Location = new System.Drawing.Point(88, 213);
+      this.moveDown.Location = new System.Drawing.Point(89, 271);
       this.moveDown.Name = "moveDown";
       this.moveDown.Size = new System.Drawing.Size(55, 23);
       this.moveDown.TabIndex = 31;
@@ -187,7 +190,7 @@
       // 
       // moveLeft
       // 
-      this.moveLeft.Location = new System.Drawing.Point(42, 184);
+      this.moveLeft.Location = new System.Drawing.Point(43, 242);
       this.moveLeft.Name = "moveLeft";
       this.moveLeft.Size = new System.Drawing.Size(55, 23);
       this.moveLeft.TabIndex = 32;
@@ -197,7 +200,7 @@
       // 
       // moveRight
       // 
-      this.moveRight.Location = new System.Drawing.Point(140, 184);
+      this.moveRight.Location = new System.Drawing.Point(141, 242);
       this.moveRight.Name = "moveRight";
       this.moveRight.Size = new System.Drawing.Size(55, 23);
       this.moveRight.TabIndex = 33;
@@ -207,7 +210,7 @@
       // 
       // moveSpeed
       // 
-      this.moveSpeed.Location = new System.Drawing.Point(103, 186);
+      this.moveSpeed.Location = new System.Drawing.Point(104, 244);
       this.moveSpeed.Name = "moveSpeed";
       this.moveSpeed.Size = new System.Drawing.Size(31, 20);
       this.moveSpeed.TabIndex = 34;
@@ -215,7 +218,7 @@
       // 
       // moveUpLeft
       // 
-      this.moveUpLeft.Location = new System.Drawing.Point(42, 157);
+      this.moveUpLeft.Location = new System.Drawing.Point(43, 215);
       this.moveUpLeft.Name = "moveUpLeft";
       this.moveUpLeft.Size = new System.Drawing.Size(40, 23);
       this.moveUpLeft.TabIndex = 35;
@@ -224,7 +227,7 @@
       // 
       // moveDownLeft
       // 
-      this.moveDownLeft.Location = new System.Drawing.Point(42, 213);
+      this.moveDownLeft.Location = new System.Drawing.Point(43, 271);
       this.moveDownLeft.Name = "moveDownLeft";
       this.moveDownLeft.Size = new System.Drawing.Size(40, 23);
       this.moveDownLeft.TabIndex = 36;
@@ -233,7 +236,7 @@
       // 
       // moveDownRight
       // 
-      this.moveDownRight.Location = new System.Drawing.Point(146, 213);
+      this.moveDownRight.Location = new System.Drawing.Point(147, 271);
       this.moveDownRight.Name = "moveDownRight";
       this.moveDownRight.Size = new System.Drawing.Size(49, 23);
       this.moveDownRight.TabIndex = 37;
@@ -242,18 +245,51 @@
       // 
       // moveUpRight
       // 
-      this.moveUpRight.Location = new System.Drawing.Point(149, 157);
+      this.moveUpRight.Location = new System.Drawing.Point(150, 215);
       this.moveUpRight.Name = "moveUpRight";
       this.moveUpRight.Size = new System.Drawing.Size(46, 23);
       this.moveUpRight.TabIndex = 38;
       this.moveUpRight.UseVisualStyleBackColor = true;
       this.moveUpRight.Click += new System.EventHandler(this.moveUpRight_Click);
       // 
+      // exitGame
+      // 
+      this.exitGame.Location = new System.Drawing.Point(117, 128);
+      this.exitGame.Name = "exitGame";
+      this.exitGame.Size = new System.Drawing.Size(99, 23);
+      this.exitGame.TabIndex = 39;
+      this.exitGame.Text = "Exit Game";
+      this.exitGame.UseVisualStyleBackColor = true;
+      this.exitGame.Click += new System.EventHandler(this.exitGame_Click);
+      // 
+      // endUpdates
+      // 
+      this.endUpdates.Location = new System.Drawing.Point(117, 99);
+      this.endUpdates.Name = "endUpdates";
+      this.endUpdates.Size = new System.Drawing.Size(99, 23);
+      this.endUpdates.TabIndex = 40;
+      this.endUpdates.Text = "End Updates";
+      this.endUpdates.UseVisualStyleBackColor = true;
+      this.endUpdates.Click += new System.EventHandler(this.endUpdates_Click);
+      // 
+      // startUpdates
+      // 
+      this.startUpdates.Location = new System.Drawing.Point(12, 99);
+      this.startUpdates.Name = "startUpdates";
+      this.startUpdates.Size = new System.Drawing.Size(99, 23);
+      this.startUpdates.TabIndex = 41;
+      this.startUpdates.Text = "Start Updates";
+      this.startUpdates.UseVisualStyleBackColor = true;
+      this.startUpdates.Click += new System.EventHandler(this.startUpdates_Click);
+      // 
       // ThoughtsForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(227, 242);
+      this.ClientSize = new System.Drawing.Size(227, 342);
+      this.Controls.Add(this.startUpdates);
+      this.Controls.Add(this.endUpdates);
+      this.Controls.Add(this.exitGame);
       this.Controls.Add(this.moveUpRight);
       this.Controls.Add(this.moveDownRight);
       this.Controls.Add(this.moveDownLeft);
@@ -305,6 +341,9 @@
     private System.Windows.Forms.Button moveDownLeft;
     private System.Windows.Forms.Button moveDownRight;
     private System.Windows.Forms.Button moveUpRight;
+    private System.Windows.Forms.Button exitGame;
+    private System.Windows.Forms.Button endUpdates;
+    private System.Windows.Forms.Button startUpdates;
 
   }
 }

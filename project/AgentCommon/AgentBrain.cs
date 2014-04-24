@@ -51,7 +51,7 @@ namespace AgentCommon
       GetResource getResource = new GetResource(agent.State.AgentInfo.Id, resourceType);
 
       Envelope envelope = new Envelope(getResource, agent.State.GameEndPoint);
-      ExecutionStrategy.StartConversation(envelope, agent);
+      ExecutionStrategy.StartConversation(envelope);
     }
 
     public void move(FieldLocation toLocation)
@@ -67,13 +67,25 @@ namespace AgentCommon
       statusMonitor.postDebug("Moving to: " + toLocation.ToString());
       Move move = new Move(tick.ForAgentId, toLocation, tick);
       Envelope envelope = new Envelope(move, agent.State.GameEndPoint);
-      ExecutionStrategy.StartConversation(envelope, agent);
+      ExecutionStrategy.StartConversation(envelope);
     }
 
     public void startUpdateStream()
     {
       Envelope envelope = new Envelope(new StartUpdateStream(), agent.State.GameEndPoint);
-      ExecutionStrategy.StartConversation(envelope, agent);
+      ExecutionStrategy.StartConversation(envelope);
+    }
+
+    public void endUpdateStream()
+    {
+      Envelope envelope = new Envelope(new EndUpdateStream(), agent.State.GameEndPoint);
+      ExecutionStrategy.StartConversation(envelope);
+    }
+
+    public void exitGame()
+    {
+      Envelope envelope = new Envelope(new ExitGame(), agent.State.GameEndPoint);
+      ExecutionStrategy.StartConversation(envelope);
     }
     #endregion
   }

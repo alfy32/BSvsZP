@@ -11,55 +11,43 @@ namespace AgentCommon
 {
   public class StrategyStartGame : ExecutionStrategy
   {
-    Agent agent;
+    public StrategyStartGame(Agent agent)
+      : base(agent) { }
 
-    public StrategyStartGame(int conversationId, Agent agent)
-      : base(conversationId)
+    public override void Execute(Object startEnvelope)
     {
-      this.agent = agent;
-    }
-
-    protected override void Execute()
-    {
-      if (messageQueue.hasItems())
+      Envelope envelope = (Envelope)startEnvelope;
+      MessageQueue messageQueue = ConversationMessageQueues.getQueue(envelope.message.ConversationId);
+      if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.StartGame)
       {
-        Envelope recieved = messageQueue.pop();
-        if (recieved.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.StartGame)
+        StartGame startGame = (StartGame)envelope.message;
+        StatusMonitor.get().postDebug("Recieved StartGame message.");
+
+        ReadyReply ready = new ReadyReply(Reply.PossibleStatus.Success);
+        ready.ConversationId = startGame.ConversationId;
+        agent.Communicator.Send(new Envelope(ready, envelope.endPoint));
+        StatusMonitor.get().postDebug("Sent Ready message.");
+
+        while (!messageQueue.hasItems())
+          System.Threading.Thread.Sleep(1);
+
+        Envelope response = messageQueue.pop();
+        if (response.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AckNak)
         {
-          StartGame startGame = (StartGame)recieved.message;
-          StatusMonitor.get().postDebug("Recieved StartGame message.");
+          StatusMonitor.get().postDebug("Recieved Proceed Message.");
 
-          ReadyReply ready = new ReadyReply(Reply.PossibleStatus.Success);
-          ready.ConversationId = startGame.ConversationId;
-          agent.Communicator.Send(new Envelope(ready, recieved.endPoint));
-          StatusMonitor.get().postDebug("Sent Ready message.");
+          AgentInfo agentInfo = agent.State.AgentInfo;
+          agentInfo.AgentStatus = AgentInfo.PossibleAgentStatus.InGame;
 
-          while (!messageQueue.hasItems())
-            System.Threading.Thread.Sleep(1);
+          agent.State.AgentInfo = agentInfo;
 
-          Envelope response = messageQueue.pop();
-          if (response.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AckNak)
-          {
-            StatusMonitor.get().postDebug("Recieved Proceed Message.");
+          agent.Brain.Start();
 
-            AgentInfo agentInfo = agent.State.AgentInfo;
-            agentInfo.AgentStatus = AgentInfo.PossibleAgentStatus.InGame;
+          agent.Brain.getResource(GetResource.PossibleResourceType.GameConfiguration);
+          agent.Brain.getResource(GetResource.PossibleResourceType.PlayingFieldLayout);
 
-            agent.State.AgentInfo = agentInfo;
-
-            agent.Brain.Start();
-
-            if(agent.State.GameConfiguration == null) agent.Brain.getResource(GetResource.PossibleResourceType.GameConfiguration);
-            //agent.Brain.getResource(GetResource.PossibleResourceType.PlayingFieldLayout);
-            //agent.Brain.getResource(GetResource.PossibleResourceType.BrillianStudentList);
-            //agent.Brain.getResource(GetResource.PossibleResourceType.ExcuseGeneratorList);
-            //agent.Brain.getResource(GetResource.PossibleResourceType.WhiningSpinnerList);
-            //agent.Brain.getResource(GetResource.PossibleResourceType.ZombieProfessorList);
-
-            agent.Brain.startUpdateStream();
-          }
+          agent.Brain.startUpdateStream();
         }
-        Stop();
       }
     }
   }

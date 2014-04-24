@@ -11,28 +11,20 @@ namespace AgentCommon
 {
   public class StrategyGetStatus : ExecutionStrategy
   {
-    Agent agent;
+    public StrategyGetStatus(Agent agent)
+      : base(agent) { }
 
-    public StrategyGetStatus(int conversationId, Agent agent)
-      : base(conversationId)
+    public override void Execute(Object startEnvelope)
     {
-      this.agent = agent;
-    }
-
-    protected override void Execute()
-    {
-      if (messageQueue.hasItems())
+      Envelope recieved = (Envelope)startEnvelope;
+      if (recieved.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.GetStatus)
       {
-        Envelope recieved = messageQueue.pop();
-        if (recieved.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.GetStatus)
-        {
-          GetStatus getStatus = (GetStatus)recieved.message;
-          StatusMonitor.get().postDebug("Recieved GetStatus message.");
+        GetStatus getStatus = (GetStatus)recieved.message;
+        StatusMonitor.get().postDebug("Recieved GetStatus message.");
 
-          StatusReply statusReply = new StatusReply(Reply.PossibleStatus.Success, agent.State.AgentInfo);
-          Envelope response = new Envelope(statusReply, recieved.endPoint);
-        }
-        Stop();
+        StatusReply statusReply = new StatusReply(Reply.PossibleStatus.Success, agent.State.AgentInfo);
+        Envelope response = new Envelope(statusReply, recieved.endPoint);
+        agent.Communicator.Send(response);
       }
     }
   }

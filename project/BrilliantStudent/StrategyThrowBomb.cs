@@ -12,46 +12,36 @@ namespace BrilliantStudent
 {
   public class StrategyThrowBomb : ExecutionStrategy
   {
-    Agent agent;
+    public StrategyThrowBomb(Agent agent)
+      : base(agent) { }
 
-    public StrategyThrowBomb(int conversationId, Agent agent)
-      : base(conversationId)
+    public override void Execute(Object startEnvelope)
     {
-      this.agent = agent;
-    }
-
-    protected override void Execute()
-    {
-      if (messageQueue.hasItems())
+      Envelope envelope = (Envelope)startEnvelope;
+      MessageQueue messageQueue = ConversationMessageQueues.getQueue(envelope.message.ConversationId);
+      if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.ThrowBomb)
       {
-        Envelope envelope = messageQueue.pop();
-        if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.ThrowBomb)
+        agent.Communicator.Send(envelope);
+        StatusMonitor.get().postDebug("Sent ThrowBomb message.");
+
+        while (!messageQueue.hasItems())
+          System.Threading.Thread.Sleep(10);
+
+        Envelope response = messageQueue.pop();
+        if (response.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AckNak)
         {
-          agent.Communicator.Send(envelope);
-          StatusMonitor.get().postDebug("Sent throw bomb message.");
-
-          while (!messageQueue.hasItems())
-            System.Threading.Thread.Sleep(10);
-
-          Envelope response = messageQueue.pop();
-          if (response.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AckNak)
+          AckNak ackNak = (AckNak)response.message;
+          if (ackNak.Status == Reply.PossibleStatus.Success)
           {
-            AckNak ackNak = (AckNak)response.message;
-            StatusMonitor.get().postDebug("Recieved throw bomb response Message.");
+            StatusMonitor.get().postDebug("Successfully Threw Bomb.");
 
-            if (ackNak.Status == Reply.PossibleStatus.Success)
-            {
-              StatusMonitor.get().postDebug("Agent Successfully Threw Bomb.");   
-           
-              // update 
-            }
-            else
-            {
-              StatusMonitor.get().postDebug("Agent Couldn't Throw Bomb. Error: " + ackNak.Message); 
-            }
+            // TODO: update something
+          }
+          else
+          {
+            StatusMonitor.get().postDebug("Couldn't Throw Bomb. Error: " + ackNak.Message);
           }
         }
-        Stop();
       }
     }
   }

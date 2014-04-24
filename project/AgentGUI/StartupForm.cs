@@ -58,12 +58,12 @@ namespace AgentGUI
       string gameLabel = availableGames.SelectedItem.ToString();
       if (gameLabel == null) Environment.Exit(1);
 
+      //agent.State.AgentInfo = agentInfo;
+
       AgentForm agentForm = new AgentForm(agent, gameLabel);
       Hide();
       agentForm.Show();
       agentForm.FormClosed += new FormClosedEventHandler(this.quit_Click);
-
-      agent.State.AgentInfo = agentInfo;
     }
 
 

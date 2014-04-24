@@ -4,29 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Common;
+
 namespace AgentCommon
 {
-    public class ConversationMessageQueues
+  public class ConversationMessageQueues
+  {
+    private static Dictionary<string, MessageQueue> messageQueues = new Dictionary<string, MessageQueue>();
+
+    public static MessageQueue getQueue(MessageNumber conversationId)
     {
-        private static Dictionary<int, MessageQueue> messageQueues = new Dictionary<int, MessageQueue>();
-
-        public static MessageQueue getQueue(int conversationId)
-        {
-            if (messageQueues.ContainsKey(conversationId))
-            {
-                return messageQueues[conversationId];
-            }
-            else
-            {
-                MessageQueue messageQueue = new MessageQueue();
-                messageQueues.Add(conversationId, messageQueue);
-                return messageQueue;
-            }
-        }
-
-        public static bool hasQueue(int conversationId)
-        {
-            return messageQueues.ContainsKey(conversationId);
-        }
+      if (messageQueues.ContainsKey(conversationId.ToString()))
+      {
+        return messageQueues[conversationId.ToString()];
+      }
+      else
+      {
+        MessageQueue messageQueue = new MessageQueue();
+        messageQueues.Add(conversationId.ToString(), messageQueue);
+        return messageQueue;
+      }
     }
+
+    public static bool hasQueue(MessageNumber conversationId)
+    {
+      return messageQueues.ContainsKey(conversationId.ToString());
+    }
+  }
 }

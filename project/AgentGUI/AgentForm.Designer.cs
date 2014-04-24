@@ -55,11 +55,15 @@
       this.label1 = new System.Windows.Forms.Label();
       this.messageBox = new System.Windows.Forms.ListBox();
       this.agentTreeView = new System.Windows.Forms.TreeView();
+      this.whineCount = new System.Windows.Forms.Label();
+      this.label13 = new System.Windows.Forms.Label();
       this.groupBox1.SuspendLayout();
       this.SuspendLayout();
       // 
       // groupBox1
       // 
+      this.groupBox1.Controls.Add(this.whineCount);
+      this.groupBox1.Controls.Add(this.label13);
       this.groupBox1.Controls.Add(this.excuseCount);
       this.groupBox1.Controls.Add(this.excuseCountLabel);
       this.groupBox1.Controls.Add(this.tickCount);
@@ -322,6 +326,24 @@
       this.agentTreeView.Size = new System.Drawing.Size(263, 414);
       this.agentTreeView.TabIndex = 2;
       // 
+      // whineCount
+      // 
+      this.whineCount.AutoSize = true;
+      this.whineCount.Location = new System.Drawing.Point(82, 124);
+      this.whineCount.Name = "whineCount";
+      this.whineCount.Size = new System.Drawing.Size(85, 13);
+      this.whineCount.TabIndex = 25;
+      this.whineCount.Text = "WHINE COUNT";
+      // 
+      // label13
+      // 
+      this.label13.AutoSize = true;
+      this.label13.Location = new System.Drawing.Point(36, 124);
+      this.label13.Name = "label13";
+      this.label13.Size = new System.Drawing.Size(41, 13);
+      this.label13.TabIndex = 24;
+      this.label13.Text = "Whine:";
+      // 
       // AgentForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -368,5 +390,7 @@
     private System.Windows.Forms.Label label11;
     private System.Windows.Forms.Label excuseCount;
     private System.Windows.Forms.Label excuseCountLabel;
+    private System.Windows.Forms.Label whineCount;
+    private System.Windows.Forms.Label label13;
   }
 }

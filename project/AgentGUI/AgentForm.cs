@@ -38,7 +38,8 @@ namespace AgentGUI
       agent.State.updateAgentInfoEvent += new AgentState.AgentInfoMethod(updateAgentInfo);
       agent.State.updateAgentListEvent += new AgentState.AgentListMethod(updateAgentList);
       agent.tickCountEvent += new Agent.IntMethod(updateTicks);
-      agent.resourceCountEvent += new Agent.IntMethod(updateResource);
+      agent.excuseCountEvent += new Agent.IntMethod(updateExcuses);
+      agent.whineCountEvent += new Agent.IntMethod(updateWhines);
 
       createAgentTreeView();
       GameInfo gameInfo = gameRegistry.getGameByLabel(gameLabel);
@@ -60,15 +61,17 @@ namespace AgentGUI
     #endregion
 
     #region Thread Callbacks
-    public void updateAgentInfo(AgentInfo agentInfo) { this.Invoke(new AgentInfoDelegate(updateAgentTreeView), agentInfo); }
-    public void updateTicks(int count) { this.Invoke(new StringDelegate(updateTickCount), count.ToString()); }
+    public void updateAgentInfo(AgentInfo agentInfo) { if(this.Visible) this.Invoke(new AgentInfoDelegate(updateAgentTreeView), agentInfo); }
+    public void updateTicks(int count) { if (this.Visible) this.Invoke(new StringDelegate(updateTickCount), count.ToString()); }
     public void updateMessages(string message) { if (messageBox.InvokeRequired) this.Invoke(new StringDelegate(displayMessage), message); }
-    public void updateResource(int count) { this.Invoke(new StringDelegate(updateResourceCount), count.ToString()); }
+    public void updateExcuses(int count) { if (this.Visible) this.Invoke(new StringDelegate(updateExcuseCount), count.ToString()); }
+    public void updateWhines(int count) { if (this.Visible) this.Invoke(new StringDelegate(updateWhineCount), count.ToString()); }
     #endregion
     
     #region Update Callbacks
     private void updateTickCount(string count) {tickCount.Text = count;}
-    private void updateResourceCount(string count) { excuseCount.Text = count; }
+    private void updateExcuseCount(string count) { excuseCount.Text = count; }
+    private void updateWhineCount(string count) { whineCount.Text = count; }
 
     private void updateAgentList(AgentList agentList)
     {

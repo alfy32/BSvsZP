@@ -54,6 +54,7 @@
     <Compile Include="ExecutionStrategy.cs" />
     <Compile Include="GameRegistry.cs" />
     <Compile Include="StrategyCollaborate.cs" />
+    <Compile Include="StrategyExitGame.cs" />
     <Compile Include="StrategyGetZPList.cs" />
     <Compile Include="StrategyGetWSList.cs" />
     <Compile Include="StrategyGetEGList.cs" />

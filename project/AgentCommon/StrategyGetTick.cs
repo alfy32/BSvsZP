@@ -11,28 +11,18 @@ namespace AgentCommon
 {
   public class StrategyGetTick : ExecutionStrategy
   {
-    Agent agent;
+    public StrategyGetTick(Agent agent)
+      : base(agent) { }
 
-    public StrategyGetTick(int conversationId, Agent agent)
-      : base(conversationId)
+    public override void Execute(Object startEnvelope)
     {
-      this.agent = agent;
-    }
-
-    protected override void Execute()
-    {
-      if (messageQueue.hasItems())
+      Envelope envelope = (Envelope)startEnvelope;
+      if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.TickDelivery)
       {
-        Envelope envelope = messageQueue.pop();
-        if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.TickDelivery)
-        {
-          TickDelivery tickMessage = (TickDelivery)envelope.message;
-          agent.stashTick(tickMessage.CurrentTick);
-          StatusMonitor.get().postDebug("I got a tick...");
-        }
-        Stop();
+        TickDelivery tickMessage = (TickDelivery)envelope.message;
+        agent.stashTick(tickMessage.CurrentTick);
+        StatusMonitor.get().postDebug("I got a tick...");
       }
-      System.Threading.Thread.Sleep(1);
     }
   }
 }

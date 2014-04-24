@@ -11,27 +11,27 @@ namespace AgentCommon
 {
   public class StrategyEndGame : ExecutionStrategy
   {
-    Agent agent;
 
-    public StrategyEndGame(int conversationId, Agent agent)
-      : base(conversationId) 
-    {
-      this.agent = agent;
-    }
+    public StrategyEndGame(Agent agent)
+      : base(agent) { }
 
-    protected override void Execute()
+    public override void Execute(Object startEnvelope)
     {
-      if(messageQueue.hasItems())
+      Envelope envelope = (Envelope)startEnvelope;
+      StatusMonitor statusMonitor = StatusMonitor.get();
+      if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.EndGame)
       {
-        Envelope envelope = messageQueue.pop();
-        if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.EndGame)
-        {
-          StatusMonitor.get().postDebug("The game has ended");
+        EndGame endGame = (EndGame)envelope.message;
+        statusMonitor.postStatus("The game has ended");
+        statusMonitor.postStatus("Winners:");
 
-          StatusMonitor.get().postDebug("Shutting Down...");
-          Environment.Exit(0);
+        foreach (AgentInfo agentInfo in endGame.Winners)
+        {
+          statusMonitor.postStatus(agentInfo.Id + " " + agentInfo.FirstName + " " + agentInfo.LastName);
         }
-        Stop();
+
+        StatusMonitor.get().postDebug("Shutting Down...");
+        Environment.Exit(0);
       }
     }
   }

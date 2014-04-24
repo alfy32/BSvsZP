@@ -33,9 +33,11 @@ namespace AgentCommon
     public delegate void IntMethod(int param);
 
     public event IntMethod tickCountEvent;
-    public event IntMethod resourceCountEvent;
+    public event IntMethod excuseCountEvent;
+    public event IntMethod whineCountEvent;
     #endregion
 
+    #region Ticks
     public Tick getTickFromStash()
     {
       Tick tick;
@@ -57,6 +59,69 @@ namespace AgentCommon
       if (tickCountEvent != null) tickCountEvent(ticks.Count);
     }
     public int getTickCount() { return ticks.Count; }
+    #endregion
+
+    #region Excuses
+    private ConcurrentQueue<Excuse> excuses = new ConcurrentQueue<Excuse>();
+    
+    public bool ExcuseAvailable()
+    {
+      return excuses.Count != 0;
+    }
+    public Excuse getExcuse()
+    {
+      if (ExcuseAvailable())
+      {
+        Excuse excuse = null;
+        while (ExcuseAvailable() && !excuses.TryDequeue(out excuse)) ;
+        return excuse;
+      }
+      else
+      {
+        return null;
+      }
+    }
+    public void addExcuse(Excuse excuse)
+    {
+      excuses.Enqueue(excuse);
+      if (this.excuseCountEvent != null) excuseCountEvent(getExcuseCount());
+    }
+    public int getExcuseCount()
+    {
+      return excuses.Count;
+    }
+    #endregion
+
+    #region Whines
+    public ConcurrentQueue<WhiningTwine> twine = new ConcurrentQueue<WhiningTwine>();
+    
+    public bool TwineAvailable()
+    {
+      return twine.Count != 0;
+    }
+    public WhiningTwine getTwine()
+    {
+      if (TwineAvailable())
+      {
+        WhiningTwine twine = null;
+        while (TwineAvailable() && !this.twine.TryDequeue(out twine)) ;
+        return twine;
+      }
+      else
+      {
+        return null;
+      }
+    }
+    public void addTwine(WhiningTwine twine)
+    {
+      this.twine.Enqueue(twine);
+      if (this.whineCountEvent != null) whineCountEvent(getTwineCount());
+    }
+    public int getTwineCount()
+    {
+      return this.twine.Count;
+    }
+    #endregion
 
     #region Constructors
     public Agent(int port = -1)
@@ -64,21 +129,24 @@ namespace AgentCommon
       GameRegistry gameRegistry = new GameRegistry();
       MessageNumber.LocalProcessId = gameRegistry.getProcessId();
 
-      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.StartUpdateStream, typeof(StrategyAgentUpdateStream));
-      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.ChangeStrength, typeof(StrategyChangeStrength));
-      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.Collaborate, typeof(StrategyCollaborate));
-      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.EndGame, typeof(StrategyEndGame));
-      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetResource + 1000 * (int)GetResource.PossibleResourceType.BrillianStudentList, typeof(StrategyGetBSList));
-      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetResource + 1000 * (int)GetResource.PossibleResourceType.GameConfiguration, typeof(StrategyGetConfiguration));
-      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetResource + 1000 * (int)GetResource.PossibleResourceType.ExcuseGeneratorList, typeof(StrategyGetEGList));
-      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetResource + 1000 * (int)GetResource.PossibleResourceType.PlayingFieldLayout, typeof(StrategyGetLayout));
-      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetResource, typeof(StrategyGetResource));
-      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetStatus, typeof(StrategyGetStatus));
-      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.TickDelivery, typeof(StrategyGetTick));
-      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetResource + 1000 * (int)GetResource.PossibleResourceType.WhiningSpinnerList, typeof(StrategyGetWSList));
-      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetResource + 1000 * (int)GetResource.PossibleResourceType.ZombieProfessorList, typeof(StrategyGetZPList));
-      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.JoinGame, typeof(StrategyJoinGame));
-      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.StartGame, typeof(StrategyStartGame));
+      ExecutionStrategy updateStreamStrategy = new StrategyAgentUpdateStream(this);
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.StartUpdateStream, updateStreamStrategy);
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.EndUpdateStream, updateStreamStrategy);
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.ChangeStrength, new StrategyChangeStrength(this));
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.Collaborate, new StrategyCollaborate(this));
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.EndGame, new StrategyEndGame(this));
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetResource + 1000 * (int)GetResource.PossibleResourceType.BrillianStudentList, new StrategyGetBSList(this));
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetResource + 1000 * (int)GetResource.PossibleResourceType.GameConfiguration, new StrategyGetConfiguration(this));
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetResource + 1000 * (int)GetResource.PossibleResourceType.ExcuseGeneratorList, new StrategyGetEGList(this));
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetResource + 1000 * (int)GetResource.PossibleResourceType.PlayingFieldLayout, new StrategyGetLayout(this));
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetResource, new StrategyGetResource(this));
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetStatus, new StrategyGetStatus(this));
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.TickDelivery, new StrategyGetTick(this));
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetResource + 1000 * (int)GetResource.PossibleResourceType.WhiningSpinnerList, new StrategyGetWSList(this));
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetResource + 1000 * (int)GetResource.PossibleResourceType.ZombieProfessorList, new StrategyGetZPList(this));
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.JoinGame, new StrategyJoinGame(this));
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.StartGame, new StrategyStartGame(this));
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.ExitGame, new StrategyExitGame(this));
 
       if (port == -1) port = Communicator.nextAvailablePort();
 
@@ -147,7 +215,7 @@ namespace AgentCommon
 
       StatusMonitor.get().postDebug("Starting JoinGame conversation...");
 
-      ExecutionStrategy.StartConversation(envelope, this);
+      ExecutionStrategy.StartConversation(envelope);
     }
     #endregion
   }

@@ -12,45 +12,37 @@ namespace BrilliantStudent
 {
   public class StrategyMove : ExecutionStrategy
   {
-    Agent agent;
+    public StrategyMove(Agent agent)
+      : base(agent) { }
 
-    public StrategyMove(int conversationId, Agent agent)
-      : base(conversationId)
+    public override void Execute(Object startEnvelope)
     {
-      this.agent = agent;
-    }
-
-    protected override void Execute()
-    {
-      if (messageQueue.hasItems())
+      Envelope envelope = (Envelope)startEnvelope;
+      MessageQueue messageQueue = ConversationMessageQueues.getQueue(envelope.message.ConversationId);
+      if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.Move)
       {
-        Envelope envelope = messageQueue.pop();
-        if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.Move)
+        agent.Communicator.Send(envelope);
+        StatusMonitor.get().postDebug("Sent Move message.");
+
+        while (!messageQueue.hasItems())
+          System.Threading.Thread.Sleep(1);
+
+        Envelope response = messageQueue.pop();
+        if (response.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AckNak)
         {
-          agent.Communicator.Send(envelope);
-          StatusMonitor.get().postDebug("Sent Move message.");
+          AckNak ackNak = (AckNak)response.message;
+          StatusMonitor.get().postDebug("Recieved move response Message.");
 
-          while (!messageQueue.hasItems())
-            System.Threading.Thread.Sleep(10);
-
-          Envelope response = messageQueue.pop();
-          if (response.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AckNak)
+          if (ackNak.Status == Reply.PossibleStatus.Success)
           {
-            AckNak ackNak = (AckNak)response.message;
-            StatusMonitor.get().postDebug("Recieved move response Message.");
-
-            if (ackNak.Status == Reply.PossibleStatus.Success)
-            {
-              StatusMonitor.get().postDebug("Agent Moved Successfully.");
-              agent.State.AgentInfo = (AgentInfo)ackNak.ObjResult;
-            }
-            else
-            {
-              StatusMonitor.get().postDebug("Agent Couldn't Move. Error: " + ackNak.Message);
-            }
+            StatusMonitor.get().postDebug("Agent Moved Successfully.");
+            agent.State.AgentInfo = (AgentInfo)ackNak.ObjResult;
+          }
+          else
+          {
+            StatusMonitor.get().postDebug("Agent Couldn't Move. Error: " + ackNak.Message);
           }
         }
-        Stop();
       }
     }
   }

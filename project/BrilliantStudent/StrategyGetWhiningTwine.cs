@@ -12,46 +12,36 @@ namespace BrilliantStudent
 {
   public class StrategyGetWhiningTwine : ExecutionStrategy
   {
-    private Agent agent;
+    public StrategyGetWhiningTwine(Agent agent)
+      : base(agent) { }
 
-    public StrategyGetWhiningTwine(int conversationId, Agent agent)
-      : base(conversationId)
+    public override void Execute(Object startEnvelope)
     {
-      this.agent = agent;
-    }
-
-    protected override void Execute()
-    {
-      if (messageQueue.hasItems())
+      Envelope envelope = (Envelope)startEnvelope;
+      MessageQueue messageQueue = ConversationMessageQueues.getQueue(envelope.message.ConversationId);
+      if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.GetResource)
       {
-        Envelope envelope = messageQueue.pop();
-        if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.GetResource)
+        agent.Communicator.Send(envelope);
+        StatusMonitor.get().postStatus("Asked " + envelope.endPoint.ToString() + " for some twine.");
+
+        while (!messageQueue.hasItems())
+          System.Threading.Thread.Sleep(1);
+
+        Envelope response = messageQueue.pop();
+
+        if (response.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.ResourceReply)
         {
-          StatusMonitor.get().postDebug("Getting Twine...");
-          agent.Communicator.Send(envelope);
-
-          while (!messageQueue.hasItems())
-            System.Threading.Thread.Sleep(1);
-
-          Envelope response = messageQueue.pop();
-
-          if (response.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.ResourceReply)
+          ResourceReply reply = (ResourceReply)response.message;
+          if (reply.Status == Reply.PossibleStatus.Success)
           {
-            ResourceReply reply = (ResourceReply)response.message;
-            if (reply.Status == Reply.PossibleStatus.Success)
-            {
-              StatusMonitor.get().postDebug("Recieved twine");
-              WhiningTwine twine = (WhiningTwine)reply.Resource;
-
-              ((BrilliantBrain)agent.Brain).gotTwine(twine);
-            }
-            else
-            {
-              StatusMonitor.get().postDebug("Failed to get twine: " + reply.Note);
-            }
+            StatusMonitor.get().postDebug("Recieved twine from " + response.endPoint.ToString());
+            ((BrilliantBrain)agent.Brain).gotTwine((WhiningTwine)reply.Resource);
+          }
+          else
+          {
+            StatusMonitor.get().postDebug("Failed to get twine: " + reply.Note);
           }
         }
-        Stop();
       }
     }
   }

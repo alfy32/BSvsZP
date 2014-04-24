@@ -34,7 +34,7 @@ namespace BrilliantStudent
       GetResource getResource = new GetResource(agent.State.AgentInfo.Id, GetResource.PossibleResourceType.Excuse);
       getResource.EnablingTick = tick;
       Envelope envelope = new Envelope(getResource, endPoint);
-      ExecutionStrategy.StartConversation(envelope, agent);
+      ExecutionStrategy.StartConversation(envelope);
     }
 
     public void getWhine(EndPoint endPoint)
@@ -48,15 +48,17 @@ namespace BrilliantStudent
       GetResource getResource = new GetResource(agent.State.AgentInfo.Id, GetResource.PossibleResourceType.WhiningTwine);
       getResource.EnablingTick = tick;
       Envelope envelope = new Envelope(getResource, endPoint);
-      ExecutionStrategy.StartConversation(envelope, agent);
+      ExecutionStrategy.StartConversation(envelope);
     }
     public void gotExcuse(Excuse excuse)
     {
       StatusMonitor.get().postDebug("I got an excuse. I don't know what to do with it.");
+      agent.addExcuse(excuse);
     }
     public void gotTwine(WhiningTwine twine)
     {
       StatusMonitor.get().postDebug("I got whining twine. I don't know what to do with it.");
+      agent.addTwine(twine);
     }
     #endregion
   }

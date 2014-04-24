@@ -36,22 +36,20 @@ namespace AgentCommon
           {
             Envelope envelope = communicator.Recieve();
             int messageNr = envelope.message.MessageNr.SeqNumber;
-            int conversationId = envelope.message.ConversationId.SeqNumber;
+            MessageNumber conversationId = envelope.message.ConversationId;
 
             StatusMonitor statusMonitor = StatusMonitor.get();
             statusMonitor.postDebug("Listener recieved a message: " + envelope.message.GetType().ToString());
 
-            if (messageNr == conversationId)
+            if (messageNr == conversationId.SeqNumber)
             {
               //place on request message queue
-              MessageQueue messageQueue = RequestMessageQueue.getQueue();
-              messageQueue.push(envelope);
+              RequestMessageQueue.getQueue().push(envelope);
             }
             else if (ConversationMessageQueues.hasQueue(conversationId))
             {
               //place on conversation message queue
-              MessageQueue messageQueue = ConversationMessageQueues.getQueue(conversationId);
-              messageQueue.push(envelope);
+              ConversationMessageQueues.getQueue(conversationId).push(envelope);
             }
             else
             {

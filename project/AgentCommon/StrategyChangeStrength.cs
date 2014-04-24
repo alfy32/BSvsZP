@@ -11,43 +11,24 @@ namespace AgentCommon
 {
   public class StrategyChangeStrength : ExecutionStrategy
   {
-    Agent agent;
+    public StrategyChangeStrength(Agent agent)
+      : base(agent) { }
 
-    public StrategyChangeStrength(int conversationId, Agent agent)
-      : base(conversationId)
+    public override void Execute(Object startEnvelope)
     {
-      this.agent = agent;
-    }
+      Envelope envelope = (Envelope)startEnvelope;
 
-    protected override void Execute()
-    {
-      if (messageQueue.hasItems())
+      if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.ChangeStrength)
       {
-        Envelope recieved = messageQueue.pop();
-        if (recieved.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.ChangeStrength)
-        {
-          ChangeStrength changeStrength = (ChangeStrength)recieved.message;
-          StatusMonitor.get().postDebug("Recieved ChangeStrength message.");
+        ChangeStrength changeStrength = (ChangeStrength)envelope.message;
+        StatusMonitor.get().postDebug("Recieved ChangeStrength message.");
 
-          //TODO update agent strength
-          Reply.PossibleStatus status = Reply.PossibleStatus.Success;
-          ComponentInfo info = new ComponentInfo();
+        agent.State.AgentInfo.Strength += changeStrength.DeltaValue;
+        agent.State.AgentInfo = agent.State.AgentInfo;
 
-          if (status == Reply.PossibleStatus.Success)
-          {
-            AckNak ackNak = new AckNak(status, info);
-            agent.Communicator.Send(new Envelope(ackNak, recieved.endPoint));
-            StatusMonitor.get().postDebug("Sent Acknowledged ChangeStrength message.");
-          }
-          else
-          {
-            AckNak ackNak = new AckNak(status, null);
-            ackNak.Message = "Failed to change strength";
-            agent.Communicator.Send(new Envelope(ackNak, recieved.endPoint));
-            StatusMonitor.get().postDebug("Didn't want to ChangeStrength.");
-          }
-        }
-        Stop();
+        AckNak ackNak = new AckNak(Reply.PossibleStatus.Success, agent.State.AgentInfo);
+        agent.Communicator.Send(new Envelope(ackNak, envelope.endPoint));
+        StatusMonitor.get().postDebug("Sent ChangeStrength Ack."); 
       }
     }
   }

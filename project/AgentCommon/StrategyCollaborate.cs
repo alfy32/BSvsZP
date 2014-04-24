@@ -11,56 +11,49 @@ namespace AgentCommon
 {
   public class StrategyCollaborate : ExecutionStrategy
   {
-    Agent agent;
+    public StrategyCollaborate(Agent agent)
+      : base(agent) { }
 
-    public StrategyCollaborate(int conversationId, Agent agent)
-      : base(conversationId)
+    public override void Execute(Object startEnvelope)
     {
-      this.agent = agent;
-    }
-
-    protected override void Execute()
-    {
-      if (messageQueue.hasItems())
+      Envelope envelope = (Envelope)startEnvelope;
+      if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.Collaborate)
       {
-        Envelope envelope = messageQueue.pop();
-        if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.Collaborate)
+        Collaborate collaborate = (Collaborate)envelope.message;
+
+        // sending message
+        if (envelope.endPoint != agent.State.AgentInfo.CommunicationEndPoint)
         {
-          Collaborate collaborate = (Collaborate)envelope.message;
-         
-          if(true) // is being sent
+          MessageQueue messageQueue = ConversationMessageQueues.getQueue(envelope.message.ConversationId);
+          agent.Communicator.Send(envelope);
+          StatusMonitor.get().postDebug("Sent Collaboration message.");
+
+          while (!messageQueue.hasItems())
+            System.Threading.Thread.Sleep(10);
+
+          Envelope response = messageQueue.pop();
+          if (response.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AckNak)
           {
-            agent.Communicator.Send(envelope);
-            StatusMonitor.get().postDebug("Sent Collaboration message.");
-
-            while (!messageQueue.hasItems())
-              System.Threading.Thread.Sleep(10);
-
-            Envelope response = messageQueue.pop();
-            if (response.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AckNak)
+            AckNak ackNack = (AckNak)response.message;
+            if (ackNack.Status == Reply.PossibleStatus.Success)
             {
-              AckNak ackNack = (AckNak)response.message;
-              if (ackNack.Status == Reply.PossibleStatus.Success)
-              {
-                ComponentInfo info = (ComponentInfo)ackNack.ObjResult;
-                StatusMonitor.get().postDebug("Recieved Collaboration ackNak message.");
-                // do something with this
-              }
+              AgentInfo info = (AgentInfo)ackNack.ObjResult;
+              StatusMonitor.get().postDebug("Recieved Collaboration ackNak message.");
+              // do something with this
             }
           }
-          else // is being recieved
-          {
-            // do the collaboration
-            Reply.PossibleStatus status =Reply.PossibleStatus.Success;
-            ComponentInfo info = new ComponentInfo();
-
-            AckNak ackNack = new AckNak(status, info);
-            Envelope response = new Envelope(ackNack, envelope.endPoint);
-            StatusMonitor.get().postDebug("Did Collaboration sending ackNak message.");
-            agent.Communicator.Send(response);
-          }
         }
-        Stop();
+        else // recieved collaboration message
+        {
+          // do the collaboration
+          AgentInfo agentInfo = agent.State.AgentList.FindClosestToLocation(agent.State.AgentInfo.Location, AgentInfo.PossibleAgentType.ZombieProfessor);
+
+          AckNak ackNack = new AckNak(Reply.PossibleStatus.Success, agentInfo);
+          ackNack.ConversationId = envelope.message.ConversationId;
+          Envelope response = new Envelope(ackNack, envelope.endPoint);
+          agent.Communicator.Send(response);
+          StatusMonitor.get().postDebug("Did Collaboration sending ackNak message.");
+        }
       }
     }
   }

@@ -11,13 +11,8 @@ namespace AgentCommon
 {
   public class StrategyGetLayout : StrategyGetResource
   {
-    private Agent agent;
-
-    public StrategyGetLayout(int conversationId, Agent agent)
-      : base(conversationId, agent)
-    {
-      this.agent = agent;
-    }
+    public StrategyGetLayout(Agent agent)
+      : base(agent) { }
 
     private void sendMessage(Envelope envelope)
     {
@@ -45,21 +40,18 @@ namespace AgentCommon
         }
       }
     }
-    protected override void Execute()
+    public override void Execute(Object startEnvelope)
     {
-      if (messageQueue.hasItems())
+      Envelope envelope = (Envelope)startEnvelope;
+      MessageQueue messageQueue = ConversationMessageQueues.getQueue(envelope.message.ConversationId);
+      if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.GetResource)
       {
-        Envelope envelope = messageQueue.pop();
-        if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.GetResource)
-        {
-          sendMessage(envelope);
+        sendMessage(envelope);
 
-          while (!messageQueue.hasItems())
-            System.Threading.Thread.Sleep(10);
+        while (!messageQueue.hasItems())
+          System.Threading.Thread.Sleep(10);
 
-          handleResponse(messageQueue.pop());
-        }
-        Stop();
+        handleResponse(messageQueue.pop());
       }
     }
   }

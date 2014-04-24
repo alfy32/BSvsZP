@@ -100,13 +100,13 @@ namespace AgentGUI
         return;
       }
 
-      short agentId = short.Parse(genteratorId.Text);
+      short agentId = short.Parse(spinnerId.Text);
       int index = agent.State.AgentList.FindIndex(agentId);
       AgentInfo agentInfo = null;
 
       if (index == -1)
       {
-        agentInfo = agent.State.AgentList.FindClosestToLocation(agent.State.AgentInfo.Location, AgentInfo.PossibleAgentType.ExcuseGenerator);
+        agentInfo = agent.State.AgentList.FindClosestToLocation(agent.State.AgentInfo.Location, AgentInfo.PossibleAgentType.WhiningSpinner);
         if (agentInfo == null)
         {
           statusMonitor.postDebug("There are no spinners to get a whine from.");
@@ -119,8 +119,8 @@ namespace AgentGUI
       }
 
       statusMonitor.postDebug("Asking for whine from agent: " + agentInfo.ToString());
-      GetResource getResource = new GetResource(agent.State.AgentInfo.Id, GetResource.PossibleResourceType.Excuse);
-      ((BrilliantStudent.BrilliantBrain)agent.Brain).getExcuse(agentInfo.CommunicationEndPoint);
+      GetResource getResource = new GetResource(agent.State.AgentInfo.Id, GetResource.PossibleResourceType.WhiningTwine);
+      ((BrilliantStudent.BrilliantBrain)agent.Brain).getWhine(agentInfo.CommunicationEndPoint);
     }
 
     private void moveUp_Click(object sender, EventArgs e)
@@ -241,6 +241,21 @@ namespace AgentGUI
       short y = (short)(agent.State.AgentInfo.Location.Y + 1);
 
       agent.Brain.move(new FieldLocation(x, y));
+    }
+
+    private void exitGame_Click(object sender, EventArgs e)
+    {
+      agent.Brain.exitGame();
+    }
+
+    private void startUpdates_Click(object sender, EventArgs e)
+    {
+      agent.Brain.startUpdateStream();
+    }
+
+    private void endUpdates_Click(object sender, EventArgs e)
+    {
+      agent.Brain.endUpdateStream();
     }
   }
 }

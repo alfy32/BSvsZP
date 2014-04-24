@@ -18,10 +18,10 @@ namespace BrilliantStudent
       brain = new BrilliantBrain(this);
       state = new AgentState(AgentInfo.PossibleAgentType.BrilliantStudent);
 
-      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetResource + 1000 * (int)GetResource.PossibleResourceType.Excuse, typeof(StrategyGetExcuse));
-      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetResource + 1000 * (int)GetResource.PossibleResourceType.WhiningTwine, typeof(StrategyGetWhiningTwine));
-      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.Move, typeof(StrategyMove));
-      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.ThrowBomb, typeof(StrategyThrowBomb));
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetResource + 1000 * (int)GetResource.PossibleResourceType.Excuse, new StrategyGetExcuse(this));
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.GetResource + 1000 * (int)GetResource.PossibleResourceType.WhiningTwine, new StrategyGetWhiningTwine(this));
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.Move, new StrategyMove(this));
+      ExecutionStrategy.addStrategy((int)Message.MESSAGE_CLASS_IDS.ThrowBomb, new StrategyThrowBomb(this));
     }
   }
 }
