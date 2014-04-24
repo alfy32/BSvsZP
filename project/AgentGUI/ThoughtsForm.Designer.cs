@@ -28,11 +28,6 @@
     /// </summary>
     private void InitializeComponent()
     {
-      this.label11 = new System.Windows.Forms.Label();
-      this.label9 = new System.Windows.Forms.Label();
-      this.moveToY = new System.Windows.Forms.TextBox();
-      this.moveToX = new System.Windows.Forms.TextBox();
-      this.move = new System.Windows.Forms.Button();
       this.getField = new System.Windows.Forms.Button();
       this.getWhiners = new System.Windows.Forms.Button();
       this.getZombies = new System.Windows.Forms.Button();
@@ -45,49 +40,12 @@
       this.spinnerId = new System.Windows.Forms.TextBox();
       this.label2 = new System.Windows.Forms.Label();
       this.getWhine = new System.Windows.Forms.Button();
+      this.moveUp = new System.Windows.Forms.Button();
+      this.moveDown = new System.Windows.Forms.Button();
+      this.moveLeft = new System.Windows.Forms.Button();
+      this.moveRight = new System.Windows.Forms.Button();
+      this.moveSpeed = new System.Windows.Forms.TextBox();
       this.SuspendLayout();
-      // 
-      // label11
-      // 
-      this.label11.AutoSize = true;
-      this.label11.Location = new System.Drawing.Point(68, 102);
-      this.label11.Name = "label11";
-      this.label11.Size = new System.Drawing.Size(15, 13);
-      this.label11.TabIndex = 22;
-      this.label11.Text = "y:";
-      // 
-      // label9
-      // 
-      this.label9.AutoSize = true;
-      this.label9.Location = new System.Drawing.Point(19, 102);
-      this.label9.Name = "label9";
-      this.label9.Size = new System.Drawing.Size(15, 13);
-      this.label9.TabIndex = 21;
-      this.label9.Text = "x:";
-      // 
-      // moveToY
-      // 
-      this.moveToY.Location = new System.Drawing.Point(80, 99);
-      this.moveToY.Name = "moveToY";
-      this.moveToY.Size = new System.Drawing.Size(31, 20);
-      this.moveToY.TabIndex = 20;
-      // 
-      // moveToX
-      // 
-      this.moveToX.Location = new System.Drawing.Point(31, 99);
-      this.moveToX.Name = "moveToX";
-      this.moveToX.Size = new System.Drawing.Size(31, 20);
-      this.moveToX.TabIndex = 19;
-      // 
-      // move
-      // 
-      this.move.Location = new System.Drawing.Point(117, 97);
-      this.move.Name = "move";
-      this.move.Size = new System.Drawing.Size(99, 23);
-      this.move.TabIndex = 18;
-      this.move.Text = "Move";
-      this.move.UseVisualStyleBackColor = true;
-      this.move.Click += new System.EventHandler(this.move_Click);
       // 
       // getField
       // 
@@ -151,7 +109,7 @@
       // 
       // getExcuse
       // 
-      this.getExcuse.Location = new System.Drawing.Point(116, 126);
+      this.getExcuse.Location = new System.Drawing.Point(116, 99);
       this.getExcuse.Name = "getExcuse";
       this.getExcuse.Size = new System.Drawing.Size(99, 23);
       this.getExcuse.TabIndex = 24;
@@ -162,7 +120,7 @@
       // label1
       // 
       this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(9, 131);
+      this.label1.Location = new System.Drawing.Point(9, 104);
       this.label1.Name = "label1";
       this.label1.Size = new System.Drawing.Size(71, 13);
       this.label1.TabIndex = 25;
@@ -170,14 +128,14 @@
       // 
       // genteratorId
       // 
-      this.genteratorId.Location = new System.Drawing.Point(80, 128);
+      this.genteratorId.Location = new System.Drawing.Point(80, 101);
       this.genteratorId.Name = "genteratorId";
       this.genteratorId.Size = new System.Drawing.Size(31, 20);
       this.genteratorId.TabIndex = 26;
       // 
       // spinnerId
       // 
-      this.spinnerId.Location = new System.Drawing.Point(81, 157);
+      this.spinnerId.Location = new System.Drawing.Point(81, 130);
       this.spinnerId.Name = "spinnerId";
       this.spinnerId.Size = new System.Drawing.Size(31, 20);
       this.spinnerId.TabIndex = 29;
@@ -185,7 +143,7 @@
       // label2
       // 
       this.label2.AutoSize = true;
-      this.label2.Location = new System.Drawing.Point(20, 160);
+      this.label2.Location = new System.Drawing.Point(20, 133);
       this.label2.Name = "label2";
       this.label2.Size = new System.Drawing.Size(60, 13);
       this.label2.TabIndex = 28;
@@ -193,7 +151,7 @@
       // 
       // getWhine
       // 
-      this.getWhine.Location = new System.Drawing.Point(117, 155);
+      this.getWhine.Location = new System.Drawing.Point(117, 128);
       this.getWhine.Name = "getWhine";
       this.getWhine.Size = new System.Drawing.Size(99, 23);
       this.getWhine.TabIndex = 27;
@@ -201,11 +159,63 @@
       this.getWhine.UseVisualStyleBackColor = true;
       this.getWhine.Click += new System.EventHandler(this.getWhine_Click);
       // 
+      // moveUp
+      // 
+      this.moveUp.Location = new System.Drawing.Point(88, 157);
+      this.moveUp.Name = "moveUp";
+      this.moveUp.Size = new System.Drawing.Size(55, 23);
+      this.moveUp.TabIndex = 30;
+      this.moveUp.Text = "Up";
+      this.moveUp.UseVisualStyleBackColor = true;
+      this.moveUp.Click += new System.EventHandler(this.moveUp_Click);
+      // 
+      // moveDown
+      // 
+      this.moveDown.Location = new System.Drawing.Point(88, 213);
+      this.moveDown.Name = "moveDown";
+      this.moveDown.Size = new System.Drawing.Size(55, 23);
+      this.moveDown.TabIndex = 31;
+      this.moveDown.Text = "Down";
+      this.moveDown.UseVisualStyleBackColor = true;
+      this.moveDown.Click += new System.EventHandler(this.moveDown_Click);
+      // 
+      // moveLeft
+      // 
+      this.moveLeft.Location = new System.Drawing.Point(42, 184);
+      this.moveLeft.Name = "moveLeft";
+      this.moveLeft.Size = new System.Drawing.Size(55, 23);
+      this.moveLeft.TabIndex = 32;
+      this.moveLeft.Text = "Left";
+      this.moveLeft.UseVisualStyleBackColor = true;
+      this.moveLeft.Click += new System.EventHandler(this.moveLeft_Click);
+      // 
+      // moveRight
+      // 
+      this.moveRight.Location = new System.Drawing.Point(140, 184);
+      this.moveRight.Name = "moveRight";
+      this.moveRight.Size = new System.Drawing.Size(55, 23);
+      this.moveRight.TabIndex = 33;
+      this.moveRight.Text = "Right";
+      this.moveRight.UseVisualStyleBackColor = true;
+      this.moveRight.Click += new System.EventHandler(this.moveRight_Click);
+      // 
+      // moveSpeed
+      // 
+      this.moveSpeed.Location = new System.Drawing.Point(103, 186);
+      this.moveSpeed.Name = "moveSpeed";
+      this.moveSpeed.Size = new System.Drawing.Size(31, 20);
+      this.moveSpeed.TabIndex = 34;
+      // 
       // ThoughtsForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(227, 190);
+      this.ClientSize = new System.Drawing.Size(227, 242);
+      this.Controls.Add(this.moveSpeed);
+      this.Controls.Add(this.moveRight);
+      this.Controls.Add(this.moveLeft);
+      this.Controls.Add(this.moveDown);
+      this.Controls.Add(this.moveUp);
       this.Controls.Add(this.spinnerId);
       this.Controls.Add(this.label2);
       this.Controls.Add(this.getWhine);
@@ -213,11 +223,6 @@
       this.Controls.Add(this.label1);
       this.Controls.Add(this.getExcuse);
       this.Controls.Add(this.getConfiguration);
-      this.Controls.Add(this.label11);
-      this.Controls.Add(this.label9);
-      this.Controls.Add(this.moveToY);
-      this.Controls.Add(this.moveToX);
-      this.Controls.Add(this.move);
       this.Controls.Add(this.getField);
       this.Controls.Add(this.getWhiners);
       this.Controls.Add(this.getZombies);
@@ -232,11 +237,6 @@
 
     #endregion
 
-    private System.Windows.Forms.Label label11;
-    private System.Windows.Forms.Label label9;
-    private System.Windows.Forms.TextBox moveToY;
-    private System.Windows.Forms.TextBox moveToX;
-    private System.Windows.Forms.Button move;
     private System.Windows.Forms.Button getField;
     private System.Windows.Forms.Button getWhiners;
     private System.Windows.Forms.Button getZombies;
@@ -249,6 +249,11 @@
     private System.Windows.Forms.TextBox spinnerId;
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.Button getWhine;
+    private System.Windows.Forms.Button moveUp;
+    private System.Windows.Forms.Button moveDown;
+    private System.Windows.Forms.Button moveLeft;
+    private System.Windows.Forms.Button moveRight;
+    private System.Windows.Forms.TextBox moveSpeed;
 
   }
 }

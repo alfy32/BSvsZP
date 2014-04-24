@@ -41,13 +41,12 @@ namespace BrilliantStudent
 
             if (ackNak.Status == Reply.PossibleStatus.Success)
             {
-              StatusMonitor.get().postDebug("Agent Moved Successfully.");   
-           
-              // update location
+              StatusMonitor.get().postDebug("Agent Moved Successfully.");
+              agent.State.AgentInfo = (AgentInfo)ackNak.ObjResult;
             }
             else
             {
-              StatusMonitor.get().postDebug("Agent Couldn't Move. Error: " + ackNak.Message); 
+              StatusMonitor.get().postDebug("Agent Couldn't Move. Error: " + ackNak.Message);
             }
           }
         }

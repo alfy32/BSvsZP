@@ -62,21 +62,6 @@ namespace AgentGUI
       agent.Brain.getResource(GetResource.PossibleResourceType.GameConfiguration);
     }
 
-    private void move_Click(object sender, EventArgs e)
-    {
-      // check that x and y are numbers
-      if (moveToX.Text == "" && moveToY.Text == "")
-      {
-        StatusMonitor.get().postDebug("Enter the location to move to.");
-        return;
-      }
-
-      short x = short.Parse(moveToX.Text);
-      short y = short.Parse(moveToY.Text);
-
-      agent.Brain.move(new FieldLocation(x, y));
-    }
-
     private void getExcuse_Click(object sender, EventArgs e)
     {
       StatusMonitor statusMonitor = StatusMonitor.get();
@@ -138,6 +123,93 @@ namespace AgentGUI
       statusMonitor.postDebug("Asking for whine...");
       GetResource getResource = new GetResource(agent.State.AgentInfo.Id, GetResource.PossibleResourceType.WhiningTwine);
       ((BrilliantStudent.BrilliantBrain)agent.Brain).getWhine(endPoint);
+    }
+
+    private void moveUp_Click(object sender, EventArgs e)
+    {
+      short speed = 1;
+
+      // check that x and y are numbers
+      if(agent.State.GameConfiguration != null) {
+        if (moveSpeed.Text == "") speed = (short)agent.State.GameConfiguration.BrilliantStudentBaseSpeed;
+        else
+        {
+          speed = short.Parse(moveSpeed.Text);
+          if (speed > agent.State.GameConfiguration.BrilliantStudentBaseSpeed)
+            speed = (short)agent.State.GameConfiguration.BrilliantStudentBaseSpeed;
+        }
+      }
+
+      short x = agent.State.AgentInfo.Location.X;
+      short y = (short)(agent.State.AgentInfo.Location.Y - speed);
+
+      agent.Brain.move(new FieldLocation(x, y));
+    }
+
+    private void moveDown_Click(object sender, EventArgs e)
+    {
+      short speed = 1;
+
+      // check that x and y are numbers
+      if (agent.State.GameConfiguration != null)
+      {
+        if (moveSpeed.Text == "") speed = (short)agent.State.GameConfiguration.BrilliantStudentBaseSpeed;
+        else
+        {
+          speed = short.Parse(moveSpeed.Text);
+          if (speed > agent.State.GameConfiguration.BrilliantStudentBaseSpeed)
+            speed = (short)agent.State.GameConfiguration.BrilliantStudentBaseSpeed;
+        }
+      }
+
+      short x = agent.State.AgentInfo.Location.X;
+      short y = (short)(agent.State.AgentInfo.Location.Y + speed);
+
+      agent.Brain.move(new FieldLocation(x, y));
+    }
+
+    private void moveLeft_Click(object sender, EventArgs e)
+    {
+      short speed = 1;
+
+      // check that x and y are numbers
+      if (agent.State.GameConfiguration != null)
+      {
+        if (moveSpeed.Text == "") speed = (short)agent.State.GameConfiguration.BrilliantStudentBaseSpeed;
+        else
+        {
+          speed = short.Parse(moveSpeed.Text);
+          if (speed > agent.State.GameConfiguration.BrilliantStudentBaseSpeed)
+            speed = (short)agent.State.GameConfiguration.BrilliantStudentBaseSpeed;
+        }
+      }
+
+      short x = (short)(agent.State.AgentInfo.Location.X - speed);
+      short y = agent.State.AgentInfo.Location.Y;
+
+      agent.Brain.move(new FieldLocation(x, y));
+    }
+
+    private void moveRight_Click(object sender, EventArgs e)
+    {
+      short speed = 1;
+
+      // check that x and y are numbers
+      if (agent.State.GameConfiguration != null)
+      {
+        if (moveSpeed.Text == "") speed = (short)agent.State.GameConfiguration.BrilliantStudentBaseSpeed;
+        else
+        {
+          speed = short.Parse(moveSpeed.Text);
+          if (speed > agent.State.GameConfiguration.BrilliantStudentBaseSpeed)
+            speed = (short)agent.State.GameConfiguration.BrilliantStudentBaseSpeed;
+        }
+      }
+
+      short x = (short)(agent.State.AgentInfo.Location.X + speed);
+      short y = agent.State.AgentInfo.Location.Y;
+
+      agent.Brain.move(new FieldLocation(x, y));
     }
   }
 }
