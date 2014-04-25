@@ -22,7 +22,8 @@ namespace WhiningSpinner
 
       StatusMonitor.get().postDebug("Communicating on port: " + whiningSpinner.Communicator.Port);
       StatusMonitor.get().postDebug("");
-      whiningSpinner.autoPickGame();
+      if (args.Length >= 2) whiningSpinner.pickGameByLabel(args[1]);
+      else whiningSpinner.askUserForGame();
 
       while (Console.ReadKey(false).Key != System.ConsoleKey.Escape) ;
       StatusMonitor.get().postDebug("");

@@ -34,12 +34,14 @@ namespace AgentGUI
 
       InitializeComponent();
 
-      StatusMonitor.get().debugMessageEvent += new StatusMonitor.StringMethod(updateMessages);
+      //StatusMonitor.get().debugMessageEvent += new StatusMonitor.StringMethod(updateMessages);
+      StatusMonitor.get().statusMessageEvent += new StatusMonitor.StringMethod(updateMessages);
       agent.State.updateAgentInfoEvent += new AgentState.AgentInfoMethod(updateAgentInfo);
       agent.State.updateAgentListEvent += new AgentState.AgentListMethod(updateAgentList);
       agent.tickCountEvent += new Agent.IntMethod(updateTicks);
       agent.excuseCountEvent += new Agent.IntMethod(updateExcuses);
       agent.whineCountEvent += new Agent.IntMethod(updateWhines);
+      agent.closestZombieEvent += new Agent.IntMethod(updateClosestZombie);
 
       createAgentTreeView();
       GameInfo gameInfo = gameRegistry.getGameByLabel(gameLabel);
@@ -66,12 +68,14 @@ namespace AgentGUI
     public void updateMessages(string message) { if (messageBox.InvokeRequired) this.Invoke(new StringDelegate(displayMessage), message); }
     public void updateExcuses(int count) { if (this.Visible) this.Invoke(new StringDelegate(updateExcuseCount), count.ToString()); }
     public void updateWhines(int count) { if (this.Visible) this.Invoke(new StringDelegate(updateWhineCount), count.ToString()); }
+    public void updateClosestZombie(int count) { if (this.Visible) this.Invoke(new StringDelegate(updateClosestZombie), count.ToString()); }
     #endregion
     
     #region Update Callbacks
     private void updateTickCount(string count) {tickCount.Text = count;}
     private void updateExcuseCount(string count) { excuseCount.Text = count; }
     private void updateWhineCount(string count) { whineCount.Text = count; }
+    private void updateClosestZombie(string count) { closestZombie.Text = count; }
 
     private void updateAgentList(AgentList agentList)
     {
@@ -278,6 +282,11 @@ namespace AgentGUI
       System.Environment.Exit(0);
     }
     #endregion
+
+    private void AgentForm_VisibleChanged(object sender, EventArgs e)
+    {
+      agent.State.AgentInfo = agent.State.AgentInfo;
+    }
 
   }
 }

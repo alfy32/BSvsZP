@@ -22,26 +22,15 @@ namespace ExcuseGenerator
 
       if (agent.State != null && agent.State.GameConfiguration != null)
       {
-        if (agent.getTickCount() < agent.State.GameConfiguration.NumberOfTicksRequiredToBuildAnExcuse)
+        GameConfiguration gameConfiguration = agent.State.GameConfiguration;
+
+        if (agent.getTickCount() < gameConfiguration.NumberOfTicksRequiredToBuildAnExcuse)
         {
           statusMonitor.postDebug("I don't have enough ticks to build an excuse. Count:" + agent.getTickCount());
         }
-        else
-        {
-          statusMonitor.postDebug("Building an excuse...");
+        else buildExcuse();
 
-          List<Tick> ticks = new List<Tick>();
-          for (int i = 0; i < agent.State.GameConfiguration.NumberOfTicksRequiredToBuildAnExcuse; ++i)
-          {
-            ticks.Add(agent.getTickFromStash());
-          }
-          Excuse excuse = new Excuse(agent.State.AgentInfo.Id, ticks, null);
-          ((ExcuseGenerator)agent).addExcuse(excuse);
-
-          statusMonitor.postDebug("Number of excuses: " + ((ExcuseGenerator)agent).getExcuseCount());
-        }
-
-        System.Threading.Thread.Sleep(agent.State.GameConfiguration.TickInterval * 10);
+        System.Threading.Thread.Sleep(gameConfiguration.TickInterval);
       }
       else
       {
@@ -49,5 +38,26 @@ namespace ExcuseGenerator
         System.Threading.Thread.Sleep(2000);
       }
     }
+
+    
+
+    #region Thoughts
+    public void buildExcuse()
+    {
+      StatusMonitor statusMonitor = StatusMonitor.get();
+
+      statusMonitor.postDebug("Building an excuse...");
+
+      List<Tick> ticks = new List<Tick>();
+      for (int i = 0; i < agent.State.GameConfiguration.NumberOfTicksRequiredToBuildAnExcuse; ++i)
+      {
+        ticks.Add(agent.getTickFromStash());
+      }
+      Excuse excuse = new Excuse(agent.State.AgentInfo.Id, ticks, null);
+      agent.addExcuse(excuse);
+
+      statusMonitor.postDebug("Number of excuses: " + ((ExcuseGenerator)agent).getExcuseCount());
+    }
+    #endregion
   }
 }

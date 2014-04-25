@@ -32,33 +32,21 @@ namespace AgentGUI
     {
       int port = (int)this.port.Value;
 
-      AgentInfo agentInfo = new AgentInfo();
-      agentInfo.ANumber = aNumber.Text;
-      agentInfo.FirstName = firstName.Text;
-      agentInfo.LastName = lastName.Text;
-
       Agent agent = null;
 
       if (agentType.Text == "Brilliant Student")
-      {
         agent = new BrilliantStudent.BrilliantStudent(port);
-        agentInfo.AgentType = AgentInfo.PossibleAgentType.BrilliantStudent;
-      }
       else if (agentType.Text == "Excuse Generator")
-      {
         agent = new ExcuseGenerator.ExcuseGenerator(port);
-        agentInfo.AgentType = AgentInfo.PossibleAgentType.ExcuseGenerator;
-      }
       else if (agentType.Text == "Whining Spinner")
-      {
         agent = new WhiningSpinner.WhiningSpinner(port);
-        agentInfo.AgentType = AgentInfo.PossibleAgentType.WhiningSpinner;
-      }
+
+      agent.State.AgentInfo.ANumber = aNumber.Text;
+      agent.State.AgentInfo.FirstName = firstName.Text;
+      agent.State.AgentInfo.LastName = lastName.Text;
 
       string gameLabel = availableGames.SelectedItem.ToString();
       if (gameLabel == null) Environment.Exit(1);
-
-      //agent.State.AgentInfo = agentInfo;
 
       AgentForm agentForm = new AgentForm(agent, gameLabel);
       Hide();

@@ -26,7 +26,7 @@ namespace AgentCommon
     public Communicator Communicator { get { return communicator; } }
     public AgentState State { get { return state; } set { state = value; } }
     public AgentBrain Brain { get { return brain; } }
-    public const int MAX_TICKS_TO_KEEP = 30;
+    public const int MAX_TICKS_TO_KEEP = 150;
     #endregion
 
     #region Delegates and Events
@@ -35,6 +35,9 @@ namespace AgentCommon
     public event IntMethod tickCountEvent;
     public event IntMethod excuseCountEvent;
     public event IntMethod whineCountEvent;
+    public event IntMethod closestZombieEvent;
+
+    public void closeZombie(double dist) { if (closestZombieEvent != null) closestZombieEvent((int)dist); }
     #endregion
 
     #region Ticks
@@ -206,6 +209,28 @@ namespace AgentCommon
       EndPoint endPoint = new EndPoint(address, port);
 
       startJoinGameConversation(gameId, endPoint);
+    }
+
+    public void pickGameByLabel(string label)
+    {
+      GameRegistry gameRegistry = new GameRegistry();
+      GameInfo game = gameRegistry.getGameByLabel(label);
+
+      if (game == null)
+      {
+        Console.Write("There are no games to join. Press any key to quit...");
+        Console.ReadKey(false);
+        StatusMonitor.get().postDebug("");
+        StatusMonitor.get().postDebug("Shutting Down...");
+        Environment.Exit(0);
+      }
+
+      StatusMonitor.get().postDebug("Joining Game ID: " + game.Id + " Game: " + game.Label);
+
+      int address = game.CommunicationEndPoint.Address;
+      int port = game.CommunicationEndPoint.Port;
+
+      startJoinGameConversation(game.Id, new EndPoint(address, port));
     }
 
     public void startJoinGameConversation(short gameId, EndPoint endPoint)

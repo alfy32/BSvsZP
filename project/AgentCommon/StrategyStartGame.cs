@@ -21,7 +21,7 @@ namespace AgentCommon
       if (envelope.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.StartGame)
       {
         StartGame startGame = (StartGame)envelope.message;
-        StatusMonitor.get().postDebug("Recieved StartGame message.");
+        StatusMonitor.get().postStatus("Recieved StartGame message.");
 
         ReadyReply ready = new ReadyReply(Reply.PossibleStatus.Success);
         ready.ConversationId = startGame.ConversationId;
@@ -34,7 +34,7 @@ namespace AgentCommon
         Envelope response = messageQueue.pop();
         if (response.message.MessageTypeId() == Message.MESSAGE_CLASS_IDS.AckNak)
         {
-          StatusMonitor.get().postDebug("Recieved Proceed Message.");
+          StatusMonitor.get().postStatus("Recieved Proceed Message.");
 
           AgentInfo agentInfo = agent.State.AgentInfo;
           agentInfo.AgentStatus = AgentInfo.PossibleAgentStatus.InGame;

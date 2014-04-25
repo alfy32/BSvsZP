@@ -24,7 +24,8 @@ namespace BrilliantStudent
 
       StatusMonitor.get().postDebug("Communicating on port: " + brilliantStudent.Communicator.Port);
       StatusMonitor.get().postDebug("");
-      brilliantStudent.autoPickGame();
+      if (args.Length >= 2) brilliantStudent.pickGameByLabel(args[1]);
+      else brilliantStudent.askUserForGame();
 
       while (Console.ReadKey(false).Key != System.ConsoleKey.Escape) ;
       StatusMonitor.get().postDebug("");

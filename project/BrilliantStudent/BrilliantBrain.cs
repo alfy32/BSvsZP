@@ -16,10 +16,61 @@ namespace BrilliantStudent
     protected override void Think()
     {
       //Check for stuff and update
-      StatusMonitor.get().postDebug("I'm thinking...");
+      StatusMonitor statusMonitor = StatusMonitor.get();
 
-      
-      System.Threading.Thread.Sleep(5000);
+      statusMonitor.postDebug("I'm thinking...");
+
+      if (agent.State != null && agent.State.GameConfiguration != null)
+      {
+        GameConfiguration gameConfiguration = agent.State.GameConfiguration;
+
+        AgentInfo closestZombie = getClosestZombie();
+        bool moving = false;
+
+        if (closestZombie != null)
+        {
+          double dist = FieldLocation.Distance(agent.State.AgentInfo.Location, closestZombie.Location);
+          statusMonitor.postDebug("Closest Zombie: " + dist);
+          agent.closeZombie(dist);
+
+          if (dist < 10)
+          {
+            FieldLocation location = directionToRun(agent.State.AgentInfo, closestZombie);
+            move(location);
+            moving = true;
+          }
+        }
+
+        if (!moving)
+        {
+          Random random = new Random();
+          int choice = random.Next(1, 2);
+          if (choice == 1 && agent.getTickCount() > 10)
+          {
+            AgentInfo eg = agent.State.AgentList.FindClosestToLocation(agent.State.AgentInfo.Location, AgentInfo.PossibleAgentType.ExcuseGenerator);
+
+            if (eg != null) getExcuse(eg.CommunicationEndPoint);            
+          }
+
+          if (choice == 2 && agent.getTickCount() > 10) { 
+            AgentInfo ws = agent.State.AgentList.FindClosestToLocation(agent.State.AgentInfo.Location, AgentInfo.PossibleAgentType.ExcuseGenerator);
+            if(ws != null) getExcuse(ws.CommunicationEndPoint);
+          }
+
+          if (agent.getExcuseCount() > 4 && agent.getTwineCount() < 4 && agent.getTickCount() > 2)
+          {
+            makeAndThrowBomb();
+          }
+
+        }
+
+        System.Threading.Thread.Sleep(gameConfiguration.TickInterval);
+      }
+      else
+      {
+        statusMonitor.postDebug("no configuration...");
+        System.Threading.Thread.Sleep(2000);
+      }
     }
 
     #region Thoughts
@@ -59,6 +110,35 @@ namespace BrilliantStudent
     {
       StatusMonitor.get().postDebug("I got whining twine. I don't know what to do with it.");
       agent.addTwine(twine);
+    }
+
+    public void makeAndThrowBomb()
+    {
+      List<Excuse> excuses = new List<Excuse>();
+      List<WhiningTwine> twine = new List<WhiningTwine>();
+
+      excuses.Add(agent.getExcuse());
+      excuses.Add(agent.getExcuse());
+      excuses.Add(agent.getExcuse());
+      excuses.Add(agent.getExcuse());
+
+      twine.Add(agent.getTwine());
+      twine.Add(agent.getTwine());
+      twine.Add(agent.getTwine());
+      twine.Add(agent.getTwine());
+
+      Bomb bomb = new Bomb(agent.State.AgentInfo.Id, excuses, twine, agent.getTickFromStash());
+
+      AgentInfo zombie = agent.State.AgentList.FindClosestToLocation(agent.State.AgentInfo.Location, AgentInfo.PossibleAgentType.ZombieProfessor);
+
+      if (zombie != null) throwBomb(bomb, zombie.Location);
+    }
+
+    public void throwBomb(Bomb bomb, FieldLocation location)
+    {
+      ThrowBomb throwBomb = new ThrowBomb(agent.State.AgentInfo.Id, bomb, location, agent.getTickFromStash());
+      Envelope envelope = new Envelope(throwBomb, agent.State.GameEndPoint);
+      ExecutionStrategy.StartConversation(envelope);
     }
     #endregion
   }

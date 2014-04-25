@@ -29,6 +29,14 @@ namespace AgentGUI
         spinnerId.Enabled = false;
         getExcuse.Enabled = false;
         genteratorId.Enabled = false;
+        moveDown.Enabled = false;
+        moveDownLeft.Enabled = false;
+        moveLeft.Enabled = false;
+        moveRight.Enabled = false;
+        moveSpeed.Enabled = false;
+        moveUp.Enabled = false;
+        moveUpLeft.Enabled = false;
+        moveUpRight.Enabled = false;
       }
     }
 
@@ -256,6 +264,11 @@ namespace AgentGUI
     private void endUpdates_Click(object sender, EventArgs e)
     {
       agent.Brain.endUpdateStream();
+    }
+
+    private void throwBomb_Click(object sender, EventArgs e)
+    {
+      ((BrilliantStudent.BrilliantBrain)(agent.Brain)).makeAndThrowBomb();
     }
   }
 }

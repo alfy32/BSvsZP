@@ -41,7 +41,7 @@ namespace WhiningSpinner
           statusMonitor.postDebug("Number twine: " + ((WhiningSpinner)agent).getTwineCount());
         }
 
-        System.Threading.Thread.Sleep(agent.State.GameConfiguration.TickInterval * 10);
+        System.Threading.Thread.Sleep(agent.State.GameConfiguration.TickInterval);
       }
       else
       {

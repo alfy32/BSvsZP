@@ -29,6 +29,8 @@
     private void InitializeComponent()
     {
       this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.whineCount = new System.Windows.Forms.Label();
+      this.label13 = new System.Windows.Forms.Label();
       this.excuseCount = new System.Windows.Forms.Label();
       this.excuseCountLabel = new System.Windows.Forms.Label();
       this.tickCount = new System.Windows.Forms.Label();
@@ -55,13 +57,15 @@
       this.label1 = new System.Windows.Forms.Label();
       this.messageBox = new System.Windows.Forms.ListBox();
       this.agentTreeView = new System.Windows.Forms.TreeView();
-      this.whineCount = new System.Windows.Forms.Label();
-      this.label13 = new System.Windows.Forms.Label();
+      this.closestZombie = new System.Windows.Forms.Label();
+      this.label14 = new System.Windows.Forms.Label();
       this.groupBox1.SuspendLayout();
       this.SuspendLayout();
       // 
       // groupBox1
       // 
+      this.groupBox1.Controls.Add(this.closestZombie);
+      this.groupBox1.Controls.Add(this.label14);
       this.groupBox1.Controls.Add(this.whineCount);
       this.groupBox1.Controls.Add(this.label13);
       this.groupBox1.Controls.Add(this.excuseCount);
@@ -94,6 +98,24 @@
       this.groupBox1.TabIndex = 0;
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "Agent Info";
+      // 
+      // whineCount
+      // 
+      this.whineCount.AutoSize = true;
+      this.whineCount.Location = new System.Drawing.Point(82, 124);
+      this.whineCount.Name = "whineCount";
+      this.whineCount.Size = new System.Drawing.Size(85, 13);
+      this.whineCount.TabIndex = 25;
+      this.whineCount.Text = "WHINE COUNT";
+      // 
+      // label13
+      // 
+      this.label13.AutoSize = true;
+      this.label13.Location = new System.Drawing.Point(36, 124);
+      this.label13.Name = "label13";
+      this.label13.Size = new System.Drawing.Size(41, 13);
+      this.label13.TabIndex = 24;
+      this.label13.Text = "Whine:";
       // 
       // excuseCount
       // 
@@ -326,23 +348,23 @@
       this.agentTreeView.Size = new System.Drawing.Size(263, 414);
       this.agentTreeView.TabIndex = 2;
       // 
-      // whineCount
+      // closestZombie
       // 
-      this.whineCount.AutoSize = true;
-      this.whineCount.Location = new System.Drawing.Point(82, 124);
-      this.whineCount.Name = "whineCount";
-      this.whineCount.Size = new System.Drawing.Size(85, 13);
-      this.whineCount.TabIndex = 25;
-      this.whineCount.Text = "WHINE COUNT";
+      this.closestZombie.AutoSize = true;
+      this.closestZombie.Location = new System.Drawing.Point(261, 124);
+      this.closestZombie.Name = "closestZombie";
+      this.closestZombie.Size = new System.Drawing.Size(100, 13);
+      this.closestZombie.TabIndex = 27;
+      this.closestZombie.Text = "CLOSEST ZOMBIE";
       // 
-      // label13
+      // label14
       // 
-      this.label13.AutoSize = true;
-      this.label13.Location = new System.Drawing.Point(36, 124);
-      this.label13.Name = "label13";
-      this.label13.Size = new System.Drawing.Size(41, 13);
-      this.label13.TabIndex = 24;
-      this.label13.Text = "Whine:";
+      this.label14.AutoSize = true;
+      this.label14.Location = new System.Drawing.Point(181, 124);
+      this.label14.Name = "label14";
+      this.label14.Size = new System.Drawing.Size(74, 13);
+      this.label14.TabIndex = 26;
+      this.label14.Text = "Close Zombie:";
       // 
       // AgentForm
       // 
@@ -355,6 +377,7 @@
       this.Name = "AgentForm";
       this.Text = "Brilliant Students VS Zombie Professors";
       this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
+      this.VisibleChanged += new System.EventHandler(this.AgentForm_VisibleChanged);
       this.groupBox1.ResumeLayout(false);
       this.groupBox1.PerformLayout();
       this.ResumeLayout(false);
@@ -392,5 +415,7 @@
     private System.Windows.Forms.Label excuseCountLabel;
     private System.Windows.Forms.Label whineCount;
     private System.Windows.Forms.Label label13;
+    private System.Windows.Forms.Label closestZombie;
+    private System.Windows.Forms.Label label14;
   }
 }

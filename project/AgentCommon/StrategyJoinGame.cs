@@ -23,32 +23,32 @@ namespace AgentCommon
       MessageQueue messageQueue = ConversationMessageQueues.getQueue(envelope.message.ConversationId);
 
       agent.Communicator.Send(envelope);
-      statusMonitor.postDebug("Sent JoinGame message");
+      statusMonitor.postStatus("Sent JoinGame message");
 
       while (!messageQueue.hasItems())
         System.Threading.Thread.Sleep(1);
 
       Envelope response = messageQueue.pop();
       AckNak ackNak = (AckNak)response.message;
-      statusMonitor.postDebug("Recieved JoinGame ack. Status: " + ackNak.Status.ToString());
+      statusMonitor.postStatus("Recieved JoinGame ack. Status: " + ackNak.Status.ToString());
       agent.State.GameEndPoint = response.endPoint;
 
       if (ackNak.Status == Reply.PossibleStatus.Success)
       {
         AgentInfo resultAgentInfo = (AgentInfo)ackNak.ObjResult;
-        statusMonitor.postDebug("Agent Status: " + resultAgentInfo.AgentStatus);
+        statusMonitor.postStatus("Agent Status: " + resultAgentInfo.AgentStatus);
         agent.State.AgentInfo = resultAgentInfo;
 
         AckNak ack = new AckNak(Reply.PossibleStatus.Success);
         ack.ConversationId = envelope.message.ConversationId;
         agent.Communicator.Send(new Envelope(ack, envelope.endPoint));
-        statusMonitor.postDebug("Sent JoinGame ack...");
+        statusMonitor.postStatus("Sent JoinGame ack...");
 
         agent.Brain.getResource(GetResource.PossibleResourceType.GameConfiguration);
       }
       else
       {
-        statusMonitor.postDebug("JoinGame failed: " + ackNak.Message);
+        statusMonitor.postStatus("JoinGame failed: " + ackNak.Message);
       }
     }
   }

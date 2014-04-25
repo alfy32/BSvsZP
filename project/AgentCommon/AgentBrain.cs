@@ -44,6 +44,60 @@ namespace AgentCommon
       this.agent = agent;
     }
 
+    #region Math
+    public double getDistance(FieldLocation a, FieldLocation b)
+    {
+      double x = a.X - b.X;
+      double y = a.Y - b.Y;
+
+      return Math.Sqrt(x * x + y * y);
+    }
+    public AgentInfo getClosestZombie()
+    {
+      AgentInfo closestZombie = null;
+      double closest = 800;
+
+      foreach (AgentInfo agentInfo in agent.State.AgentList)
+      {
+        if (agentInfo.AgentType == AgentInfo.PossibleAgentType.ZombieProfessor)
+        {
+          double distance = getDistance(agent.State.AgentInfo.Location, agentInfo.Location);
+          if (distance < closest)
+          {
+            closest = distance;
+            closestZombie = agentInfo;
+          }
+        }
+      }
+
+      return closestZombie;
+    }
+    public FieldLocation directionToRun(AgentInfo me, AgentInfo zombie)
+    {
+      FieldLocation location = me.Location;
+
+      if (me.Location.X < zombie.Location.X)
+      {
+        location.X -= (short)(me.Speed / 2);
+      }
+      else if (me.Location.X > zombie.Location.X)
+      {
+        location.X += (short)(me.Speed / 2);
+      }
+
+      if (me.Location.Y < zombie.Location.Y)
+      {
+        location.Y -= (short)(me.Speed / 2);
+      }
+      else if (me.Location.Y > zombie.Location.Y)
+      {
+        location.Y += (short)(me.Speed / 2);
+      }
+
+      return location;
+    }
+    #endregion
+
     #region Thoughts
     public void getResource(GetResource.PossibleResourceType resourceType)
     {

@@ -1,32 +1,32 @@
-START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52201
-START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52202
-START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52203
-START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52204
-START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52205
-START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52206
-START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52207
-START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52208
-START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52209
-START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52210
+START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52201 alan
+START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52202 alan
+START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52203 alan
+START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52204 alan
+START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52205 alan
+START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52206 alan
+START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52207 alan
+START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52208 alan
+START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52209 alan
+START project\BrilliantStudent\bin\Debug\BrilliantStudent.exe 52210 alan
 
-START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51301
-START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51302
-START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51303
-START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51304
-START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51305
-START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51306
-START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51307
-START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51308
-START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51309
-START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51310
+START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51301 alan
+START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51302 alan
+START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51303 alan
+START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51304 alan
+START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51305 alan
+START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51306 alan
+START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51307 alan
+START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51308 alan
+START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51309 alan
+START project\ExcuseGenerator\bin\Debug\ExcuseGenerator.exe 51310 alan
 
-START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51401
-START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51402
-START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51403
-START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51404
-START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51405
-START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51406
-START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51407
-START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51408
-START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51409
-START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51410
+START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51401 alan
+START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51402 alan
+START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51403 alan
+START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51404 alan
+START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51405 alan
+START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51406 alan
+START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51407 alan
+START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51408 alan
+START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51409 alan
+START project\WhiningSpinner\bin\Debug\WhiningSpinner.exe 51410 alan

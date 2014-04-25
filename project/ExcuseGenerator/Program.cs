@@ -24,7 +24,8 @@ namespace ExcuseGenerator
 
           StatusMonitor.get().postDebug("Communicating on port: " + excuseGenerator.Communicator.Port);
           StatusMonitor.get().postDebug("");
-          excuseGenerator.autoPickGame();
+          if (args.Length >= 2) excuseGenerator.pickGameByLabel(args[1]);
+          else excuseGenerator.askUserForGame();
 
           while (Console.ReadKey(false).Key != System.ConsoleKey.Escape) ;
           StatusMonitor.get().postDebug("");
