@@ -25,8 +25,9 @@ namespace AgentCommon
       {
         AgentListReply agentListReply = (AgentListReply)response.message;
         StatusMonitor.get().postDebug("Recieved update from Update Stream");
-        agent.State.AgentList.Update(agentListReply.Agents);
-        agent.State.AgentList = agent.State.AgentList;
+        AgentList agentList = agentListReply.Agents;
+        agentList.Update(agent.State.AgentList);
+        agent.State.AgentList = agentList;
       }
     }
     public override void Execute(Object startEnvelope)
