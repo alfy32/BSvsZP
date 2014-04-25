@@ -133,19 +133,7 @@ namespace AgentGUI
 
     private void moveUp_Click(object sender, EventArgs e)
     {
-      short speed = 2;
-
-      // check that x and y are numbers
-      if (agent.State.GameConfiguration != null)
-      {
-        if (moveSpeed.Text == "") speed = (short)agent.State.GameConfiguration.BrilliantStudentBaseSpeed;
-        else
-        {
-          speed = short.Parse(moveSpeed.Text);
-          if (speed > agent.State.GameConfiguration.BrilliantStudentBaseSpeed)
-            speed = (short)agent.State.GameConfiguration.BrilliantStudentBaseSpeed;
-        }
-      }
+      double speed = agent.State.AgentInfo.Speed;
 
       short x = agent.State.AgentInfo.Location.X;
       short y = (short)(agent.State.AgentInfo.Location.Y - speed);
@@ -155,19 +143,7 @@ namespace AgentGUI
 
     private void moveDown_Click(object sender, EventArgs e)
     {
-      short speed = 2;
-
-      // check that x and y are numbers
-      if (agent.State.GameConfiguration != null)
-      {
-        if (moveSpeed.Text == "") speed = (short)agent.State.GameConfiguration.BrilliantStudentBaseSpeed;
-        else
-        {
-          speed = short.Parse(moveSpeed.Text);
-          if (speed > agent.State.GameConfiguration.BrilliantStudentBaseSpeed)
-            speed = (short)agent.State.GameConfiguration.BrilliantStudentBaseSpeed;
-        }
-      }
+      double speed = agent.State.AgentInfo.Speed;
 
       short x = agent.State.AgentInfo.Location.X;
       short y = (short)(agent.State.AgentInfo.Location.Y + speed);
@@ -177,19 +153,7 @@ namespace AgentGUI
 
     private void moveLeft_Click(object sender, EventArgs e)
     {
-      short speed = 2;
-
-      // check that x and y are numbers
-      if (agent.State.GameConfiguration != null)
-      {
-        if (moveSpeed.Text == "") speed = (short)agent.State.GameConfiguration.BrilliantStudentBaseSpeed;
-        else
-        {
-          speed = short.Parse(moveSpeed.Text);
-          if (speed > agent.State.GameConfiguration.BrilliantStudentBaseSpeed)
-            speed = (short)agent.State.GameConfiguration.BrilliantStudentBaseSpeed;
-        }
-      }
+      double speed = agent.State.AgentInfo.Speed;
 
       short x = (short)(agent.State.AgentInfo.Location.X - speed);
       short y = agent.State.AgentInfo.Location.Y;
@@ -199,19 +163,7 @@ namespace AgentGUI
 
     private void moveRight_Click(object sender, EventArgs e)
     {
-      short speed = 2;
-
-      // check that x and y are numbers
-      if (agent.State.GameConfiguration != null)
-      {
-        if (moveSpeed.Text == "") speed = (short)agent.State.GameConfiguration.BrilliantStudentBaseSpeed;
-        else
-        {
-          speed = short.Parse(moveSpeed.Text);
-          if (speed > agent.State.GameConfiguration.BrilliantStudentBaseSpeed)
-            speed = (short)agent.State.GameConfiguration.BrilliantStudentBaseSpeed;
-        }
-      }
+      double speed = agent.State.AgentInfo.Speed;
 
       short x = (short)(agent.State.AgentInfo.Location.X + speed);
       short y = agent.State.AgentInfo.Location.Y;
@@ -221,32 +173,40 @@ namespace AgentGUI
 
     private void moveUpLeft_Click(object sender, EventArgs e)
     {
-      short x = (short)(agent.State.AgentInfo.Location.X - 1);
-      short y = (short)(agent.State.AgentInfo.Location.Y - 1);
+      double speed = agent.State.AgentInfo.Speed;
+
+      short x = (short)(agent.State.AgentInfo.Location.X - speed/2);
+      short y = (short)(agent.State.AgentInfo.Location.Y - speed/2);
 
       agent.Brain.move(new FieldLocation(x, y));
     }
 
     private void moveUpRight_Click(object sender, EventArgs e)
     {
-      short x = (short)(agent.State.AgentInfo.Location.X + 1);
-      short y = (short)(agent.State.AgentInfo.Location.Y - 1);
+      double speed = agent.State.AgentInfo.Speed;
+
+      short x = (short)(agent.State.AgentInfo.Location.X + speed / 2);
+      short y = (short)(agent.State.AgentInfo.Location.Y - speed/2);
 
       agent.Brain.move(new FieldLocation(x, y));
     }
 
     private void moveDownRight_Click(object sender, EventArgs e)
     {
-      short x = (short)(agent.State.AgentInfo.Location.X + 1);
-      short y = (short)(agent.State.AgentInfo.Location.Y + 1);
+      double speed = agent.State.AgentInfo.Speed;
+
+      short x = (short)(agent.State.AgentInfo.Location.X + speed/2);
+      short y = (short)(agent.State.AgentInfo.Location.Y + speed/2);
 
       agent.Brain.move(new FieldLocation(x, y));
     }
 
     private void moveDownLeft_Click(object sender, EventArgs e)
     {
-      short x = (short)(agent.State.AgentInfo.Location.X - 1);
-      short y = (short)(agent.State.AgentInfo.Location.Y + 1);
+      double speed = agent.State.AgentInfo.Speed;
+
+      short x = (short)(agent.State.AgentInfo.Location.X - speed/2);
+      short y = (short)(agent.State.AgentInfo.Location.Y + speed/2);
 
       agent.Brain.move(new FieldLocation(x, y));
     }
