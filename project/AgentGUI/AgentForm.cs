@@ -77,12 +77,17 @@ namespace AgentGUI
     private void updateWhineCount(string count) { whineCount.Text = count; }
     private void updateClosestZombie(string count) { closestZombie.Text = count; }
 
+    object myLock = new object();
     private void updateAgentList(AgentList agentList)
     {
-      if (agentList.Count > 0)
+      lock ("myLock")
       {
-        foreach (AgentInfo agentInfo in agentList) {
-          this.Invoke(new AgentInfoDelegate(updateAgentInfoNode), agentInfo);
+        if (agentList.Count > 0)
+        {
+          for (int i = 0; i < agentList.Count; ++i)
+          {
+            this.Invoke(new AgentInfoDelegate(updateAgentInfoNode), agentList[i]);
+          }
         }
       }
     }

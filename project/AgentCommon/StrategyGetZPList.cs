@@ -35,6 +35,12 @@ namespace AgentCommon
             StatusMonitor.get().postDebug("Recieved ZombieProfessor");
             agent.State.AgentList.Update(reply.Agents);
             agent.State.AgentList = agent.State.AgentList;
+
+            foreach (AgentInfo zombie in reply.Agents)
+            {
+              int index = agent.State.AgentList.FindIndex(zombie.Id);
+              agent.State.AgentList[index].Location = zombie.Location;
+            }
           }
           else
           {

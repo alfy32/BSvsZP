@@ -230,5 +230,13 @@ namespace AgentGUI
     {
       ((BrilliantStudent.BrilliantBrain)(agent.Brain)).makeAndThrowBomb();
     }
+
+    private void ThoughtsForm_KeyDown(object sender, KeyEventArgs e)
+    {
+      if (e.KeyCode == Keys.Up) moveUp_Click(sender, e);
+      else if (e.KeyCode == Keys.Down) moveDown_Click(sender, e);
+      else if (e.KeyCode == Keys.Left) moveLeft_Click(sender, e);
+      else if (e.KeyCode == Keys.Right) moveRight_Click(sender, e);
+    }
   }
 }

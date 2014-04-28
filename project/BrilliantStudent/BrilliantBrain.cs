@@ -35,7 +35,7 @@ namespace BrilliantStudent
 
           if (dist < 10)
           {
-            FieldLocation location = directionToRun(agent.State.AgentInfo, closestZombie);
+            FieldLocation location = directionToRun(agent.State.AgentInfo.Location, closestZombie.Location);
             move(location);
             moving = true;
           }

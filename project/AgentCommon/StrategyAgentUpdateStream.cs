@@ -25,9 +25,13 @@ namespace AgentCommon
       {
         AgentListReply agentListReply = (AgentListReply)response.message;
         StatusMonitor.get().postDebug("Recieved update from Update Stream");
-        AgentList agentList = agentListReply.Agents;
-        agentList.Update(agent.State.AgentList);
-        agent.State.AgentList = agentList;
+        //agent.State.AgentList.Update(agentListReply.Agents);
+        //agent.State.AgentList = agent.State.AgentList;
+
+        agent.Brain.getResource(GetResource.PossibleResourceType.BrillianStudentList);
+        agent.Brain.getResource(GetResource.PossibleResourceType.ExcuseGeneratorList);
+        agent.Brain.getResource(GetResource.PossibleResourceType.WhiningSpinnerList);
+        agent.Brain.getResource(GetResource.PossibleResourceType.ZombieProfessorList);
       }
     }
     public override void Execute(Object startEnvelope)

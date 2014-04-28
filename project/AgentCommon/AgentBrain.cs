@@ -72,27 +72,45 @@ namespace AgentCommon
 
       return closestZombie;
     }
-    public FieldLocation directionToRun(AgentInfo me, AgentInfo zombie)
+    public FieldLocation directionToRun(FieldLocation me, FieldLocation zombie)
     {
-      FieldLocation location = me.Location;
+      FieldLocation location = new FieldLocation(me.X, me.Y);
+      short speed = (short)agent.State.AgentInfo.Speed;
 
-      if (me.Location.X < zombie.Location.X)
+      if (zombie.X > me.X && zombie.Y > me.Y)
       {
-        location.X -= (short)(me.Speed / 2);
+        location.X += speed;
       }
-      else if (me.Location.X > zombie.Location.X)
+      else if (zombie.X > me.X && zombie.Y < me.Y)
       {
-        location.X += (short)(me.Speed / 2);
+        location.X += speed;
+      }
+      else if (zombie.X < me.X && zombie.Y > me.Y)
+      {
+        location.Y += speed;
+      }
+      else
+      {
+        location.Y += speed;
       }
 
-      if (me.Location.Y < zombie.Location.Y)
-      {
-        location.Y -= (short)(me.Speed / 2);
-      }
-      else if (me.Location.Y > zombie.Location.Y)
-      {
-        location.Y += (short)(me.Speed / 2);
-      }
+      //if (me.Location.X < zombie.Location.X)
+      //{
+      //  location.X -= (short)(me.Speed / 2);
+      //}
+      //else if (me.Location.X > zombie.Location.X)
+      //{
+      //  location.X += (short)(me.Speed / 2);
+      //}
+
+      //if (me.Location.Y < zombie.Location.Y)
+      //{
+      //  location.Y -= (short)(me.Speed / 2);
+      //}
+      //else if (me.Location.Y > zombie.Location.Y)
+      //{
+      //  location.Y += (short)(me.Speed / 2);
+      //}
 
       return location;
     }

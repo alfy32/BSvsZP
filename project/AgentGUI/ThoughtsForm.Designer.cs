@@ -367,6 +367,7 @@
       this.Controls.Add(this.getStudents);
       this.Name = "ThoughtsForm";
       this.Text = "ThoughtsForm";
+      this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ThoughtsForm_KeyDown);
       this.ResumeLayout(false);
       this.PerformLayout();
 
