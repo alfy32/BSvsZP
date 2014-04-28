@@ -38,16 +38,17 @@ namespace WhiningSpinner
           WhiningTwine twine = spinner.getTwine();
           twine.RequestTick = getResource.EnablingTick;
           resourceReply = new ResourceReply(Reply.PossibleStatus.Success, twine);
+          StatusMonitor.get().postStatus("Sending twine to " + envelope.endPoint);
 
         }
         else if (getResource.EnablingTick == null)
         {
-          StatusMonitor.get().postDebug("Agent at " + envelope.endPoint + " didn't give me a tick!");
+          StatusMonitor.get().postStatus("Agent at " + envelope.endPoint + " didn't give me a tick!");
           resourceReply = new ResourceReply(Reply.PossibleStatus.Failure, null, "Your enabling tick was null. Bad Agent!");
         }
         else
         {
-          StatusMonitor.get().postDebug("Agent at " + envelope.endPoint + " asked for twine but I don't have any");
+          StatusMonitor.get().postStatus("Agent at " + envelope.endPoint + " asked for twine but I don't have any");
           resourceReply = new ResourceReply(Reply.PossibleStatus.Failure, null, "No twine available.");
         }
 

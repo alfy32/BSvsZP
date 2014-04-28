@@ -12,6 +12,7 @@ namespace BrilliantStudent
 {
   public class BrilliantBrain : AgentBrain
   {
+    Random random = new Random();
     public BrilliantBrain(Agent agent) : base(agent) { }
     protected override void Think()
     {
@@ -43,21 +44,20 @@ namespace BrilliantStudent
 
         if (!moving)
         {
-          Random random = new Random();
-          int choice = random.Next(1, 2);
-          if (choice == 1 && agent.getTickCount() > 10)
+         
+          int choice = random.Next(1, 3);
+          if (choice == 1 && agent.getTickCount() > 20)
           {
             AgentInfo eg = agent.State.AgentList.FindClosestToLocation(agent.State.AgentInfo.Location, AgentInfo.PossibleAgentType.ExcuseGenerator);
-
             if (eg != null) getExcuse(eg.CommunicationEndPoint);            
           }
 
-          if (choice == 2 && agent.getTickCount() > 10) { 
-            AgentInfo ws = agent.State.AgentList.FindClosestToLocation(agent.State.AgentInfo.Location, AgentInfo.PossibleAgentType.ExcuseGenerator);
-            if(ws != null) getExcuse(ws.CommunicationEndPoint);
+          if (choice == 2 && agent.getTickCount() > 20) { 
+            AgentInfo ws = agent.State.AgentList.FindClosestToLocation(agent.State.AgentInfo.Location, AgentInfo.PossibleAgentType.WhiningSpinner);
+            if(ws != null) getWhine(ws.CommunicationEndPoint);
           }
 
-          if (agent.getExcuseCount() > 4 && agent.getTwineCount() < 4 && agent.getTickCount() > 2)
+          if (agent.getExcuseCount() > 4 && agent.getTwineCount() < 4 && agent.getTickCount() > 10)
           {
             makeAndThrowBomb();
           }

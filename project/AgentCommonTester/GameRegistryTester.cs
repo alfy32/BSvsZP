@@ -17,5 +17,16 @@ namespace AgentCommonTester
 
       Assert.IsNotNull(gameLabels);
     }
+
+    [TestMethod]
+    public void GameRegistry_GetProcessId_unique()
+    {
+      GameRegistry gameRegistry = new GameRegistry();
+
+      short pid = gameRegistry.getProcessId();
+      short pid2 = gameRegistry.getProcessId();
+
+      Assert.IsTrue(pid != pid2);
+    }
   }
 }

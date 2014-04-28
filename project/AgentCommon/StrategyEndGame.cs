@@ -31,6 +31,7 @@ namespace AgentCommon
         }
 
         StatusMonitor.get().postDebug("Shutting Down...");
+        System.Threading.Thread.Sleep(5000);
         Environment.Exit(0);
       }
     }

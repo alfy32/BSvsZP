@@ -34,12 +34,12 @@ namespace BrilliantStudent
           ResourceReply reply = (ResourceReply)response.message;
           if (reply.Status == Reply.PossibleStatus.Success)
           {
-            StatusMonitor.get().postDebug("Recieved twine from " + response.endPoint.ToString());
+            StatusMonitor.get().postStatus("Recieved twine from " + response.endPoint.ToString());
             ((BrilliantBrain)agent.Brain).gotTwine((WhiningTwine)reply.Resource);
           }
           else
           {
-            StatusMonitor.get().postDebug("Failed to get twine: " + reply.Note);
+            StatusMonitor.get().postStatus("Failed to get twine: " + reply.Note);
           }
         }
       }

@@ -26,7 +26,7 @@ namespace AgentCommon
     public Communicator Communicator { get { return communicator; } }
     public AgentState State { get { return state; } set { state = value; } }
     public AgentBrain Brain { get { return brain; } }
-    public const int MAX_TICKS_TO_KEEP = 150;
+    public const int MAX_TICKS_TO_KEEP = 500;
     #endregion
 
     #region Delegates and Events

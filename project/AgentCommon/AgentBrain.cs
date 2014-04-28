@@ -79,38 +79,20 @@ namespace AgentCommon
 
       if (zombie.X > me.X && zombie.Y > me.Y)
       {
-        location.X += speed;
+        location.Y -= speed;
       }
       else if (zombie.X > me.X && zombie.Y < me.Y)
       {
-        location.X += speed;
+        location.X -= speed;
       }
       else if (zombie.X < me.X && zombie.Y > me.Y)
       {
-        location.Y += speed;
+        location.X += speed;
       }
       else
       {
         location.Y += speed;
       }
-
-      //if (me.Location.X < zombie.Location.X)
-      //{
-      //  location.X -= (short)(me.Speed / 2);
-      //}
-      //else if (me.Location.X > zombie.Location.X)
-      //{
-      //  location.X += (short)(me.Speed / 2);
-      //}
-
-      //if (me.Location.Y < zombie.Location.Y)
-      //{
-      //  location.Y -= (short)(me.Speed / 2);
-      //}
-      //else if (me.Location.Y > zombie.Location.Y)
-      //{
-      //  location.Y += (short)(me.Speed / 2);
-      //}
 
       return location;
     }

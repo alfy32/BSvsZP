@@ -34,12 +34,12 @@ namespace BrilliantStudent
           ResourceReply reply = (ResourceReply)response.message;
           if (reply.Status == Reply.PossibleStatus.Success)
           {
-            StatusMonitor.get().postDebug("Recieved excuse");
+            StatusMonitor.get().postStatus("Recieved excuse");
             ((BrilliantBrain)agent.Brain).gotExcuse((Excuse)reply.Resource);
           }
           else
           {
-            StatusMonitor.get().postDebug("Failed to get excuse: " + reply.Note);
+            StatusMonitor.get().postStatus("Failed to get excuse: " + reply.Note);
           }
         }
       }

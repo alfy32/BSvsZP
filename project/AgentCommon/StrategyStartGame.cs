@@ -46,6 +46,9 @@ namespace AgentCommon
           agent.Brain.getResource(GetResource.PossibleResourceType.GameConfiguration);
           agent.Brain.getResource(GetResource.PossibleResourceType.PlayingFieldLayout);
 
+          agent.Brain.getResource(GetResource.PossibleResourceType.WhiningSpinnerList);
+          agent.Brain.getResource(GetResource.PossibleResourceType.ExcuseGeneratorList);
+
           agent.Brain.startUpdateStream();
         }
       }

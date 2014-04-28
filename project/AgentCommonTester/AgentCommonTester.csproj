@@ -58,6 +58,7 @@
     <Compile Include="ListenerTester.cs" />
     <Compile Include="MessageQueueTester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StrategyJoinGameTester.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\USU_CS5200_SP14_BSvsZP\BSvsZP-Common\Common\Common.csproj">

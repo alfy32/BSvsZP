@@ -35,7 +35,7 @@ namespace BrilliantStudent
 
           if (ackNak.Status == Reply.PossibleStatus.Success)
           {
-            StatusMonitor.get().postDebug("Agent Moved Successfully.");
+            StatusMonitor.get().postStatus("Agent Moved Successfully.");
             agent.State.AgentInfo = (AgentInfo)ackNak.ObjResult;
           }
           else
